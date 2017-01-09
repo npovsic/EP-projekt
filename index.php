@@ -14,6 +14,9 @@ $path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
 $urls = [
     "" => function () {
         ItemController::index();
+    },
+    "login" => function() {
+        ItemController::login();
     }
 ];
 

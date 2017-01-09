@@ -8,4 +8,8 @@ class ItemController {
         echo View::render("view/layout.php");
     }
 
+    public static function login() {
+        echo View::render("view/login.php");
+    }
+
 }

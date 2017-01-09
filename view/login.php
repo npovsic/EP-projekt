@@ -13,8 +13,7 @@ and open the template in the editor.
 
         <div class="container">
             <div class="starter-template">
-                <h1>Bootstrap starter template</h1>
-                <h1>This is my index page</h1>
+                <h1>Login</h1>
             </div>
 
         </div>

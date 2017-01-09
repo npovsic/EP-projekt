@@ -12,4 +12,12 @@ class ItemController {
         echo View::render("view/login.php");
     }
 
+    public static function register() {
+        echo View::render("view/register.php");
+    }
+
+    public static function wip() {
+        echo View::render("view/wip.php");
+    }
+
 }

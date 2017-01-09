@@ -17,6 +17,12 @@ $urls = [
     },
     "login" => function() {
         ItemController::login();
+    },
+    "register" => function() {
+        ItemController::register();
+    },
+    "wip" => function() {
+        ItemController::wip();
     }
 ];
 

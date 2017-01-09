@@ -7,7 +7,7 @@ and open the template in the editor.
 <html>
     <head>
         <?php
-            $title = "E-Store | login";
+            $title = "E-Store | register";
             include "view/partials/head.php";
         ?>
     </head>
@@ -16,7 +16,7 @@ and open the template in the editor.
 
         <div class="container">
             <div class="starter-template">
-                <h1>Login</h1>
+                <h1>Register</h1>
             </div>
 
         </div>

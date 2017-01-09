@@ -1,7 +1,23 @@
 body {
     padding-top: 50px;
 }
-.starter-template {
-    padding: 40px 15px;
-    text-align: center;
+
+.wrapper {
+    padding: 5%;
+}
+
+.img-container {
+    border: 2px solid #eee;
+    border-bottom: none;
+}
+
+.info-left {
+    width: 47%;
+    display: inline-block !important;
+}
+
+.info-right {
+    width: 47%;
+    display: inline-block !important;
+    text-align: end;
 }

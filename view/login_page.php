@@ -7,7 +7,7 @@ and open the template in the editor.
 <html>
     <head>
         <?php
-            $title = "E-Store | login";
+            $title = "E-Store | Prijava";
             include "view/partials/head.php";
         ?>
     </head>
@@ -16,12 +16,12 @@ and open the template in the editor.
 
         <div class="container">
             <div class="login-wrapper">
-                <h1>Login</h1>
+                <h1>Prijava</h1>
 
                 <form method="post" action="login">
-                    <label>Username</label><input class="input-group" type="text" name="username" ><br>
-                    <label>Password</label><input class="input-group" type="password" name="password"><br>
-                    <button type="submit">Login</button>
+                    <label>Uporabniško ime</label><input class="input-group" type="text" name="username" ><br>
+                    <label>Geslo</label><input class="input-group" type="password" name="password"><br>
+                    <button type="submit">Prijava</button>
                 </form>
             </div>
 

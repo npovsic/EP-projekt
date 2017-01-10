@@ -12,12 +12,12 @@
                     </div>
                     <div id="navbar" class="collapse navbar-collapse">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">Domov</a></li>
-                            <li><a href="#about">O nas</a></li>
-                            <li><a href="#contact">Kontakt</a></li>
+                            <li><a href="'.BASE_URL.'">Domov</a></li>
+                            <li><a href="'.BASE_URL.'">Kategorije</a></li>
                         </ul>
                         <ul class="nav navbar-nav pull-right">
                             <li><a href="'.BASE_URL.'login">Prijavi se</a></li>
+                            <li><a href="'.BASE_URL.'register">Registracija</a></li>
                             <li><a href="#cart">Košarica</a></li>
                         </ul>
                         <ul class="nav navbar-nav pull-right">

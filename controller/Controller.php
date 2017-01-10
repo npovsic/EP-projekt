@@ -47,18 +47,32 @@ class ItemController {
     }
 
     public static function login() {
-        $data = filter_input_array(INPUT_POST, self::getRules());
+        $data = filter_input_array(INPUT_POST, self::getLoginRules());
         require('actions/login.php');
     }
 
     public static function register() {
+        $data = filter_input_array(INPUT_POST, self::getRegisterRules());
         require('actions/register.php');
     }
 
-    private static function getRules() {
+    private static function getLoginRules() {
         return [
             'username' => FILTER_SANITIZE_SPECIAL_CHARS,
             'password' => FILTER_SANITIZE_SPECIAL_CHARS,
+        ];
+    }
+
+    private static function getRegisterRules() {
+        return [
+            'username' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'password' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'first_name' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'last_name' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'email' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'address' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'city' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'country' => FILTER_SANITIZE_SPECIAL_CHARS
         ];
     }
 

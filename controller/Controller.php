@@ -5,7 +5,7 @@ require_once("View.php");
 class ItemController {
 
     public static function index($db) {
-        $sql = "SELECT * FROM merchandise";
+        $sql = "SELECT * FROM articles";
 
         $items = array();
 
@@ -16,12 +16,12 @@ class ItemController {
         echo View::render("view/layout.php", $items, false);
     }
 
-    public static function login() {
-        echo View::render("view/login.php", null, false);
+    public static function login_page() {
+        echo View::render("view/login_page.php", null, false);
     }
 
-    public static function register() {
-        echo View::render("view/register.php", null, false);
+    public static function register_page() {
+        echo View::render("view/register_page.php", null, false);
     }
 
     public static function details_page($id) {
@@ -30,6 +30,22 @@ class ItemController {
 
     public static function wip() {
         echo View::render("view/wip.php", null, false);
+    }
+
+    public static function login() {
+        $data = filter_input_array(INPUT_POST, self::getRules());
+        require('actions/login.php');
+    }
+
+    public static function register() {
+        require('actions/register.php');
+    }
+
+    private static function getRules() {
+        return [
+            'username' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'password' => FILTER_SANITIZE_SPECIAL_CHARS,
+        ];
     }
 
 }

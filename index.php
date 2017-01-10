@@ -18,11 +18,21 @@ $urls = [
         $db = InitDB::getInstance();
         ItemController::index($db);
     },
-    "/login/" => function() {
-        ItemController::login();
+    "/login/" => function($method) {
+        if ($method == "POST") {
+            ItemController::login();
+        } else {
+            ItemController::login_page();
+
+        }
     },
-    "/register/" => function() {
-        ItemController::register();
+    "/register/" => function($method) {
+        if ($method == "POST") {
+            ItemController::register();
+        } else {
+            ItemController::register_page();
+
+        }
     },
     "/^article\/(\d+)$/" => function($method, $id = null) {
         ItemController::details_page($id);
@@ -39,9 +49,9 @@ foreach ($urls as $pattern => $controller) {
             $params[0] = $_SERVER["REQUEST_METHOD"];
             $controller(...$params);
         } catch (InvalidArgumentException $e) {
-            ViewHelper::error404();
+            View::error404();
         } catch (Exception $e) {
-            ViewHelper::displayError($e, true);
+            View::displayError($e, true);
         }
 
         exit();

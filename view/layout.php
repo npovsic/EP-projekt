@@ -16,7 +16,7 @@
                         echo '<div class="col-md-4 col-sm-6 col-xs-12">
                                 <article class="material-card Blue-Grey">
                                     <h2>
-                                        <span>'.$item['name'].'</span>
+                                        <span class="one-line-span">'.$item['name'].'</span>
                                         <strong class="info-left">'.$item['weight'].'g</strong>
                                         <strong class="info-right">'.$item['price'].'€</strong>
                                     </h2>

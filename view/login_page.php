@@ -15,8 +15,14 @@ and open the template in the editor.
         <?php include "view/partials/navigation.php"; ?>
 
         <div class="container">
-            <div class="starter-template">
+            <div class="login-wrapper">
                 <h1>Login</h1>
+
+                <form method="post" action="login">
+                    <label>Username</label><input type="text" name="username" ><br>
+                    <label>Password</label><input type="password" name="password"><br>
+                    <button type="submit">Login</button>
+                </form>
             </div>
 
         </div>

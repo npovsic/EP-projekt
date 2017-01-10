@@ -22,6 +22,14 @@ body {
     text-align: end;
 }
 
+span.one-line-span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* Search */
 .search-form .form-group {
     margin: 10px;
     float: right !important;
@@ -35,6 +43,7 @@ body {
 }
 .search-form .form-group input.form-control {
     padding-right: 20px;
+    padding-bottom: 10px;
     border: 0 none;
     background: transparent;
     box-shadow: none;

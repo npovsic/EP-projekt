@@ -13,6 +13,12 @@ class View {
         return ob_get_clean();
     }
 
+    public static function renderJSON($data, $httpResponseCode = 200) {
+        header('Content-Type: application/json');
+        http_response_code($httpResponseCode);
+        return json_encode($data);
+    }
+
     // Redirects to the given URL
     public static function redirect($url) {
         header("Location: " . $url);

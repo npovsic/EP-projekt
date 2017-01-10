@@ -14,6 +14,10 @@ and open the template in the editor.
 <body>
 <?php include "view/partials/navigation.php"; ?>
 
+<br>
+<h1>WIP</h1>
+<br>
+
 <div class="container">
     <div class="wrapper">
         <div class="row active-with-click">

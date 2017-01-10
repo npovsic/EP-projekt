@@ -13,19 +13,23 @@ class ItemController {
             array_push($items, $row);
         }
 
-        echo View::render("view/layout.php", $items);
+        echo View::render("view/layout.php", $items, false);
     }
 
     public static function login() {
-        echo View::render("view/login.php");
+        echo View::render("view/login.php", null, false);
     }
 
     public static function register() {
-        echo View::render("view/register.php");
+        echo View::render("view/register.php", null, false);
+    }
+
+    public static function details_page($id) {
+        echo View::render("view/article_details.php", ["id" => $id], true);
     }
 
     public static function wip() {
-        echo View::render("view/wip.php");
+        echo View::render("view/wip.php", null, false);
     }
 
 }

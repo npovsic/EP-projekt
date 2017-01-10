@@ -1,0 +1,33 @@
+user {
+	- id
+	- first_name
+	- last_name
+	- username
+	- password
+	- email
+	- address
+	- city
+	- country	
+}
+
+article {
+	- id
+	- name
+	- weight
+	- category
+	- price
+	- description
+	- picture
+}
+
+purchase {
+	- id 
+	- item
+}
+
+transactions {
+	- id 
+	- who (user ID)
+	- what (purchase ID)
+	- when
+}

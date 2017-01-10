@@ -5,21 +5,15 @@ require_once("View.php");
 class ItemController {
 
     public static function index($db) {
-//        $sql = "CREATE TABLE MyGuests (
-//            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-//            firstname VARCHAR(30) NOT NULL,
-//            lastname VARCHAR(30) NOT NULL,
-//            email VARCHAR(50),
-//            reg_date TIMESTAMP
-//            )";
-//
-//        if ($db->query($sql) === TRUE) {
-//            echo "Table MyGuests created successfully";
-//        } else {
-//            echo "Error creating table: " . $db->error;
-//        }
+        $sql = "SELECT * FROM merchandise";
 
-        echo View::render("view/layout.php");
+        $items = array();
+
+        foreach ($db->query($sql) as $row) {
+            array_push($items, $row);
+        }
+
+        echo View::render("view/layout.php", $items);
     }
 
     public static function login() {

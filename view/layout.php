@@ -8,66 +8,50 @@
 </head>
 <body>
     <?php include "view/partials/navigation.php"; ?>
-
     <div class="container">
         <div class="wrapper">
             <div class="row active-with-click">
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <article class="material-card Blue-Grey">
-                        <h2>
-                            <span>Battery Whey Protein</span>
-                            <strong class="info-left">2000g</strong>
-                            <strong class="info-right">20e</strong>
-                        </h2>
-
-                        <div class="mc-content">
-                            <div class="img-container">
-                                <img class="img-responsive" src="<?php echo IMAGES_URL . "battery_whey_protein.jpg" ?>">
+                <?php
+                    foreach ($variables as $item) {
+                        echo '<div class="col-md-4 col-sm-6 col-xs-12">
+                                <article class="material-card Blue-Grey">
+                                    <h2>
+                                        <span>Battery Whey Protein</span>
+                                        <strong class="info-left">2000g</strong>
+                                        <strong class="info-right">20e</strong>
+                                    </h2>
+            
+                                    <div class="mc-content">
+                                        <div class="img-container">
+                                            <img class="img-responsive" src="'.IMAGES_URL.'battery_whey_protein.jpg">
+                                        </div>
+                                    </div>
+                                    <a href="" class="mc-btn-action">
+                                        <i class="fa fa-info-circle"></i>
+                                    </a>
+                                </article>
                             </div>
-                        </div>
-                        <a href="" class="mc-btn-action">
-                            <i class="fa fa-info-circle"></i>
-                        </a>
-                    </article>
-                </div>
-
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <article class="material-card Blue-Grey">
-                        <h2>
-                            <span>Battery Whey Protein</span>
-                            <strong class="info-left">2000g</strong>
-                            <strong class="info-right">20e</strong>
-                        </h2>
-
-                        <div class="mc-content">
-                            <div class="img-container">
-                                <img class="img-responsive" src="<?php echo IMAGES_URL . "battery_whey_protein.jpg" ?>">
-                            </div>
-                        </div>
-                        <a href="" class="mc-btn-action">
-                            <i class="fa fa-info-circle"></i>
-                        </a>
-                    </article>
-                </div>
-
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <article class="material-card Blue-Grey">
-                        <h2>
-                            <span>Battery Whey Protein</span>
-                            <strong class="info-left">2000g</strong>
-                            <strong class="info-right">20e</strong>
-                        </h2>
-
-                        <div class="mc-content">
-                            <div class="img-container">
-                                <img class="img-responsive" src="<?php echo IMAGES_URL . "battery_whey_protein.jpg" ?>">
-                            </div>
-                        </div>
-                        <a href="" class="mc-btn-action">
-                            <i class="fa fa-info-circle"></i>
-                        </a>
-                    </article>
-                </div>
+                        ';
+                    }
+                ?>
+<!--                <div class="col-md-4 col-sm-6 col-xs-12">-->
+<!--                    <article class="material-card Blue-Grey">-->
+<!--                        <h2>-->
+<!--                            <span>Battery Whey Protein</span>-->
+<!--                            <strong class="info-left">2000g</strong>-->
+<!--                            <strong class="info-right">20e</strong>-->
+<!--                        </h2>-->
+<!---->
+<!--                        <div class="mc-content">-->
+<!--                            <div class="img-container">-->
+<!--                                <img class="img-responsive" src="--><?php //echo IMAGES_URL . "battery_whey_protein.jpg" ?><!--">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <a href="" class="mc-btn-action">-->
+<!--                            <i class="fa fa-info-circle"></i>-->
+<!--                        </a>-->
+<!--                    </article>-->
+<!--                </div>-->
 
             </div>
         </div>

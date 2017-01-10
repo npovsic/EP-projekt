@@ -5,6 +5,7 @@ require_once("controller/ItemController.php");
 require_once("sql/InitDB.php");
 
 define("BASE_URL", $_SERVER["SCRIPT_NAME"] . "/");
+define("ITEM_URL", rtrim($_SERVER["SCRIPT_NAME"]) . "/item/");
 define("IMAGES_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/images/");
 define("CSS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/css/");
 define("JS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/js/");
@@ -22,6 +23,9 @@ $urls = [
     },
     "register" => function() {
         ItemController::register();
+    },
+    "item/" => function() {
+        ItemController::login();
     },
     "wip" => function() {
         ItemController::wip();

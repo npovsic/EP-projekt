@@ -26,7 +26,7 @@
                                             <img class="img-responsive" src="'.IMAGES_URL.$item['picture'].'.jpg">
                                         </div>
                                     </div>
-                                    <a href="'.ITEM_URL.$item['item_id'].'" class="mc-btn-action">
+                                    <a href="'.ITEM_URL.$item['article_id'].'" class="mc-btn-action">
                                         <i class="fa fa-info-circle"></i>
                                     </a>
                                 </article>

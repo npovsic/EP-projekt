@@ -1,10 +1,15 @@
 <?php
 
 require_once("View.php");
+require_once("sql/InitDB.php");
+
 
 class ItemController {
 
-    public static function index($db) {
+
+    public static function index() {
+        $db = InitDB::getInstance();
+
         $sql = "SELECT * FROM articles";
 
         $items = array();
@@ -25,7 +30,16 @@ class ItemController {
     }
 
     public static function details_page($id) {
-        echo View::render("view/article_details.php", ["id" => $id], true);
+        $db = InitDB::getInstance();
+
+        $sql = "SELECT * FROM articles WHERE article_id=".$id;
+
+        $sth = $db->prepare($sql);
+        $sth->execute();
+
+        $result = $sth->fetchAll();
+
+        echo View::render("view/article_details.php", $result[0], true);
     }
 
     public static function wip() {

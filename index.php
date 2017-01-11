@@ -8,6 +8,7 @@ define("ITEM_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "article/");
 define("IMAGES_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/images/");
 define("CSS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/css/");
 define("JS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/js/");
+define("DOCUMENT_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "sql/");
 
 $path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
 
@@ -17,12 +18,7 @@ $urls = [
         Controller::index();
     },
     "/login$/" => function($method) {
-        if ($method == "POST") {
-            Controller::login();
-        } else {
-            Controller::login_page();
-
-        }
+        Controller::login();
     },
     "/logout$/" => function() {
         Controller::logout();

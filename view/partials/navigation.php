@@ -7,11 +7,11 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="/">Spletna trgovina</a>
+                        <a class="navbar-brand" href="<?php echo BASE_URL ?>">Spletna trgovina</a>
                     </div>
                     <div id="navbar" class="collapse navbar-collapse">
                         <ul class="nav navbar-nav">
-                            <li><a href="/">Domov</a></li>
+                            <li><a href="<?php echo BASE_URL ?>">Domov</a></li>
                         </ul>
                         <ul class="nav navbar-nav">
                             <li class="search-list-item">

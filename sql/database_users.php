@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'].'/sql/InitDB.php';
+require_once $_SERVER['DOCUMENT_ROOT'].DOCUMENT_URL.'InitDB.php';
 
 class DBUsers {
 

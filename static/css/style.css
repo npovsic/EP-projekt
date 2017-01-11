@@ -106,6 +106,7 @@ span.one-line-span {
     color: #fff;
     height: 40px;
     padding: 10px;
+    text-align: center;
     transition: ease all 0.35s;
 }
 
@@ -188,20 +189,24 @@ span.one-line-span {
 }
 
 /* Cart */
-#cart {
-    color: #fff;
+#cart-nav {
+    /* nav bar cart text color */
+    color: #666;
 }
 
 .cart_wrapper {
     position: absolute;
     display: none;
     z-index: 10000;
-    background: #4c4c4c;
+    background: #fff;
     top: 0;
     right: 0;
     width: 550px;
-    margin: 50px 0 0;
-    color: #fff;
+    margin: 51px 0 0;
+    color: #666;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 4px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
 }
 
 .quantity_input {
@@ -210,7 +215,6 @@ span.one-line-span {
 }
 
 /* Login */
-
 #login_wrapper {
     text-align: center;
 }
@@ -225,6 +229,13 @@ span.one-line-span {
 .top {
     vertical-align: top;
     margin: 0 0 20px;
+}
+
+.wrong-credentials {
+    color: red;
+    position: absolute;
+    margin-left: -12px;
+    margin-top: 15px;
 }
 
 
@@ -260,7 +271,7 @@ span.one-line-span {
 
     /* Cart */
     .cart_button:hover {
-        background: #4c4c4c !important;
+        background: #080808 !important;
     }
 
     .cart_button:hover .cart_wrapper {
@@ -277,10 +288,6 @@ span.one-line-span {
     .td-product {
         width: 220px;
         max-width: 220px;
-    }
-
-    .table-hover > tbody > tr:hover {
-        background-color: #4c4c4c;
     }
 
     .table-hover > tfoot > tr {

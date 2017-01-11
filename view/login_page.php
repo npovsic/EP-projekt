@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
-require_once $_SERVER['DOCUMENT_ROOT'].DOCUMENT_URL.'database_users.php';
+require_once $_SERVER['DOCUMENT_ROOT'].DOCUMENT_URL.'DBUsers.php';
 $failedAttempt = false;
 
 if (isset($_POST["uname"]) && isset($_POST["password"])) {
@@ -9,7 +9,8 @@ if (isset($_POST["uname"]) && isset($_POST["password"])) {
         if (DBUsers::login($_POST["uname"], $_POST["password"])) {
             session_regenerate_id(true);
             $_SESSION["logged_in"] = true;
-            header("Location: ../index.php");
+            $_SESSION["username"] = $_POST["uname"];
+            View::redirect(BASE_URL);
         } else {
             $failedAttempt = true;
         }
@@ -32,16 +33,16 @@ if (isset($_POST["uname"]) && isset($_POST["password"])) {
 
         <div class="container top-padding-50px">
                 <div id="login_wrapper">
-                    <?php
-                    if ($failedAttempt) {
-                        echo "<p><b>Napačno uporabniško ime in geslo.</b></p>";
-                    }
-                    ?>
-                    <form class="login_form top" method="post" action="<?= $_SERVER["PHP_SELF"] ?>">
+                    <form class="login_form top" method="post" action="login">
                         <h2>Prijava</h2><br>
                         <label class="align-left">Uporabniško ime<br><input class="input-modern" type="text" name="uname" ></label><br>
                         <label class="align-left">Geslo<br><input class="input-modern" type="password" name="password"></label><br>
                         <button class="btn-block btn-modern top_margin_5px" type="submit">PRIJAVA</button>
+                        <?php
+                        if ($failedAttempt) {
+                            echo "<p class='wrong-credentials'>Napačno uporabniško ime ali geslo.</p>";
+                        }
+                        ?>
                     </form>
                     <form class="login_form" method="post" action="register">
                         <h2>Registracija</h2><br>

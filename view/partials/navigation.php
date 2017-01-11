@@ -15,7 +15,7 @@
                         </ul>
                         <ul class="nav navbar-nav">
                             <li class="search-list-item">
-                                <form action="search" class="search-form" method="get">
+                                <form action="<?php echo BASE_URL ?>search" class="search-form" method="get">
                                     <div class="form-group has-feedback">
                                         <label for="search" class="sr-only">Search</label>
                                         <input type="text" class="form-control" name="query" id="search" placeholder="Išči">
@@ -27,17 +27,23 @@
                             <?php
                             if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
                             ?>
-                            <li><a href="logout">Odjavi se</a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $_SESSION["username"] ?>
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<?php echo BASE_URL ?>logout">Logout</a></li>
+                                </ul>
+                            </li>
                             <?php
                             } else {
                             ?>
-                            <li><a href="login">Prijavi se</a></li>
+                            <li><a href="<?php echo BASE_URL ?>login">Prijavi se</a></li>
                             <?php
                             }
                             ?>
-                            <li class="cart_button"><a href="cart">Košarica</a>
+                            <li class="dropdown cart_button"><a href="<?php echo BASE_URL ?>cart">Košarica</a>
                                 <div class="cart_wrapper">
-                                    <table id="cart" class="table table-hover table-condensed">
+                                    <table id="cart-nav" class="table table-hover table-condensed">
                                         <thead>
                                         <tr>
                                             <th class="text-center text-middle">Izdelek</th>

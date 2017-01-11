@@ -188,6 +188,10 @@ span.one-line-span {
 }
 
 /* Cart */
+#cart {
+    color: #fff;
+}
+
 .cart_wrapper {
     position: absolute;
     display: none;

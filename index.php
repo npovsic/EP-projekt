@@ -16,7 +16,7 @@ $urls = [
     "/^$/" => function () {
         ItemController::index();
     },
-    "/login/" => function($method) {
+    "/login$/" => function($method) {
         if ($method == "POST") {
             ItemController::login();
         } else {
@@ -24,7 +24,7 @@ $urls = [
 
         }
     },
-    "/register/" => function($method) {
+    "/register$/" => function($method) {
         if ($method == "POST") {
             ItemController::register();
         } else {
@@ -38,10 +38,10 @@ $urls = [
     "/search.*/" => function($method) {
         ItemController::search($_GET['query']);
     },
-    "/cart/" => function($method) {
+    "/cart$/" => function($method) {
         ItemController::cart();
     },
-    "/checkout/" => function($method) {
+    "/checkout$/" => function($method) {
         ItemController::checkout();
     },
     "/wip/" => function() {

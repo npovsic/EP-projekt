@@ -27,8 +27,7 @@
                         <ul class="nav navbar-nav pull-right">
                             <li><a href="'.BASE_URL.'login">Prijavi se</a></li>
                             <li><a href="'.BASE_URL.'register">Registracija</a></li>
-                            <li><a class="cart_button" href="cart">
-                                Košarica
+                            <li class="cart_button"><a href="cart">Košarica</a>
                                 <div class="cart_wrapper">
                                     <table id="cart" class="table table-hover table-condensed">
                                         <thead>
@@ -51,11 +50,13 @@
                                             </td>
                                             <td class="text-center" data-th="price">$1.99</td>
                                             <td class="text-center" data-th="quantity">
-                                                <input type="number" class="quantity_input text-center" value="1">
+                                                <input type="number" class="quantity_input text-center" value="1" min="1">
                                             </td>
                                             <td data-th="Subtotal" class="text-center">1.99</td>
                                             <td class="actions text-center" data-th="">
-                                                <button class="btn btn-danger btn-sm"><a href="#"></a><i class="fa fa-trash-o"></i></button>
+                                                <form action="cart/delete" method="post">
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                                                </form>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -71,7 +72,8 @@
                                         </tfoot>
                                     </table>
                                 </div>
-                            </a></li>
+
+                            </li>
                         </ul>
                         
                     </div><!--/.nav-collapse -->

@@ -35,6 +35,9 @@ $urls = [
     "/^article\/(\d+)$/" => function($method, $id = null) {
         ItemController::details_page($id);
     },
+    "/search.*/" => function($method) {
+        ItemController::search($_GET['query']);
+    },
     "/wip/" => function() {
         ItemController::wip();
     }

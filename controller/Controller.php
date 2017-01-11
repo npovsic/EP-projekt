@@ -56,6 +56,10 @@ class ItemController {
         require('actions/register.php');
     }
 
+    public static function search($query) {
+        require('actions/search.php');
+    }
+
     private static function getLoginRules() {
         return [
             'username' => FILTER_SANITIZE_SPECIAL_CHARS,

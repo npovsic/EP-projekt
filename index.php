@@ -28,7 +28,7 @@ $urls = [
         if ($method == "POST") {
             ItemController::register();
         } else {
-            ItemController::register_page();
+            ItemController::login_page();
 
         }
     },

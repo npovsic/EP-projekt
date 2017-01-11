@@ -10,6 +10,9 @@ body {
     overflow-y: visible;
 }
 
+.bg {
+}
+
 .wrapper {
     padding: 5%;
 }
@@ -34,10 +37,33 @@ body {
     float: left !important;
 }
 
+.align-left {
+    text-align: left;
+}
+
 span.one-line-span {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.padding_5px {
+    padding: 5px;
+}
+
+.top-padding-50px {
+    padding-top: 50px;
+}
+
+.top_margin_5px {
+    margin-top: 5px;
+}
+
+.btn-login {
+    background-color: #607d8b;
+    border: none;
+    color: #fff;
+    height: 40px;
 }
 
 /* Navigation */
@@ -94,7 +120,7 @@ span.one-line-span {
     position: absolute;
     display: none;
     z-index: 10000;
-    background: #9E9E9E;
+    background: #4c4c4c;
     top: 0;
     right: 0;
     margin: 50px 0 0;
@@ -106,10 +132,34 @@ span.one-line-span {
     color: black;
 }
 
+/* Login */
+
+#login_wrapper {
+    text-align: center;
+}
+
+.login_form {
+    display: inline-block;
+    padding: 0 60px 60px;
+    box-shadow: 0 0 15px;
+    color: #666;
+}
+
+.top {
+    vertical-align: top;
+    margin: 0 0 20px;
+}
+
+
 /* TABLET */
 @media (min-width: 768px) {
     .pull-right {
         float: right !important;
+    }
+
+    .top {
+        vertical-align: top;
+        margin: 0 50px 0 0;
     }
 
     /* Details page*/
@@ -127,7 +177,7 @@ span.one-line-span {
 
     /* Cart */
     .cart_button:hover {
-        background: #9E9E9E !important;
+        background: #4c4c4c !important;
     }
 
     .cart_button:hover .cart_wrapper {
@@ -136,7 +186,7 @@ span.one-line-span {
     }
 
     .table-hover > tbody > tr:hover {
-        background-color: #9E9E9E;
+        background-color: #4c4c4c;
     }
 }
 
@@ -144,6 +194,11 @@ span.one-line-span {
 @media (min-width: 992px) {
     .pull-right {
         float: right !important;
+    }
+
+    .top {
+        vertical-align: top;
+        margin: 0 150px 0 0;
     }
 
     /* Details page*/

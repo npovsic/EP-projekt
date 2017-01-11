@@ -1,7 +1,7 @@
 <?php
     echo '
         <div class="cart_page_wrapper">
-            <table id="cart" class="table table-hover table-condensed">
+            <table id="cart" class="table table-condensed">
                 <thead>
                 <tr>
                     <th class="text-center">Izdelek</th>
@@ -26,7 +26,9 @@
                     </td>
                     <td data-th="Subtotal" class="text-center">1.99</td>
                     <td class="actions text-center" data-th="">
-                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                        <form action="cart/delete" method="post">
+                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                        </form>
                     </td>
                 </tr>
                 </tbody>

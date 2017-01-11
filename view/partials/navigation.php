@@ -26,7 +26,6 @@
                         </ul>
                         <ul class="nav navbar-nav pull-right">
                             <li><a href="'.BASE_URL.'login">Prijavi se</a></li>
-                            <li><a href="'.BASE_URL.'register">Registracija</a></li>
                             <li class="cart_button"><a href="cart">Košarica</a>
                                 <div class="cart_wrapper">
                                     <table id="cart" class="table table-hover table-condensed">
@@ -54,9 +53,7 @@
                                             </td>
                                             <td data-th="Subtotal" class="text-center">1.99</td>
                                             <td class="actions text-center" data-th="">
-                                                <form action="cart/delete" method="post">
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
-                                                </form>
+                                                <button class="nav_cart_delete btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
                                             </td>
                                         </tr>
                                         </tbody>

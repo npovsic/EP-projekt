@@ -25,10 +25,6 @@ class ItemController {
         echo View::render("view/login_page.php", null, false);
     }
 
-    public static function register_page() {
-        echo View::render("view/register_page.php", null, false);
-    }
-
     public static function details_page($id) {
         $db = InitDB::getInstance();
 

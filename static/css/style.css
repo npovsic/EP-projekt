@@ -10,7 +10,29 @@ body {
     overflow-y: visible;
 }
 
+footer {
+    background-color: #455A64;
+    color: #fff;
+    padding: 5px;
+    margin-top: 20px;
+}
+
+input:focus {
+    outline: none;
+    border: 1px solid;
+}
+
+.text-middle {
+    vertical-align: middle !important;
+}
+
 .bg {
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 .wrapper {
@@ -47,8 +69,11 @@ span.one-line-span {
     text-overflow: ellipsis;
 }
 
-.padding_5px {
+.input-modern {
     padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #aaa;
+    transition: ease border 0.35s;
 }
 
 .top-padding-50px {
@@ -59,11 +84,31 @@ span.one-line-span {
     margin-top: 5px;
 }
 
-.btn-login {
+.btn-modern {
     background-color: #607d8b;
     border: none;
     color: #fff;
     height: 40px;
+    transition: ease all 0.35s;
+}
+
+.btn-modern:hover {
+    background-color: #263238;
+}
+
+.btn-modern-link {
+    background-color: #607d8b;
+    border: none;
+    color: #fff;
+    height: 40px;
+    padding: 10px;
+    transition: ease all 0.35s;
+}
+
+.btn-modern-link:hover {
+    background-color: #263238;
+    color: #fff;
+    text-decoration: none;
 }
 
 /* Navigation */
@@ -123,6 +168,7 @@ span.one-line-span {
     background: #4c4c4c;
     top: 0;
     right: 0;
+    width: 550px;
     margin: 50px 0 0;
     color: #fff;
 }
@@ -141,7 +187,7 @@ span.one-line-span {
 .login_form {
     display: inline-block;
     padding: 0 60px 60px;
-    box-shadow: 0 0 15px;
+    border: 2px solid #eee;
     color: #666;
 }
 
@@ -185,8 +231,23 @@ span.one-line-span {
         display: block;
     }
 
+    .table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 0px;
+    }
+
+    .td-product {
+        width: 220px;
+        max-width: 220px;
+    }
+
     .table-hover > tbody > tr:hover {
         background-color: #4c4c4c;
+    }
+
+    .table-hover > tfoot > tr {
+        height: 50px;
     }
 }
 

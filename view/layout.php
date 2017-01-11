@@ -58,5 +58,7 @@
 
     </div>
 
+    <?php include("view/partials/footer.php") ?>
+
 </body>
 </html>

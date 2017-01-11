@@ -14,16 +14,14 @@ and open the template in the editor.
 <body>
 <?php include "view/partials/navigation.php"; ?>
 
-<br>
-<h1>Košarica</h1>
-<br>
-
 <div class="container">
     <div class="wrapper">
         <?php include "view/partials/cart.php";  ?>
     </div>
 
 </div>
+
+<?php include("view/partials/footer.php") ?>
 
 </body>
 </html>

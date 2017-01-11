@@ -18,25 +18,27 @@ and open the template in the editor.
                 <div id="login_wrapper">
                     <form class="login_form top" method="post" action="login">
                         <h2>Prijava</h2><br>
-                        <label class="align-left">Uporabniško ime<br><input class="padding_5px" type="text" name="username" ></label><br>
-                        <label class="align-left">Geslo<br><input class="padding_5px" type="password" name="password"></label><br>
-                        <button class="btn-block btn-login top_margin_5px" type="submit">PRIJAVA</button>
+                        <label class="align-left">Uporabniško ime<br><input class="input-modern" type="text" name="username" ></label><br>
+                        <label class="align-left">Geslo<br><input class="input-modern" type="password" name="password"></label><br>
+                        <button class="btn-block btn-modern top_margin_5px" type="submit">PRIJAVA</button>
                     </form>
                     <form class="login_form" method="post" action="register">
                         <h2>Registracija</h2><br>
-                        <label class="align-left">Uporabniško ime<br><input class="padding_5px" type="text" name="username" ></label><br>
-                        <label class="align-left">Geslo<br><input class="padding_5px" type="password" name="password"></label><br>
-                        <label class="align-left">Ime<br><input class="padding_5px" type="text" name="first_name"></label><br>
-                        <label class="align-left">Priimek<br><input class="padding_5px" type="text" name="first_name"></label><br>
-                        <label class="align-left">Elektronska pošta<br><input class="padding_5px" type="text" name="email"></label><br>
-                        <label class="align-left">Naslov<br><input class="padding_5px" type="text" name="address"></label><br>
-                        <label class="align-left">Mesto<br><input class="padding_5px" type="text" name="city"></label><br>
-                        <label class="align-left">Država<br><input class="padding_5px" type="text" name="country"></label><br>
-                        <button class="btn-block btn-login top_margin_5px" type="submit">REGISTRACIJA</button>
+                        <label class="align-left">Uporabniško ime<br><input class="input-modern" type="text" name="username" ></label><br>
+                        <label class="align-left">Geslo<br><input class="input-modern" type="password" name="password"></label><br>
+                        <label class="align-left">Ime<br><input class="input-modern" type="text" name="first_name"></label><br>
+                        <label class="align-left">Priimek<br><input class="input-modern" type="text" name="first_name"></label><br>
+                        <label class="align-left">Elektronska pošta<br><input class="input-modern" type="text" name="email"></label><br>
+                        <label class="align-left">Naslov<br><input class="input-modern" type="text" name="address"></label><br>
+                        <label class="align-left">Mesto<br><input class="input-modern" type="text" name="city"></label><br>
+                        <label class="align-left">Država<br><input class="input-modern" type="text" name="country"></label><br>
+                        <button class="btn-block btn-modern top_margin_5px" type="submit">REGISTRACIJA</button>
                     </form>
                 </div>
 
         </div>
+
+        <?php include("view/partials/footer.php") ?>
 
     </body>
 </html>

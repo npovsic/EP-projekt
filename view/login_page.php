@@ -1,9 +1,26 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 'on');
+require_once $_SERVER['DOCUMENT_ROOT'].'/sql/database_users.php';
+session_start();
+$failedAttempt = false;
+
+if (isset($_POST["uname"]) && isset($_POST["password"])) {
+    try {
+        if (DBUsers::login($_POST["uname"], $_POST["password"])) {
+            session_regenerate_id(true);
+            $_SESSION["logged_in"] = true;
+            header("Location: ../index.php");
+        } else {
+            $failedAttempt = true;
+        }
+    } catch (Exception $exc) {
+        echo $exc->getMessage();
+        exit(-1);
+    }
+} 
+?>
+
 <html>
     <head>
         <?php
@@ -16,11 +33,16 @@ and open the template in the editor.
 
         <div class="container top-padding-50px">
                 <div id="login_wrapper">
-                    <form class="login_form top" method="post" action="login">
+                    <?php
+                    if ($failedAttempt) {
+                        echo "<p><b>Napačno uporabniško ime in geslo.</b></p>";
+                    }
+                    ?>
+                    <form class="login_form top" method="post" action="<?= $_SERVER["PHP_SELF"] ?>">
                         <h2>Prijava</h2><br>
-                        <label class="align-left">Uporabniško ime<br><input class="input-modern" type="text" name="username" ></label><br>
-                        <label class="align-left">Geslo<br><input class="input-modern" type="password" name="password"></label><br>
-                        <button class="btn-block btn-modern top_margin_5px" type="submit">PRIJAVA</button>
+                        <label class="align-left">Uporabniško ime<br><input class="padding_5px" type="text" name="uname" ></label><br>
+                        <label class="align-left">Geslo<br><input class="padding_5px" type="password" name="password"></label><br>
+                        <button class="btn-block btn-login top_margin_5px" type="submit">PRIJAVA</button>
                     </form>
                     <form class="login_form" method="post" action="register">
                         <h2>Registracija</h2><br>

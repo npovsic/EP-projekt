@@ -4,7 +4,7 @@ require_once("View.php");
 require_once("sql/InitDB.php");
 
 
-class ItemController {
+class Controller {
 
 
     public static function index() {
@@ -53,6 +53,10 @@ class ItemController {
     public static function login() {
         $data = filter_input_array(INPUT_POST, self::getLoginRules());
         require('actions/login.php');
+    }
+    public static function logout() {
+        session_destroy();
+        header("Location: ../index.php");
     }
 
     public static function register() {

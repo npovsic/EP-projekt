@@ -14,41 +14,41 @@ $path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
 // ROUTER: defines mapping between URLS and controllers
 $urls = [
     "/^$/" => function () {
-        ItemController::index();
+        Controller::index();
     },
     "/login$/" => function($method) {
         if ($method == "POST") {
-            ItemController::login();
+            Controller::login();
         } else {
-            ItemController::login_page();
+            Controller::login_page();
 
         }
     },
     "/logout$/" => function() {
-        ItemController::logout();
+        Controller::logout();
     },    
     "/register$/" => function($method) {
         if ($method == "POST") {
-            ItemController::register();
+            Controller::register();
         } else {
-            ItemController::login_page();
+            Controller::login_page();
 
         }
     },
     "/^article\/(\d+)$/" => function($method, $id = null) {
-        ItemController::details_page($id);
+        Controller::details_page($id);
     },
     "/search.*/" => function($method) {
-        ItemController::search($_GET['query']);
+        Controller::search($_GET['query']);
     },
     "/cart$/" => function($method) {
-        ItemController::cart();
+        Controller::cart();
     },
     "/checkout$/" => function($method) {
-        ItemController::checkout();
+        Controller::checkout();
     },
     "/wip/" => function() {
-        ItemController::wip();
+        Controller::wip();
     }
     # REST API
 ];

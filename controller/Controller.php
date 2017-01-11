@@ -42,6 +42,14 @@ class ItemController {
         echo View::render("view/article_details.php", $result[0], true);
     }
 
+    public static function cart() {
+        echo View::render("view/cart_page.php", null, false);
+    }
+
+    public static function checkout() {
+        echo View::render("view/checkout_page.php", null, false);
+    }
+
     public static function wip() {
         echo View::render("view/wip.php", null, false);
     }

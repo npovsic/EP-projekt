@@ -38,6 +38,12 @@ $urls = [
     "/search.*/" => function($method) {
         ItemController::search($_GET['query']);
     },
+    "/cart/" => function($method) {
+        ItemController::cart();
+    },
+    "/checkout/" => function($method) {
+        ItemController::checkout();
+    },
     "/wip/" => function() {
         ItemController::wip();
     }

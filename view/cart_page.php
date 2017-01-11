@@ -7,7 +7,7 @@ and open the template in the editor.
 <html>
 <head>
     <?php
-    $title = "E-Store";
+    $title = "E-Store | Košarica";
     include "view/partials/head.php";
     ?>
 </head>
@@ -15,12 +15,12 @@ and open the template in the editor.
 <?php include "view/partials/navigation.php"; ?>
 
 <br>
-<h1>WIP</h1>
+<h1>Košarica</h1>
 <br>
 
 <div class="container">
     <div class="wrapper">
-<!--        --><?php //include "view/partials/cart.php";  ?>
+        <?php include "view/partials/cart.php";  ?>
     </div>
 
 </div>

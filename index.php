@@ -18,12 +18,15 @@ $urls = [
     },
     "/login$/" => function($method) {
         if ($method == "POST") {
-            ItemController::login();
+            ItemController::login_page();
         } else {
             ItemController::login_page();
 
         }
     },
+    "/logout$/" => function() {
+        ItemController::logout();
+    },    
     "/register$/" => function($method) {
         if ($method == "POST") {
             ItemController::register();

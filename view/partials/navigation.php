@@ -1,5 +1,4 @@
-<?php
-    echo '<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top">
                 <div class="container_nav">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -8,11 +7,11 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="'.BASE_URL.'">Spletna trgovina</a>
+                        <a class="navbar-brand" href="/">Spletna trgovina</a>
                     </div>
                     <div id="navbar" class="collapse navbar-collapse">
                         <ul class="nav navbar-nav">
-                            <li><a href="'.BASE_URL.'">Domov</a></li>
+                            <li><a href="/">Domov</a></li>
                         </ul>
                         <ul class="nav navbar-nav">
                             <li class="search-list-item">
@@ -25,7 +24,17 @@
                             </li>
                         </ul>
                         <ul class="nav navbar-nav pull-right">
-                            <li><a href="'.BASE_URL.'login">Prijavi se</a></li>
+                            <?php
+                            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                            ?>
+                            <li><a href="logout">Odjavi se</a></li>
+                            <?php
+                            } else {
+                            ?>
+                            <li><a href="login">Prijavi se</a></li>
+                            <?php
+                            }
+                            ?>
                             <li class="cart_button"><a href="cart">Košarica</a>
                                 <div class="cart_wrapper">
                                     <table id="cart" class="table table-hover table-condensed">
@@ -69,4 +78,4 @@
                         
                     </div><!--/.nav-collapse -->
                 </div>
-            </nav>';
+            </nav>

@@ -41,7 +41,9 @@
                             <?php
                             }
                             ?>
-                            <li class="dropdown cart_button"><a href="<?php echo BASE_URL ?>cart">Košarica</a>
+                            <li class="dropdown cart_button">
+                                <a class="dropdown-toggle" href="<?php echo BASE_URL ?>cart">Košarica
+                                    <span class="caret"></span></a>
                                 <div class="cart_wrapper">
                                     <table id="cart-nav" class="table table-hover table-condensed">
                                         <thead>

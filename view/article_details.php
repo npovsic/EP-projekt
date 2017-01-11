@@ -9,43 +9,35 @@
 <body>
     <?php include "view/partials/navigation.php"; ?>
     <div class="container">
-        <div class="wrapper">
-            <div class="row active-with-click">
-                <?php
-                    echo '<div class="col-md-4 col-sm-6 col-xs-12">
-                            <article class="material-card Blue-Grey">
-                                <h2>
-                                    <span class="one-line-span">'.$name.'</span>
-                                    <strong class="info-left">'.$weight.'g</strong>
-                                    <strong class="info-right">'.$price.'€</strong>
-                                </h2>
-        
-                                <div class="mc-content">
-                                    <div class="img-container">
-                                        <img class="img-responsive" src="'.IMAGES_URL.$picture.'.jpg">
-                                    </div>
-                                </div>
-                                <a href="'.ITEM_URL.$article_id.'" class="mc-btn-action">
-                                    <i class="fa fa-info-circle"></i>
-                                </a>
-                            </article>
+        <div class="details-wrapper">
+
+            <?php
+                echo '<div class="img-details-container">
+                        <img class="img-responsive" src="'.IMAGES_URL.$picture.'.jpg">
+                    </div>
+                    ';
+                echo '<div class="details_add_to_cart">
+                        <div class="article-info">
+                            <h1>'.$name.'</h1>    
+                            <h1>'.$weight.'g</h1>    
+                            <h1>'.$price.'€</h1>    
                         </div>
-                        ';
-                    echo '<div class="details_add_to_cart">
-                                
-                            </div>
-                                    
-                        ';
-                    echo '<div class="details">
+                        <button class=" pull-right btn-modern-medium btn-modern top_margin_5px" type="submit">V KOŠARICO</button>
+                    </div>
+                    <div class="details_article">
+                        <div class="details">
                             <p>'.$description.'</p>    
                         </div>
+                    </div>
                                 
-                        ';
-                ?>
-            </div>
+                    ';
+
+            ?>
         </div>
 
     </div>
+
+    <?php include("view/partials/footer.php") ?>
 
 </body>
 </html>

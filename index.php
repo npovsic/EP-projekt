@@ -24,6 +24,9 @@ $urls = [
 
         }
     },
+    "/logout$/" => function() {
+        ItemController::logout();
+    },    
     "/register$/" => function($method) {
         if ($method == "POST") {
             ItemController::register();

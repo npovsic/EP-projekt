@@ -2,7 +2,7 @@
 
 class InitDB {
 
-    private static $host = "localhost:8889";
+    private static $host = "127.0.0.1:8889";
     private static $user = "root";
     private static $password = "root";
     private static $schema = "e-store";

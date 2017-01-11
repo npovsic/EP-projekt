@@ -16,7 +16,7 @@
                         echo '<div class="col-md-4 col-sm-6 col-xs-12">
                                 <article class="material-card Blue-Grey">
                                     <h2>
-                                        <span>'.$item['name'].'</span>
+                                        <span class="one-line-span">'.$item['name'].'</span>
                                         <strong class="info-left">'.$item['weight'].'g</strong>
                                         <strong class="info-right">'.$item['price'].'€</strong>
                                     </h2>
@@ -26,7 +26,7 @@
                                             <img class="img-responsive" src="'.IMAGES_URL.$item['picture'].'.jpg">
                                         </div>
                                     </div>
-                                    <a href="'.ITEM_URL.$item['item_id'].'" class="mc-btn-action">
+                                    <a href="'.ITEM_URL.$item['article_id'].'" class="mc-btn-action">
                                         <i class="fa fa-info-circle"></i>
                                     </a>
                                 </article>
@@ -57,6 +57,8 @@
         </div>
 
     </div>
+
+    <?php include("view/partials/footer.php") ?>
 
 </body>
 </html>

@@ -14,29 +14,13 @@ and open the template in the editor.
 <body>
 <?php include "view/partials/navigation.php"; ?>
 
+<br>
+<h1>WIP</h1>
+<br>
+
 <div class="container">
     <div class="wrapper">
-        <div class="row active-with-click">
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <article class="material-card Blue-Grey">
-                    <h2>
-                        <span>Battery Whey Protein</span>
-                        <strong class="info-left">2000g</strong>
-                        <strong class="info-right">20e</strong>
-                    </h2>
-
-                    <div class="mc-content">
-                        <div class="img-container">
-                            <img class="img-responsive" src="<?php echo IMAGES_URL . "battery_whey_protein.jpg" ?>">
-                        </div>
-                    </div>
-                    <a href="" class="mc-btn-action">
-                        <i class="fa fa-info-circle"></i>
-                    </a>
-                </article>
-            </div>
-
-        </div>
+<!--        --><?php //include "view/partials/cart.php";  ?>
     </div>
 
 </div>

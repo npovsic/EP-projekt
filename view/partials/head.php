@@ -10,6 +10,6 @@
         <link href="'.CSS_URL.'material-cards.css" rel="stylesheet">
         
         <script src="'.JS_URL.'jquery-3.1.1.min.js"></script>
-        <script src="'.JS_URL.'main.js" ></script>
         <script src="'.JS_URL.'bootstrap.min.js"></script>
+        <script src="'.JS_URL.'main.js" ></script>
     ';

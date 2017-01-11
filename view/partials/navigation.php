@@ -1,5 +1,4 @@
-<?php
-    echo '<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top">
                 <div class="container_nav">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -8,28 +7,75 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="'.BASE_URL.'">Spletna trgovina</a>
+                        <a class="navbar-brand" href="/">Spletna trgovina</a>
                     </div>
                     <div id="navbar" class="collapse navbar-collapse">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">Domov</a></li>
-                            <li><a href="#about">O nas</a></li>
-                            <li><a href="#contact">Kontakt</a></li>
+                            <li><a href="/">Domov</a></li>
                         </ul>
-                        <ul class="nav navbar-nav pull-right">
-                            <li><a href="'.BASE_URL.'login">Prijavi se</a></li>
-                            <li><a href="#cart">Košarica</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav pull-right">
-                            <li>
-                                <form action="" class="search-form">
+                        <ul class="nav navbar-nav">
+                            <li class="search-list-item">
+                                <form action="search" class="search-form" method="get">
                                     <div class="form-group has-feedback">
                                         <label for="search" class="sr-only">Search</label>
-                                        <input type="text" class="form-control" name="search" id="search" placeholder="search">
+                                        <input type="text" class="form-control" name="query" id="search" placeholder="Išči">
                                     </div>
                                 </form>
                             </li>
                         </ul>
+                        <ul class="nav navbar-nav pull-right">
+                            <?php
+                            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                            ?>
+                            <li><a href="logout">Odjavi se</a></li>
+                            <?php
+                            } else {
+                            ?>
+                            <li><a href="login">Prijavi se</a></li>
+                            <?php
+                            }
+                            ?>
+                            <li class="cart_button"><a href="cart">Košarica</a>
+                                <div class="cart_wrapper">
+                                    <table id="cart" class="table table-hover table-condensed">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center text-middle">Izdelek</th>
+                                            <th class="text-center text-middle">Cena</th>
+                                            <th class="text-center text-middle">Količina</th>
+                                            <th class="text-center text-middle">Skupaj</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="text-middle td-product" data-th="article">Product</td>
+                                            <td class="text-center text-middle" data-th="price">$1.99</td>
+                                            <td class="text-center text-middle" data-th="quantity">
+                                                <input type="number" class="quantity_input text-center text-middle" value="1" min="1">
+                                            </td>
+                                            <td data-th="Subtotal" class="text-center text-middle">1.99</td>
+                                            <td class="actions text-center text-middle" data-th="">
+                                                <button class="nav_cart_delete btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                        <tfoot>
+                                        <tr class="visible-xs">
+                                            <td class="text-center text-middle"><strong>1.99</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" class="hidden-xs"></td>
+                                            <td class="hidden-xs text-center text-middle"><strong>$1.99</strong></td>
+                                            <td class="text-middle"><a href="checkout" class="btn-modern-link">NA BLAGAJNO</a></td>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+                            </li>
+                        </ul>
+                        
                     </div><!--/.nav-collapse -->
                 </div>
-            </nav>';
+            </nav>

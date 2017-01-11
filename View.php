@@ -3,12 +3,20 @@
 class View {
 
     //Displays a given view and sets the $variables array into scope.
-    public static function render($file, $variables = array()) {
-//        extract($variables);
+    public static function render($file, $variables = array(), $extract) {
+        if ($extract === true) {
+            extract($variables);
+        }
 
         ob_start();
         include($file);
         return ob_get_clean();
+    }
+
+    public static function renderJSON($data, $httpResponseCode = 200) {
+        header('Content-Type: application/json');
+        http_response_code($httpResponseCode);
+        return json_encode($data);
     }
 
     // Redirects to the given URL
@@ -25,6 +33,25 @@ class View {
                 "<p>The page <i>%s</i> does not exist.</p>", $_SERVER["REQUEST_URI"]);
 
         echo $html404;
+    }
+
+    public static function displayError($exception, $debug = false) {
+        header('An error occurred.', true, 400);
+
+        if ($debug) {
+            $hmtl = sprintf("<!doctype html>\n" .
+                "<title>Error: An application error.</title>\n" .
+                "<h1>Error: An application error</h1>\n" .
+                "<p>The page <i>%s</i> returned an error:" .
+                "<blockquote><pre>%s</pre></blockquote></p>", $_SERVER["REQUEST_URI"], $exception);
+        } else {
+            $hmtl = sprintf("<!doctype html>\n" .
+                "<title>Error: An application error.</title>\n" .
+                "<h1>Error: An application error</h1>\n" .
+                "<p>The page <i>%s</i> returned an error.", $_SERVER["REQUEST_URI"]);
+        }
+
+        echo $hmtl;
     }
 
 }

@@ -1,11 +1,10 @@
 <?php
 session_start();
 
-require_once("controller/ItemController.php");
-require_once("sql/InitDB.php");
+require_once("controller/Controller.php");
 
-define("BASE_URL", $_SERVER["SCRIPT_NAME"] . "/");
-define("ITEM_URL", rtrim($_SERVER["SCRIPT_NAME"]) . "/item/");
+define("BASE_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php"));
+define("ITEM_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "article/");
 define("IMAGES_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/images/");
 define("CSS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/css/");
 define("JS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/js/");
@@ -14,32 +13,59 @@ $path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
 
 // ROUTER: defines mapping between URLS and controllers
 $urls = [
-    "" => function () {
-        $db = InitDB::getInstance();
-        ItemController::index($db);
+    "/^$/" => function () {
+        ItemController::index();
     },
-    "login" => function() {
-        ItemController::login();
+    "/login$/" => function($method) {
+        if ($method == "POST") {
+            ItemController::login_page();
+        } else {
+            ItemController::login_page();
+
+        }
     },
-    "register" => function() {
-        ItemController::register();
+    "/logout$/" => function() {
+        ItemController::logout();
+    },    
+    "/register$/" => function($method) {
+        if ($method == "POST") {
+            ItemController::register();
+        } else {
+            ItemController::login_page();
+
+        }
     },
-    "item/" => function() {
-        ItemController::login();
+    "/^article\/(\d+)$/" => function($method, $id = null) {
+        ItemController::details_page($id);
     },
-    "wip" => function() {
+    "/search.*/" => function($method) {
+        ItemController::search($_GET['query']);
+    },
+    "/cart$/" => function($method) {
+        ItemController::cart();
+    },
+    "/checkout$/" => function($method) {
+        ItemController::checkout();
+    },
+    "/wip/" => function() {
         ItemController::wip();
     }
+    # REST API
 ];
 
-try {
-    if (isset($urls[$path])) {
-        $urls[$path]();
-    } else {
-        echo "No controller for '$path'";
+foreach ($urls as $pattern => $controller) {
+    if (preg_match($pattern, $path, $params)) {
+        try {
+            $params[0] = $_SERVER["REQUEST_METHOD"];
+            $controller(...$params);
+        } catch (InvalidArgumentException $e) {
+            View::error404();
+        } catch (Exception $e) {
+            View::displayError($e, true);
+        }
+
+        exit();
     }
-} catch (InvalidArgumentException $e) {
-    ViewHelper::error404();
-} catch (Exception $e) {
-    echo "An error occurred: <pre>$e</pre>";
-} 
+}
+
+View::displayError(new InvalidArgumentException("No controller matched."), true);

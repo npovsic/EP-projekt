@@ -2,6 +2,7 @@
 session_start();
 
 require_once("controller/Controller.php");
+require_once("controller/APIController.php");
 
 define("BASE_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php"));
 define("ITEM_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "article/");
@@ -45,8 +46,15 @@ $urls = [
     },
     "/wip/" => function() {
         Controller::wip();
+    },
+
+    # API calls
+    "/api\/articles$/" => function() {
+        APIController::index();
+    },
+    "/api\/article\/(\d+)$/" => function($method, $id = null) {
+        APIController::get_article($id);
     }
-    # REST API
 ];
 
 foreach ($urls as $pattern => $controller) {

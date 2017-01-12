@@ -54,10 +54,6 @@ class Controller {
         session_destroy();
         View::redirect(BASE_URL);
     }
-    public static function logout() {
-        session_destroy();
-        header("Location: ../index.php");
-    }
 
     public static function register() {
         $data = filter_input_array(INPUT_POST, self::getRegisterRules());

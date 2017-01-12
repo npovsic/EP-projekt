@@ -1,8 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
-require_once $_SERVER['DOCUMENT_ROOT'].'/sql/database_users.php';
-session_start();
+require_once $_SERVER['DOCUMENT_ROOT'].'/sql/DBUsers.php';
 $failedAttempt = false;
 
 if (isset($_POST["uname"]) && isset($_POST["password"])) {
@@ -34,11 +33,6 @@ if (isset($_POST["uname"]) && isset($_POST["password"])) {
 
         <div class="container top-padding-50px">
                 <div id="login_wrapper">
-                    <?php
-                    if ($failedAttempt) {
-                        echo "<p><b>Napačno uporabniško ime in geslo.</b></p>";
-                    }
-                    ?>
                     <form class="login_form top" method="post" action="<?= $_SERVER["PHP_SELF"] ?>">
                         <h2>Prijava</h2><br>
                         <label class="align-left">Uporabniško ime<br><input class="input-modern" type="text" name="uname" ></label><br>

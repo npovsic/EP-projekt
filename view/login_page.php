@@ -10,7 +10,8 @@ if (isset($_POST["uname"]) && isset($_POST["password"])) {
         if (DBUsers::login($_POST["uname"], $_POST["password"])) {
             session_regenerate_id(true);
             $_SESSION["logged_in"] = true;
-            header("Location: ../index.php");
+            $_SESSION["username"] = $_POST["uname"];
+            View::redirect(BASE_URL);
         } else {
             $failedAttempt = true;
         }
@@ -40,9 +41,14 @@ if (isset($_POST["uname"]) && isset($_POST["password"])) {
                     ?>
                     <form class="login_form top" method="post" action="<?= $_SERVER["PHP_SELF"] ?>">
                         <h2>Prijava</h2><br>
-                        <label class="align-left">Uporabniško ime<br><input class="padding_5px" type="text" name="uname" ></label><br>
-                        <label class="align-left">Geslo<br><input class="padding_5px" type="password" name="password"></label><br>
-                        <button class="btn-block btn-login top_margin_5px" type="submit">PRIJAVA</button>
+                        <label class="align-left">Uporabniško ime<br><input class="input-modern" type="text" name="uname" ></label><br>
+                        <label class="align-left">Geslo<br><input class="input-modern" type="password" name="password"></label><br>
+                        <button class="btn-block btn-modern top_margin_5px" type="submit">PRIJAVA</button>
+                        <?php
+                        if ($failedAttempt) {
+                            echo "<p class='wrong-credentials'>Napačno uporabniško ime ali geslo.</p>";
+                        }
+                        ?>
                     </form>
                     <form class="login_form" method="post" action="register">
                         <h2>Registracija</h2><br>

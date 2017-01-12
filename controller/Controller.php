@@ -4,7 +4,7 @@ require_once("View.php");
 require_once("sql/InitDB.php");
 
 
-class ItemController {
+class Controller {
 
 
     public static function index() {
@@ -21,7 +21,7 @@ class ItemController {
         echo View::render("view/layout.php", $items, false);
     }
 
-    public static function login_page() {
+    public static function login() {
         echo View::render("view/login_page.php", null, false);
     }
 
@@ -50,9 +50,9 @@ class ItemController {
         echo View::render("view/wip.php", null, false);
     }
 
-    public static function login() {
-        $data = filter_input_array(INPUT_POST, self::getLoginRules());
-        require('actions/login.php');
+    public static function logout() {
+        session_destroy();
+        View::redirect(BASE_URL);
     }
     public static function logout() {
         session_destroy();

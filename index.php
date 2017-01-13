@@ -65,7 +65,7 @@ $urls = [
         if ($method == "POST") {
             AdminController::edit_seller($id);
         } else {
-            AdminController::edit_seller($id);
+            AdminController::edit_seller_page($id);
         }
     },
     "/^admin\/add$/" => function($method) {

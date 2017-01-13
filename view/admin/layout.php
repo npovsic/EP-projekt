@@ -80,7 +80,7 @@
                     <td></td>
                     <td class="actions text-center text-middle" data-th="add">
                         <form action="admin/add" method="get">
-                            <a class="btn btn-success btn-sm" href="'.ADMIN_URL.'add"><i class="fa fa-plus"></i></a>
+                            <a class="btn btn-success btn-sm" href="<?php echo ADMIN_URL ?>add"><i class="fa fa-plus"></i></a>
                         </form>
                     </td>
                     </tfoot>

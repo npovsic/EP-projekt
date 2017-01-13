@@ -8,27 +8,32 @@ class Controller {
 
 
     public static function index() {
-        $db = InitDB::getInstance();
+        if(isset($_SESSION["admin"])) {
+            View::redirect(BASE_URL . "admin");
+        } else {
+            $db = InitDB::getInstance();
 
-        $sql = "SELECT * FROM articles";
+            $sql = "SELECT * FROM articles";
 
-        $items = array();
+            $items = array();
 
-        foreach ($db->query($sql) as $row) {
-            array_push($items, $row);
+            foreach ($db->query($sql) as $row) {
+                array_push($items, $row);
+            }
+
+            echo View::render("view/layout.php", $items, false);
         }
-
-        echo View::render("view/layout.php", $items, false);
     }
 
     public static function login() {
-        echo View::render("view/login_page.php", null, false);
+        require('actions/login.php');
+//        echo View::render("view/login_page.php", null, false);
     }
 
     public static function details_page($id) {
         $db = InitDB::getInstance();
 
-        $sql = "SELECT * FROM articles WHERE article_id=".$id;
+        $sql = "SELECT * FROM articles WHERE id_article=".$id;
 
         $sth = $db->prepare($sql);
         $sth->execute();

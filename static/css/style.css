@@ -130,7 +130,6 @@ span.one-line-span {
     color: #ddd;
 }
 
-
 /* Details page*/
 .details-wrapper {
     padding: 50px;
@@ -250,6 +249,11 @@ span.one-line-span {
         margin: 0 50px 0 0;
     }
 
+    /* Admin */
+    .admin_login {
+        margin: 0;
+    }
+
     /* Details page */
     .details_add_to_cart {
         width: 50%;
@@ -306,6 +310,11 @@ span.one-line-span {
         margin: 0 150px 0 0;
     }
 
+    /* Admin */
+    .admin_login {
+        margin: 0;
+    }
+
     /* Details page*/
     .details_add_to_cart {
         position: relative;
@@ -317,4 +326,23 @@ span.one-line-span {
         width: 28vw;
     }
 
+}
+
+
+/* Admin */
+.admin_btn {
+    background-color: #f9a139;
+}
+
+.navbar_admin {
+    background-color: #f9a139;
+    border-color: #f9a139;
+}
+
+.navbar_admin .navbar-nav > li > a {
+    color: #fff;
+}
+
+.navbar_admin .navbar-header > a {
+    color: #fff;
 }

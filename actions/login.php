@@ -9,6 +9,13 @@ if (isset($_POST["uname"]) && isset($_POST["password"])) {
         if (DBUsers::login($_POST["uname"], $_POST["password"])) {
             session_regenerate_id(true);
             $_SESSION["logged_in"] = true;
+            $_SESSION["type"] = "user";
+            $_SESSION["username"] = $_POST["uname"];
+            View::redirect(BASE_URL);
+        } else if (DBSellers::login($_POST["uname"], $_POST["password"])) {
+            session_regenerate_id(true);
+            $_SESSION["logged_in"] = true;
+            $_SESSION["type"] = "seller";
             $_SESSION["username"] = $_POST["uname"];
             View::redirect(BASE_URL);
         } else {

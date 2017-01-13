@@ -15,7 +15,7 @@
             </ul>
             <ul class="nav navbar-nav pull-right">
                 <?php
-                if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true && isset($_SESSION['admin'])) {
                     ?>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $_SESSION["admin"] ?>

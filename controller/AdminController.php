@@ -17,14 +17,14 @@ class AdminController {
             array_push($items, $row);
         }
 
-        echo View::render("view/layout.php", $items, false);
+        echo View::render("view/admin/layout.php", $items, false);
     }
 
     public static function login() {
         if(isset($_SESSION["admin"])) {
             $db = InitDB::getInstance();
 
-            $sql = "SELECT * FROM articles";
+            $sql = "SELECT * FROM sellers";
 
             $items = array();
 

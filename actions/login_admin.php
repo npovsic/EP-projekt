@@ -11,15 +11,7 @@ if (isset($_POST["uadmin"]) && isset($_POST["password"])) {
             $_SESSION["logged_in"] = true;
             $_SESSION["admin"] = $_POST["uadmin"];
 
-            $db = InitDB::getInstance();
-
-            $sql = "SELECT * FROM articles";
-
-            $items = array();
-
-            foreach ($db->query($sql) as $row) {
-                array_push($items, $row);
-            }
+            $items = DBSellers::getSellers();
 
             echo View::render("view/admin/layout.php", $items, false);
         } else {

@@ -11,21 +11,21 @@
     <div class="container">
         <div class="wrapper">
             <div class="row active-with-click">
+                <table id="cart" class="table table-condensed">
+                    <thead>
+                    <tr>
+                        <th class="text-center text-middle">Ime</th>
+                        <th class="text-center text-middle">Uporabniško ime</th>
+                        <th class="text-center text-middle">Elektronska pošta</th>
+                        <th class="text-center text-middle">Naslov</th>
+                        <th class="text-center text-middle">Aktiven</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
                 <?php
                     foreach ($variables as $item) {
                         echo ' 
-                        <table id="cart" class="table table-condensed">
-                            <thead>
-                            <tr>
-                                <th class="text-center text-middle">Ime</th>
-                                <th class="text-center text-middle">Uporabniško ime</th>
-                                <th class="text-center text-middle">Elektronska pošta</th>
-                                <th class="text-center text-middle">Naslov</th>
-                                <th class="text-center text-middle">Aktiven</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
                             <tr>
                                 <td class="text-center text-middle" data-th="name">
                                     <div class="row">
@@ -64,27 +64,27 @@
                                 </td>
                                 <td class="actions text-center text-middle" data-th="edit">
                                     <form action="cart/delete" method="get">
-                                        <a class="btn btn-sm" href="'.ADMIN_URL.'edit"><i class="fa fa-edit"></i></a>
+                                        <a class="btn btn-info btn-sm" href="'.ADMIN_URL.'edit/'.$item['id_seller'].'"><i class="fa fa-edit"></i></a>
                                     </form>
                                 </td>
                             </tr>
-                            </tbody>
-                            <tfoot>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td class="actions text-center text-middle" data-th="add">
-                                    <form action="admin/add" method="get">
-                                        <a class="btn btn-success btn-sm" href="'.ADMIN_URL.'add"><i class="fa fa-plus"></i></a>
-                                    </form>
-                                </td>
-                            </tfoot>
-                        </table>
                         ';
                     }
                 ?>
+                    </tbody>
+                    <tfoot>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="actions text-center text-middle" data-th="add">
+                        <form action="admin/add" method="get">
+                            <a class="btn btn-success btn-sm" href="<?php echo ADMIN_URL ?>add"><i class="fa fa-plus"></i></a>
+                        </form>
+                    </td>
+                    </tfoot>
+                </table>
             </div>
         </div>
 

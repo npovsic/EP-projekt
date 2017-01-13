@@ -2,6 +2,7 @@
 
 require_once("View.php");
 require_once("sql/InitDB.php");
+require_once("sql/DBArticles.php");
 
 
 class Controller {
@@ -11,16 +12,7 @@ class Controller {
         if(isset($_SESSION["admin"])) {
             View::redirect(BASE_URL . "admin");
         } else {
-            $db = InitDB::getInstance();
-
-            $sql = "SELECT * FROM articles";
-
-            $items = array();
-
-            foreach ($db->query($sql) as $row) {
-                array_push($items, $row);
-            }
-
+            $items = DBArticles::getArticles();
             echo View::render("view/layout.php", $items, false);
         }
     }

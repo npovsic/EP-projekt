@@ -7,14 +7,14 @@
     ?>
 </head>
 <body>
-    <?php include "view/partials/navigation.php"; ?>
+    <?php include "view/partials/navigation_admin.php"; ?>
     <div class="container">
         <div class="wrapper">
             <div class="row active-with-click">
                 <?php
                     foreach ($variables as $item) {
                         echo '<div class="col-md-4 col-sm-6 col-xs-12">
-                                <article class="material-card Blue-Grey">
+                                <article class="material-card Orange">
                                     <h2>
                                         <span class="one-line-span">'.$item['name'].'</span>
                                         <strong class="info-left">'.$item['weight'].'g</strong>
@@ -57,8 +57,6 @@
         </div>
 
     </div>
-
-    <?php include("view/partials/footer.php") ?>
 
 </body>
 </html>

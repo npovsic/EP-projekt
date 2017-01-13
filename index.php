@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+require_once("controller/AdminController.php");
 require_once("controller/Controller.php");
 require_once("controller/APIController.php");
 
@@ -54,7 +55,12 @@ $urls = [
     },
     "/api\/article\/(\d+)$/" => function($method, $id = null) {
         APIController::get_article($id);
-    }
+    },
+
+    # ADMIN
+    "/admin/" => function() {
+        AdminController::login();
+    },
 ];
 
 foreach ($urls as $pattern => $controller) {

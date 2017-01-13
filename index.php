@@ -1,7 +1,9 @@
 <?php
 session_start();
 
+require_once("controller/AdminController.php");
 require_once("controller/Controller.php");
+require_once("controller/APIController.php");
 
 define("BASE_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php"));
 define("ITEM_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "article/");
@@ -9,6 +11,7 @@ define("IMAGES_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/image
 define("CSS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/css/");
 define("JS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/js/");
 define("DOCUMENT_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "sql/");
+define("ADMIN_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "admin/");
 
 $path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
 
@@ -28,7 +31,6 @@ $urls = [
             Controller::register();
         } else {
             Controller::login_page();
-
         }
     },
     "/^article\/(\d+)$/" => function($method, $id = null) {
@@ -45,8 +47,34 @@ $urls = [
     },
     "/wip/" => function() {
         Controller::wip();
-    }
-    # REST API
+    },
+
+    # API calls
+    "/api\/articles$/" => function() {
+        APIController::index();
+    },
+    "/api\/article\/(\d+)$/" => function($method, $id = null) {
+        APIController::get_article($id);
+    },
+
+    # ADMIN
+    "/^admin$/" => function() {
+        AdminController::login();
+    },
+    "/^admin\/edit\/(\d+)$/" => function($method, $id = null) {
+        if ($method == "POST") {
+            AdminController::edit_seller($id);
+        } else {
+            AdminController::edit_seller_page($id);
+        }
+    },
+    "/^admin\/add$/" => function($method) {
+        if ($method == "POST") {
+            AdminController::add_seller();
+        } else {
+            AdminController::add_seller_page();
+        }
+    },
 ];
 
 foreach ($urls as $pattern => $controller) {

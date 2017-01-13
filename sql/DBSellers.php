@@ -1,7 +1,5 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'].DOCUMENT_URL.'InitDB.php';
-
 class DBSellers {
 
     public static function login($uname, $password) {

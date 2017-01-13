@@ -62,14 +62,24 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="actions text-center text-middle" data-th="">
-                                    <form action="cart/delete" method="post">
-                                        <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></button>
+                                <td class="actions text-center text-middle" data-th="edit">
+                                    <form action="cart/delete" method="get">
+                                        <a class="btn btn-sm" href="'.ADMIN_URL.'edit"><i class="fa fa-edit"></i></a>
                                     </form>
                                 </td>
                             </tr>
                             </tbody>
                             <tfoot>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="actions text-center text-middle" data-th="add">
+                                    <form action="admin/add" method="get">
+                                        <a class="btn btn-success btn-sm" href="'.ADMIN_URL.'add"><i class="fa fa-plus"></i></a>
+                                    </form>
+                                </td>
                             </tfoot>
                         </table>
                         ';

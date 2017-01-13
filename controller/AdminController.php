@@ -2,41 +2,40 @@
 
 require_once("View.php");
 require_once("sql/InitDB.php");
+require_once("sql/DBSellers.php");
 
 
 class AdminController {
 
     public static function index() {
-        $db = InitDB::getInstance();
 
-        $sql = "SELECT * FROM sellers";
-
-        $items = array();
-
-        foreach ($db->query($sql) as $row) {
-            array_push($items, $row);
-        }
-
-        echo View::render("view/admin/layout.php", $items, false);
     }
 
     public static function login() {
         if(isset($_SESSION["admin"])) {
-            $db = InitDB::getInstance();
-
-            $sql = "SELECT * FROM sellers";
-
-            $items = array();
-
-            foreach ($db->query($sql) as $row) {
-                array_push($items, $row);
-            }
-
+            $items = DBSellers::getSellers();
             echo View::render("view/admin/layout.php", $items, false);
         } else {
             require('actions/login_admin.php');
         }
     }
+
+    public static function add_seller_page() {
+        if(isset($_SESSION["admin"])) {
+            echo View::render("view/admin/add_seller.php", null, false);
+        } else {
+            require('actions/login_admin.php');
+        }
+    }
+
+    public static function add_seller() {
+        if(isset($_SESSION["admin"])) {
+            require('actions/add_seller.php');
+        } else {
+            require('actions/login_admin.php');
+        }
+    }
+
 
 
     private static function getLoginRules() {

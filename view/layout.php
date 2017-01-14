@@ -13,25 +13,57 @@
             <div class="row active-with-click">
                 <?php
                     foreach ($variables as $item) {
-                        echo '<div class="col-md-4 col-sm-6 col-xs-12">
-                                <article class="material-card Blue-Grey">
-                                    <h2>
-                                        <span class="one-line-span">'.$item['name'].'</span>
-                                        <strong class="info-left">'.$item['weight'].'g</strong>
-                                        <strong class="info-right">'.$item['price'].'€</strong>
-                                    </h2>
-            
-                                    <div class="mc-content">
-                                        <div class="img-container">
-                                            <img class="img-responsive" src="'.IMAGES_URL.$item['picture'].'.jpg">
-                                        </div>
+                        ?>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <article class="material-card Blue-Grey">
+                                <h2>
+                                    <span class="one-line-span"><?php echo $item['name'] ?></span>
+                                    <strong class="info-left"><?php echo $item['weight'] ?>g</strong>
+                                    <strong class="info-right"><?php echo $item['price'] ?>€</strong>
+                                </h2>
+        
+                                <div class="mc-content">
+                                    <div class="img-container">
+                                        <img class="img-responsive" src="<?php echo IMAGES_URL.$item['picture']?>.jpg">
                                     </div>
-                                    <a href="'.ITEM_URL.$item['id_article'].'" class="mc-btn-action">
-                                        <i class="fa fa-info-circle"></i>
-                                    </a>
-                                </article>
-                            </div>
-                        ';
+                                </div>
+                                <a href="<?php echo ITEM_URL.$item['id_article'] ?>" class="mc-btn-action">
+                                    <i class="fa fa-info-circle"></i>
+                                </a>
+                                <?php if($item['rating_count'] > 0){ ?>
+                                <div class='artikel_choice'>
+                                    <div id="r2" class="rate_widget">
+                                        <?php if($item['rating_sum']/$item['rating_count'] >= 1){ ?>
+                                        <div class="star_1 ratings_vote"></div>
+                                        <?php } else{ ?>
+                                        <div class="star_1 ratings_stars"></div>
+                                        <?php } ?>                                        
+                                        <?php if($item['rating_sum']/$item['rating_count'] >= 2){ ?>
+                                        <div class="star_2 ratings_vote"></div>
+                                        <?php } else{ ?>
+                                        <div class="star_2 ratings_stars"></div>
+                                        <?php } ?>                                          
+                                        <?php if($item['rating_sum']/$item['rating_count'] >= 3){ ?>
+                                        <div class="star_3 ratings_vote"></div>
+                                        <?php } else{ ?>
+                                        <div class="star_3 ratings_stars"></div>
+                                        <?php } ?>                                          
+                                        <?php if($item['rating_sum']/$item['rating_count'] >= 4){ ?>
+                                        <div class="star_4 ratings_vote"></div>
+                                        <?php } else{ ?>
+                                        <div class="star_4 ratings_stars"></div>
+                                        <?php } ?>                                          
+                                        <?php if($item['rating_sum']/$item['rating_count'] >= 5){ ?>
+                                        <div class="star_5 ratings_vote"></div>
+                                        <?php } else{ ?>
+                                        <div class="star_5 ratings_stars"></div>
+                                        <?php } ?>                                      
+                                    </div>
+                                </div>
+                                <?php } ?>
+                            </article>
+                        </div>
+                <?php                   
                     }
                 ?>
 <!--                <div class="col-md-4 col-sm-6 col-xs-12">-->

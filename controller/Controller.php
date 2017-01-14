@@ -22,6 +22,22 @@ class Controller {
 //        echo View::render("view/login_page.php", null, false);
     }
 
+    public static function oceni($id) {
+        echo "string";
+        $db = InitDB::getInstance();
+        $ocena = $_POST['ocena'];
+        $id = $_POST['id'];        
+
+        $sql = "UPDATE articles SET rating_sum = rating_sum + ".$ocena.", rating_count = rating_count + 1 WHERE id_article=".$id;
+
+        $sth = $db->prepare($sql);
+        $sth->execute();
+
+        $result = $sth->fetchAll();
+
+        echo View::render("view/article_details.php", $result[0], true);
+    }
+
     public static function details_page($id) {
         $db = InitDB::getInstance();
 
@@ -34,7 +50,6 @@ class Controller {
 
         echo View::render("view/article_details.php", $result[0], true);
     }
-
     public static function cart() {
         echo View::render("view/cart_page.php", null, false);
     }

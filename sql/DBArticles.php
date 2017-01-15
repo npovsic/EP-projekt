@@ -11,12 +11,12 @@ class DBArticles {
 
     public static function getArticle($id) {
         $db = InitDB::getInstance();
-        $stmt = $db->prepare("SELECT COUNT(id_article) FROM articles WHERE "
+        $stmt = $db->prepare("SELECT * FROM articles WHERE "
             . "id_article = ?");
         $stmt->bindValue(1, $id);
         $stmt->execute();
 
-        return $stmt->fetchColumn(0) == 1;
+        return $stmt->fetchAll();
     }
 
 }

@@ -23,15 +23,7 @@ class Controller {
     }
 
     public static function details_page($id) {
-        $db = InitDB::getInstance();
-
-        $sql = "SELECT * FROM articles WHERE id_article=".$id;
-
-        $sth = $db->prepare($sql);
-        $sth->execute();
-
-        $result = $sth->fetchAll();
-
+        $result = DBArticles::getArticle($id);
         echo View::render("view/article_details.php", $result[0], true);
     }
 

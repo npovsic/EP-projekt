@@ -22,18 +22,12 @@ class Controller {
 //        echo View::render("view/login_page.php", null, false);
     }
 
-    public static function oceni($id) {
+    public static function rate() {
         echo "string";
-        $db = InitDB::getInstance();
-        $ocena = $_POST['ocena'];
-        $id = $_POST['id'];        
+        $rating = $_POST['rating_value'];
+        $id = $_POST['id'];
 
-        $sql = "UPDATE articles SET rating_sum = rating_sum + ".$ocena.", rating_count = rating_count + 1 WHERE id_article=".$id;
-
-        $sth = $db->prepare($sql);
-        $sth->execute();
-
-        $result = $sth->fetchAll();
+        $result = DBArticles::rateArticle($id, $rating);
 
         echo View::render("view/article_details.php", $result[0], true);
     }

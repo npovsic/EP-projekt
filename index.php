@@ -45,10 +45,15 @@ $urls = [
     "/checkout$/" => function($method) {
         Controller::checkout();
     },
+    "/^article\/oceni$/" => function($method, $id = null) {
+        Controller::oceni($id);
+    },
     "/wip/" => function() {
         Controller::wip();
     },
-
+    "/^rate\/(\d+)$/" => function($method, $id = null) {
+        Controller::rate_page($id);
+    },
     # API calls
     "/api\/articles$/" => function() {
         APIController::index();

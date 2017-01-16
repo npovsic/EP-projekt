@@ -346,3 +346,32 @@ span.one-line-span {
 .navbar_admin .navbar-header > a {
     color: #fff;
 }
+
+/* Rate Widget */
+.rate_widget {
+    overflow:   visible;
+    z-index: 3;
+    padding-left: 20px;
+    padding-top:  10px;
+    position:   relative;
+    width:      250px;
+    height:     32px;
+}
+
+.ratings_stars {
+    background: url('../images/star_empty.png') no-repeat;
+    float:      left;
+    height:     28px;
+    padding:    3px;
+    width:      32px;
+}
+.ratings_vote {
+    background: url('../images/star_highlight.png') no-repeat;
+    float:      left;
+    height:     28px;
+    padding:    3px;
+    width:      32px;
+}
+.ratings_over {
+    background: url('../images/star_highlight.png') no-repeat;
+}

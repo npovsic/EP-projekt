@@ -1,3 +1,26 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 'on');
+require_once $_SERVER['DOCUMENT_ROOT'].'/sql/DBUsers.php';
+$failedAttempt = false;
+
+if (isset($_POST["uname"]) && isset($_POST["password"])) {
+    try {
+        if (DBUsers::login($_POST["uname"], $_POST["password"])) {
+            session_regenerate_id(true);
+            $_SESSION["logged_in"] = true;
+            $_SESSION["username"] = $_POST["uname"];
+            View::redirect(BASE_URL);
+        } else {
+            $failedAttempt = true;
+        }
+    } catch (Exception $exc) {
+        echo $exc->getMessage();
+        exit(-1);
+    }
+} 
+?>
+
 <html>
     <head>
         <?php
@@ -10,7 +33,7 @@
 
         <div class="container top-padding-50px">
                 <div id="login_wrapper">
-                    <form class="login_form top" method="post" action="login">
+                    <form class="login_form top" method="post" action="<?= $_SERVER["PHP_SELF"] ?>">
                         <h2>Prijava</h2><br>
                         <label class="align-left">Uporabniško ime<br><input class="input-modern" type="text" name="uname" ></label><br>
                         <label class="align-left">Geslo<br><input class="input-modern" type="password" name="password"></label><br>

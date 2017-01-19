@@ -2,7 +2,7 @@ $(document).ready(function(){
 	console.log('Document ready.');
 	$("#rating").on('submit',function(e){
 		e.preventDefault();
-		console.log(id_article, parseInt($('input[name=ocena]:checked', '#rating').val()));
+		console.log(id_article, $('input[name=ocena]:checked', '#rating').val());
 
 		$.ajax({
 			type: "POST",
@@ -13,8 +13,8 @@ $(document).ready(function(){
 			},
 			cache: false,
 			success: function(rating){
-				console.log('Success.');
-			},
+                location.reload();
+            },
 			error: function(err) {
 				console.log('Error occured.', err);
 			}

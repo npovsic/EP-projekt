@@ -23,18 +23,22 @@ class Controller {
     }
 
     public static function rate() {
-        echo "string";
         $rating = $_POST['rating_value'];
         $id = $_POST['id'];
 
-        $result = DBArticles::rateArticle($id, $rating);
-
-        echo View::render("view/article_details.php", $result[0], true);
+        DBArticles::rateArticle($id, $rating);
     }
 
     public static function details_page($id) {
         $result = DBArticles::getArticle($id);
-        echo View::render("view/article_details.php", $result[0], true);
+
+        $alreadyRated = false;
+
+        if (isset($_SESSION["username"])) {
+            $alreadyRated = DBArticles::didUserRateProduct($_SESSION["username"], $id);
+        }
+
+        echo View::render("view/article_details.php", ["result" => $result[0], "alreadyRated" => $alreadyRated], true);
     }
     public static function cart() {
         echo View::render("view/cart_page.php", null, false);

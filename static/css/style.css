@@ -160,6 +160,16 @@ span.one-line-span {
     height: 200px;
 }
 
+.article-info > h1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#rating > label {
+    margin-top: 3px;
+}
+
 /* Search */
 .search-list-item {
     margin-left: 20px;

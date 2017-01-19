@@ -87,14 +87,14 @@ $urls = [
     },
     "/^seller\/edit\/(\d+)$/" => function($method, $id = null) {
         if ($method == "POST") {
-
+            SellerController::edit_article($id);
         } else {
             SellerController::edit_article_page($id);
         }
     },
     "/^seller\/add$/" => function($method) {
         if ($method == "POST") {
-
+            SellerController::add_article();
         } else {
             SellerController::add_article_page();
         }

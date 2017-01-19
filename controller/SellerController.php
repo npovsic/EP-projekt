@@ -25,10 +25,24 @@ class SellerController {
             View::redirect(BASE_URL);
         }
     }
+    public static function edit_article($id) {
+        if(isset($_SESSION["seller"])) {
+
+        } else {
+            View::redirect(BASE_URL);
+        }
+    }
 
     public static function add_article_page() {
         if(isset($_SESSION["seller"])) {
             echo View::render("view/seller/add_article.php", null, false);
+        } else {
+            View::redirect(BASE_URL);
+        }
+    }
+    public static function add_article() {
+        if(isset($_SESSION["seller"])) {
+
         } else {
             View::redirect(BASE_URL);
         }

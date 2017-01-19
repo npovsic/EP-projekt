@@ -29,6 +29,19 @@ class DBArticles {
         return $stmt->fetch();
     }
 
+    public static function addArticle() {
+        $db = InitDB::getInstance();
+        $stmt = $db->prepare("INSERT");
+        $stmt->execute();
+    }
+
+    public static function editArticle($id) {
+        $db = InitDB::getInstance();
+        $stmt = $db->prepare("UPDATE");
+        $stmt->bindValue(1, $id);
+        $stmt->execute();
+    }
+
     public static function rateArticle($id, $rating) {
         $db = InitDB::getInstance();
 

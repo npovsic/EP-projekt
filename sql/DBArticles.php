@@ -11,12 +11,22 @@ class DBArticles {
 
     public static function getArticle($id) {
         $db = InitDB::getInstance();
-        $stmt = $db->prepare("SELECT COUNT(id_article) FROM articles WHERE "
+        $stmt = $db->prepare("SELECT * FROM articles WHERE "
             . "id_article = ?");
         $stmt->bindValue(1, $id);
         $stmt->execute();
 
-        return $stmt->fetchColumn(0) == 1;
+        return $stmt->fetchAll();
+    }
+
+    public static function rateArticle($id, $rating) {
+        $db = InitDB::getInstance();
+        $stmt = $db->prepare("UPDATE articles SET rating_sum = rating_sum + ?, rating_count = rating_count + 1 WHERE id_article= ?");
+        $stmt->bindValue(1, $rating);
+        $stmt->bindValue(2, $id);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
     }
 
 }

@@ -1,19 +1,24 @@
 $(document).ready(function(){
-	$("#ocena_proteina").on('submit',function(e){
+	console.log('Document ready.');
+	$("#rating").on('submit',function(e){
 		e.preventDefault();
-		//console.log(id_article, parseInt($('input[name=ocena]:checked', '#ocena_proteina').val()));
-		
+		console.log(id_article, parseInt($('input[name=ocena]:checked', '#rating').val()));
+
 		$.ajax({
 			type: "POST",
-			url: "/article/oceni",
+			url: "rate",
 			data: {
 				id : id_article,
-				ocena : parseInt($('input[name=ocena]:checked', '#ocena_proteina').val()),
+				rating_value : parseInt($('input[name=rate]:checked', '#rating').val())
 			},
 			cache: false,
-			success: function(ocena){
+			success: function(rating){
+				console.log('Success.');
+			},
+			error: function(err) {
+				console.log('Error occured.', err);
 			}
 		});
-		
+
 	});
 });

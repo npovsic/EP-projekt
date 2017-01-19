@@ -9,6 +9,16 @@ class DBArticles {
         return $stmt->fetchAll();
     }
 
+    public static function getArticlesFromSeller($username) {
+        $db = InitDB::getInstance();
+        $stmt = $db->prepare("SELECT * FROM articles JOIN sellers USING(id_seller) WHERE "
+            . "username = ?");
+        $stmt->bindValue(1, $username);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
     public static function getArticle($id) {
         $db = InitDB::getInstance();
         $stmt = $db->prepare("SELECT * FROM articles JOIN sellers USING(id_seller) WHERE "
@@ -16,7 +26,7 @@ class DBArticles {
         $stmt->bindValue(1, $id);
         $stmt->execute();
 
-        return $stmt->fetchAll();
+        return $stmt->fetch();
     }
 
     public static function rateArticle($id, $rating) {

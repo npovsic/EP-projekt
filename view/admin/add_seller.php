@@ -2,7 +2,7 @@
 <html>
 <head>
     <?php
-    $title = "E-Store";
+    $title = "E-Store - Dodaj prodajalca";
     include "view/partials/head.php";
     ?>
 </head>

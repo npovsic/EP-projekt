@@ -11,7 +11,10 @@ class Controller {
     public static function index() {
         if(isset($_SESSION["admin"])) {
             View::redirect(BASE_URL . "admin");
-        } else {
+        } else if(isset($_SESSION["seller"])) {
+            View::redirect(BASE_URL . "seller");
+        }
+        else {
             $items = DBArticles::getArticles();
             echo View::render("view/layout.php", $items, false);
         }
@@ -38,7 +41,7 @@ class Controller {
             $alreadyRated = DBArticles::didUserRateProduct($_SESSION["username"], $id);
         }
 
-        echo View::render("view/article_details.php", ["result" => $result[0], "alreadyRated" => $alreadyRated], true);
+        echo View::render("view/article_details.php", ["result" => $result, "alreadyRated" => $alreadyRated], true);
     }
     public static function cart() {
         echo View::render("view/cart_page.php", null, false);

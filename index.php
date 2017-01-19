@@ -2,6 +2,7 @@
 session_start();
 
 require_once("controller/AdminController.php");
+require_once("controller/SellerController.php");
 require_once("controller/Controller.php");
 require_once("controller/APIController.php");
 
@@ -12,6 +13,7 @@ define("CSS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/css/");
 define("JS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/js/");
 define("DOCUMENT_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "sql/");
 define("ADMIN_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "admin/");
+define("SELLER_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "seller/");
 
 $path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
 
@@ -76,6 +78,25 @@ $urls = [
             AdminController::add_seller();
         } else {
             AdminController::add_seller_page();
+        }
+    },
+
+    # SELLER
+    "/^seller$/" => function() {
+        SellerController::index();
+    },
+    "/^seller\/edit\/(\d+)$/" => function($method, $id = null) {
+        if ($method == "POST") {
+
+        } else {
+            SellerController::edit_article_page($id);
+        }
+    },
+    "/^seller\/add$/" => function($method) {
+        if ($method == "POST") {
+
+        } else {
+            SellerController::add_article_page();
         }
     },
 ];

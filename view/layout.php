@@ -11,6 +11,7 @@
     <div class="container">
         <div class="wrapper">
             <div class="row active-with-click">
+
                 <?php
                     foreach ($variables as $item) {
                         ?>

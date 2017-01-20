@@ -45,6 +45,9 @@ $(document).ready(function(){
             if (isset($failedAttempt) && $failedAttempt) {
                 echo "<p class='wrong-credentials'>Napačno uporabniško ime ali geslo.</p>";
             }
+            if (isset($failedActivation) && $failedActivation) {
+                echo "<p class='wrong-credentials'>Uporabniški račun ni aktiviran.</p>";
+            }
             ?>
         </form>
         <form class="login_form" method="post" action="register">

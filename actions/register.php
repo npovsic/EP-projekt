@@ -6,6 +6,8 @@ require_once $_SERVER['DOCUMENT_ROOT'].DOCUMENT_URL.'DBUsers.php';
 $failedAttemptRegistration = false;
 $successAttemptRegistration = false;
 $failedCaptchaRegistration = false;
+$successActivationRegistration = false;
+
 
 if(isset($_POST["captcha"])&&$_POST["captcha"]!=""&&$_SESSION["code"]==$_POST["captcha"]){
 	if (!empty($_POST["username"]) && !empty($_POST["password"]) && !empty($_POST['first_name'])

@@ -33,9 +33,10 @@ $urls = [
             Controller::login_page();
         }
     },
-    "/^register\/activate.*/" => function($method, $id = null) {
+    "/^register\/activate.*/" => function($method, $id = null, $token = null) {
         $id = $_GET['user'];
-        Controller::activation($id);
+        $token = $_GET['token'];        
+        Controller::activation($id, $token);
     },
     "/^article\/(\d+)$/" => function($method, $id = null) {
         Controller::details_page($id);

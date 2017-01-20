@@ -37,9 +37,10 @@ class Controller {
         $result = DBArticles::getArticle($id);
         echo View::render("view/article_details.php", $result[0], true);
     }
-    public static function activation($id) {
-        $result = DBUsers::activateUser($id);
-        View::redirect("/login");    
+
+    public static function activation($id, $token) {
+        $result = DBUsers::activateUser($id, $token);
+        View::redirect("/login");
     }
 
     public static function cart() {

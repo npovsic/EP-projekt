@@ -15,11 +15,22 @@ class DBUsers {
 
         return $stmt->fetchColumn(0) == 1;
     }
+    public static function checkActivation($uname, $password) {
+        $db = InitDB::getInstance();
+        $stmt = $db->prepare("SELECT COUNT(id_user) FROM users WHERE "
+                . "username = ? AND password = ? AND status = 1");
+        $stmt->bindValue(1, $uname);
+        $stmt->bindValue(2, $password);
+        $stmt->execute();
+
+        return $stmt->fetchColumn(0) == 1;
+    }
     public static function register($uname, $password, $first_name, $last_name, 
         $address, $email, $city, $country) {
         $db = InitDB::getInstance();
+        $token = rand(1000,9999);
         $stmt = $db->prepare("INSERT INTO users (username, password, first_name, last_name, " 
-        . "address, email, city, country) VALUES (?,?,?,?,?,?,?,?)");
+        . "address, email, city, country, token) VALUES (?,?,?,?,?,?,?,?,?)");
         $stmt->bindValue(1, $uname);
         $stmt->bindValue(2, $password);
         $stmt->bindValue(3, $first_name);
@@ -27,9 +38,10 @@ class DBUsers {
         $stmt->bindValue(5, $address);
         $stmt->bindValue(6, $email);
         $stmt->bindValue(7, $city);
-        $stmt->bindValue(8, $country);        
+        $stmt->bindValue(8, $country); 
+        $stmt->bindValue(9, $token);        
         $stmt->execute();
-        $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"."/activate/" . $uname;
+        $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"."/activate?user=" . $uname . "&token=" . $token;
         $toEmail = $email;
         $subject = "User Registration Activation Email";
         $content = "Click this link to activate your account: " . $actual_link ;
@@ -49,10 +61,11 @@ class DBUsers {
 
         return $stmt->fetchColumn(0) == 0;
     }
-    public static function activateUser($id) {
+    public static function activateUser($id, $token) {
         $db = InitDB::getInstance();
-        $stmt = $db->prepare("UPDATE users SET status = 1 WHERE username = ?");
+        $stmt = $db->prepare("UPDATE users SET status = 1 WHERE username = ? AND token = ?");
         $stmt->bindValue(1, $id);
+        $stmt->bindValue(2, $token);        
         $stmt->execute();
 
         if(!empty($result)) {

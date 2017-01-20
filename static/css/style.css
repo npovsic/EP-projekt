@@ -37,6 +37,7 @@ input:focus {
 
 .wrapper {
     padding: 5%;
+    padding-top: 50px;
 }
 
 .img-container {
@@ -90,6 +91,7 @@ span.one-line-span {
     color: #fff;
     height: 40px;
     transition: ease all 0.35s;
+    white-space: nowrap;
 }
 
 .btn-modern-medium {
@@ -108,12 +110,42 @@ span.one-line-span {
     padding: 10px;
     text-align: center;
     transition: ease all 0.35s;
+    white-space: nowrap;
 }
 
 .btn-modern-link:hover {
     background-color: #263238;
     color: #fff;
     text-decoration: none;
+}
+
+/* Rate Widget */
+.rate_widget {
+    overflow:   visible;
+    z-index: 3;
+    padding-left: 20px;
+    padding-top:  10px;
+    position:   relative;
+    width:      250px;
+    height:     32px;
+}
+
+.ratings_stars {
+    background: url('../images/rating/empty_star.png') no-repeat;
+    float:      left;
+    height:     28px;
+    padding:    3px;
+    width:      32px;
+}
+.ratings_vote {
+    background: url('../images/rating/full_star.png') no-repeat;
+    float:      left;
+    height:     28px;
+    padding:    3px;
+    width:      32px;
+}
+.ratings_over {
+    background: url('../images/rating/full_star.png') no-repeat;
 }
 
 /* Navigation */
@@ -158,6 +190,16 @@ span.one-line-span {
 
 .article-info {
     height: 200px;
+}
+
+.article-info > h1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#rating > label {
+    margin-top: 3px;
 }
 
 /* Search */
@@ -347,34 +389,30 @@ span.one-line-span {
     color: #fff;
 }
 
-/* Rate Widget */
-.rate_widget {
-    overflow:   visible;
-    z-index: 3;
-    padding-left: 20px;
-    padding-top:  10px;
-    position:   relative;
-    width:      250px;
-    height:     32px;
+
+/* Seller */
+.seller_btn {
+    background-color: #4caf50;
 }
 
-.ratings_stars {
-    background: url('../images/rating/empty_star.png') no-repeat;
-    float:      left;
-    height:     28px;
-    padding:    3px;
-    width:      32px;
+.navbar_seller {
+    background-color: #4caf50;
+    border-color: #4caf50;
 }
-.ratings_vote {
-    background: url('../images/rating/full_star.png') no-repeat;
-    float:      left;
-    height:     28px;
-    padding:    3px;
-    width:      32px;
+
+.navbar_seller .navbar-nav > li > a {
+    color: #fff;
 }
+
+.navbar_seller .navbar-header > a {
+    color: #fff;
+}
+
+
 .ratings_over {
     background: url('../images/rating/full_star.png') no-repeat;
 }
+
 .inputcaptcha{
     width: 120px !important;
     float: left;

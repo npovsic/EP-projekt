@@ -22,9 +22,8 @@ if (isset($_POST["uname"]) && isset($_POST["password"])) {
         } else if (DBSellers::login($_POST["uname"], $_POST["password"])) {
             session_regenerate_id(true);
             $_SESSION["logged_in"] = true;
-            $_SESSION["type"] = "seller";
-            $_SESSION["username"] = $_POST["uname"];
-            View::redirect(BASE_URL);
+            $_SESSION["seller"] = $_POST["uname"];
+            View::redirect(BASE_URL . "seller");
         } else {
             $failedAttempt = true;
             echo View::render("view/login_page.php", ["failedAttempt" => $failedAttempt], true);

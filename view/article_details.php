@@ -14,7 +14,7 @@
     <div class="container">
         <div class="details-wrapper">
                 <div class="img-details-container">
-                        <img class="img-responsive" src="<?php echo IMAGES_URL.$result["picture"]?>.jpg" >
+                        <img class="img-responsive" src="<?php echo IMAGES_URL.$result["picture"]?>" >
                 </div>
                 <div class="details_add_to_cart">
                         <div class="article-info">

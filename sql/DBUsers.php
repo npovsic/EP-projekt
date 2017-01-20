@@ -47,7 +47,7 @@ class DBUsers {
         $content = "Click this link to activate your account: " . $actual_link ;
         $mailHeaders = "From: Admin\r\n";
         if(mail($toEmail, $subject, $content, $mailHeaders)) {
-            $message = "You have registered and the activation mail is sent to your email. Click the activation link to activate you account."; 
+            $message = "You have registered and the activation mail is sent to your email. Click the activation link to activate you account.";
         }
         unset($_POST);
         return true;

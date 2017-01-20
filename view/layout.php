@@ -24,7 +24,7 @@
         
                                 <div class="mc-content">
                                     <div class="img-container">
-                                        <img class="img-responsive" src="<?php echo IMAGES_URL.$item['picture']?>.jpg">
+                                        <img class="img-responsive" src="<?php echo IMAGES_URL.$item['picture']?>">
                                     </div>
                                 </div>
                                 <a href="<?php echo ITEM_URL.$item['id_article'] ?>" class="mc-btn-action">

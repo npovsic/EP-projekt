@@ -11,6 +11,7 @@ define("ITEM_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "article/");
 define("IMAGES_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/images/");
 define("CSS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/css/");
 define("JS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/js/");
+define("ACTIONS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "actions/");
 define("DOCUMENT_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "sql/");
 define("ADMIN_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "admin/");
 define("SELLER_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "seller/");
@@ -96,6 +97,9 @@ $urls = [
         } else {
             SellerController::edit_article_page($id);
         }
+    },
+    "/^seller\/delete\/(\d+)$/" => function($method, $id = null) {
+        SellerController::delete_article($id);
     },
     "/^seller\/add$/" => function($method) {
         if ($method == "POST") {

@@ -8,21 +8,23 @@ $failedActivation = false;
 if (isset($_POST["uname"]) && isset($_POST["password"])) {
     try {
         if (DBUsers::login($_POST["uname"], $_POST["password"])) {
-            if (DBUsers::checkActivation($_POST["uname"], $_POST["password"])) {                 
+            if ($id = DBUsers::checkActivation($_POST["uname"], $_POST["password"])) {
                 session_regenerate_id(true);
                 $_SESSION["logged_in"] = true;
                 $_SESSION["type"] = "user";
                 $_SESSION["username"] = $_POST["uname"];
+                $_SESSION["id"] = $id;
                 View::redirect(BASE_URL);
             }
             else{
                 $failedActivation = true;
                 echo View::render("view/login_page.php", ["failedActivation" => $failedActivation], true);    
             }
-        } else if (DBSellers::login($_POST["uname"], $_POST["password"])) {
+        } else if ($id = DBSellers::login($_POST["uname"], $_POST["password"])) {
             session_regenerate_id(true);
             $_SESSION["logged_in"] = true;
             $_SESSION["seller"] = $_POST["uname"];
+            $_SESSION["id"] = $id;
             View::redirect(BASE_URL . "seller");
         } else {
             $failedAttempt = true;

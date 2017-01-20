@@ -24,11 +24,14 @@
 
                             <div class="mc-content">
                                 <div class="img-container">
-                                    <img class="img-responsive" src="<?php echo IMAGES_URL.$item['picture']?>.jpg">
+                                    <img class="img-responsive" src="<?php echo IMAGES_URL.$item['picture']?>">
                                 </div>
                             </div>
                             <a href="<?php echo SELLER_URL."edit/".$item['id_article'] ?>" class="mc-btn-action">
                                 <i class="fa fa-edit"></i>
+                            </a>
+                            <a href="<?php echo SELLER_URL."delete/".$item['id_article'] ?>" class="mc-btn-action top_margin_60px">
+                                <i class="fa fa-trash-o"></i>
                             </a>
                             <?php if($item['rating_count'] > 0){ ?>
                                 <div class='artikel_choice'>

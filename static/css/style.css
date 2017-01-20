@@ -85,6 +85,10 @@ span.one-line-span {
     margin-top: 5px;
 }
 
+.top_margin_60px {
+    margin-top: 60px;
+}
+
 .btn-modern {
     background-color: #607d8b;
     border: none;

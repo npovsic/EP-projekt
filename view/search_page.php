@@ -23,7 +23,7 @@
             
                                     <div class="mc-content">
                                         <div class="img-container">
-                                            <img class="img-responsive" src="'.IMAGES_URL.$item['picture'].'.jpg">
+                                            <img class="img-responsive" src="'.IMAGES_URL.$item['picture'].'">
                                         </div>
                                     </div>
                                     <a href="'.ITEM_URL.$item['article_id'].'" class="mc-btn-action">
@@ -44,7 +44,7 @@
 <!---->
 <!--                        <div class="mc-content">-->
 <!--                            <div class="img-container">-->
-<!--                                <img class="img-responsive" src="--><?php //echo IMAGES_URL . "battery_whey_protein.jpg" ?><!--">-->
+<!--                                <img class="img-responsive" src="--><?php //echo IMAGES_URL . "battery_whey_protein" ?><!--">-->
 <!--                            </div>-->
 <!--                        </div>-->
 <!--                        <a href="" class="mc-btn-action">-->

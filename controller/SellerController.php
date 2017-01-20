@@ -25,9 +25,18 @@ class SellerController {
             View::redirect(BASE_URL);
         }
     }
+
     public static function edit_article($id) {
         if(isset($_SESSION["seller"])) {
+            require('actions/edit_article.php');
+        } else {
+            View::redirect(BASE_URL);
+        }
+    }
 
+    public static function delete_article($id) {
+        if(isset($_SESSION["seller"])) {
+            require('actions/delete_article.php');
         } else {
             View::redirect(BASE_URL);
         }
@@ -42,7 +51,7 @@ class SellerController {
     }
     public static function add_article() {
         if(isset($_SESSION["seller"])) {
-
+            require('actions/add_article.php');
         } else {
             View::redirect(BASE_URL);
         }

@@ -12,6 +12,7 @@ class DBSellers {
 
         return $stmt->fetchColumn(0) == 1;
     }
+
     //spremeni POVSIC..!
     public static function check($uname) {
         $db = InitDB::getInstance();

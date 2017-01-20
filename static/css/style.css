@@ -37,6 +37,7 @@ input:focus {
 
 .wrapper {
     padding: 5%;
+    padding-top: 50px;
 }
 
 .img-container {
@@ -90,6 +91,7 @@ span.one-line-span {
     color: #fff;
     height: 40px;
     transition: ease all 0.35s;
+    white-space: nowrap;
 }
 
 .btn-modern-medium {
@@ -108,6 +110,7 @@ span.one-line-span {
     padding: 10px;
     text-align: center;
     transition: ease all 0.35s;
+    white-space: nowrap;
 }
 
 .btn-modern-link:hover {

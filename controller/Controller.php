@@ -3,6 +3,7 @@
 require_once("View.php");
 require_once("sql/InitDB.php");
 require_once("sql/DBArticles.php");
+require_once("sql/DBUsers.php");
 
 
 class Controller {
@@ -43,6 +44,12 @@ class Controller {
 
         echo View::render("view/article_details.php", ["result" => $result, "alreadyRated" => $alreadyRated], true);
     }
+
+    public static function activation($id, $token) {
+        $result = DBUsers::activateUser($id, $token);
+        View::redirect("/login");
+    }
+
     public static function cart() {
         echo View::render("view/cart_page.php", null, false);
     }

@@ -12,7 +12,16 @@ class DBSellers {
 
         return $stmt->fetchColumn(0) == 1;
     }
+    //spremeni POVSIC..!
+    public static function check($uname) {
+        $db = InitDB::getInstance();
+        $stmt = $db->prepare("SELECT COUNT(id_user) FROM users WHERE "
+                . "username = ?");
+        $stmt->bindValue(1, $uname);
+        $stmt->execute();
 
+        return $stmt->fetchColumn(0) == 0;
+    }
     public static function getSellers() {
         $db = InitDB::getInstance();
         $stmt = $db->prepare("SELECT * FROM sellers");
@@ -20,7 +29,6 @@ class DBSellers {
 
         return $stmt->fetchAll();
     }
-
 
     public static function getSellerInfo($id) {
         $db = InitDB::getInstance();

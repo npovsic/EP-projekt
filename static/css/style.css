@@ -375,3 +375,21 @@ span.one-line-span {
 .ratings_over {
     background: url('../images/rating/full_star.png') no-repeat;
 }
+.inputcaptcha{
+    width: 120px !important;
+    float: left;
+}
+
+.imgcaptcha{
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    margin: 6px 10px;
+    float: left;
+    
+}
+
+.refresh{
+    float: left;
+    margin: 14px 5px;
+    cursor: pointer;
+}

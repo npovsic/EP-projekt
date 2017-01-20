@@ -33,6 +33,10 @@ $urls = [
             Controller::login_page();
         }
     },
+    "/^register\/activate.*/" => function($method, $id = null) {
+        $id = $_GET['user'];
+        Controller::activation($id);
+    },
     "/^article\/(\d+)$/" => function($method, $id = null) {
         Controller::details_page($id);
     },

@@ -39,8 +39,8 @@ class DBArticles {
 
     public static function searchArticles($query) {
         $db = InitDB::getInstance();
-        $stmt = $db->prepare("SELECT * FROM `e-store`.articles WHERE name LIKE ? AND active_seller = 1 AND active_article = 1");
-        $stmt->bindValue(1, "%".$query."%");
+        $stmt = $db->prepare("SELECT * FROM `e-store`.articles WHERE MATCH (name) AGAINST (? IN BOOLEAN MODE) AND active_seller = 1 AND active_article = 1");
+        $stmt->bindValue(1, $query);
         $stmt->execute();
 
         return $stmt->fetchAll();

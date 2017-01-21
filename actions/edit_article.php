@@ -8,7 +8,8 @@ if (isset($_POST["name"]) &&
     isset($_POST["category"]) &&
     isset($_POST["price"]) &&
     isset($_POST["weight"]) &&
-    isset($_POST["description"])
+    isset($_POST["description"]) &&
+    isset($_POST["active_article"])
 ) {
     try {
         if ($_SESSION['seller']) {

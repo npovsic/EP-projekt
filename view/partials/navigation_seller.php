@@ -15,6 +15,7 @@
             </ul>
             <ul class="nav navbar-nav pull-right">
                 <li><a href="<?php echo SELLER_URL ?>add">Dodaj artikel</a></li>
+                <li><a href="<?php echo SELLER_URL ?>all-users">Uporabniki</a></li>
                 <?php
                 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true && isset($_SESSION['seller'])) {
                     ?>

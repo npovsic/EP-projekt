@@ -9,6 +9,14 @@ class DBArticles {
         return $stmt->fetchAll();
     }
 
+    public static function getActiveArticles() {
+        $db = InitDB::getInstance();
+        $stmt = $db->prepare("SELECT * FROM articles WHERE active_seller = 1 AND active_article = 1");
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
     public static function getArticlesFromSeller($username) {
         $db = InitDB::getInstance();
         $stmt = $db->prepare("SELECT * FROM articles JOIN sellers USING(id_seller) WHERE "
@@ -47,14 +55,15 @@ class DBArticles {
     public static function editArticle($id, $data) {
         $db = InitDB::getInstance();
         $stmt = $db->prepare("UPDATE articles "
-            . "SET name = ?, category = ?, price = ?, description = ?, weight = ? "
+            . "SET name = ?, category = ?, price = ?, description = ?, weight = ?, active_article = ? "
             . "WHERE id_article = ?");
         $stmt->bindValue(1, $data['name']);
         $stmt->bindValue(2, $data['category']);
         $stmt->bindValue(3, $data['price']);
         $stmt->bindValue(4, $data['description']);
         $stmt->bindValue(5, $data['weight']);
-        $stmt->bindValue(6, $id);
+        $stmt->bindValue(6, $data['active_article']);
+        $stmt->bindValue(7, $id);
         $stmt->execute();
     }
 

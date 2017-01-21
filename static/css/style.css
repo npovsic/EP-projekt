@@ -71,6 +71,7 @@ span.one-line-span {
 }
 
 .input-modern {
+    width: 201px;
     padding: 5px;
     border-radius: 4px;
     border: 1px solid #aaa;
@@ -279,8 +280,8 @@ span.one-line-span {
 .wrong-credentials {
     color: red;
     position: absolute;
-    margin-left: -12px;
     margin-top: 15px;
+    width: 201px;
 }
 
 

@@ -60,6 +60,19 @@ $urls = [
         Controller::wip();
     },
 
+    "/^user\/(\w+)\/edit$/" => function($method, $username) {
+        if (isset($_SESSION['user']) && ($_SESSION['user'] == $username)) {
+            if ($method == "POST") {
+                Controller::edit_user($_SESSION['id']);
+            } else {
+                Controller::edit_user_page($_SESSION['id']);
+            }
+        }
+        else {
+            View::redirect(BASE_URL);
+        }
+    },
+
     # API calls
     "/api\/articles$/" => function() {
         APIController::index();
@@ -69,8 +82,13 @@ $urls = [
     },
 
     # ADMIN
-    "/^admin$/" => function() {
-        AdminController::login();
+    "/^admin$/" => function($method) {
+        if ($method == "POST") {
+            AdminController::login();
+        } else {
+            AdminController::login_page();
+        }
+
     },
     "/^admin\/edit\/(\d+)$/" => function($method, $id = null) {
         if ($method == "POST") {
@@ -106,6 +124,23 @@ $urls = [
             SellerController::add_article();
         } else {
             SellerController::add_article_page();
+        }
+    },
+    "/^seller\/all-users$/" => function($method) {
+        SellerController::all_users();
+    },
+    "/^seller\/all-users\/edit\/(\d+)$/" => function($method, $id = null) {
+        if ($method == "POST") {
+            SellerController::edit_user($id);
+        } else {
+            SellerController::edit_user_page($id);
+        }
+    },
+    "/^seller\/all-users\/add$/" => function($method, $id = null) {
+        if ($method == "POST") {
+            SellerController::add_user();
+        } else {
+            SellerController::add_user_page();
         }
     },
 ];

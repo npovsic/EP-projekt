@@ -7,7 +7,7 @@
     ?>
 </head>
 <body>
-    <?php include "view/partials/navigation_admin.php"; ?>
+    <?php include "view/partials/navigation_seller.php"; ?>
     <div class="container">
         <div class="wrapper">
             <div class="row active-with-click">
@@ -57,7 +57,7 @@
                             <td class="text-center text-middle" data-th="active">
                                 <div class="row">
                                     <div class="col-sm-10">
-                                        <?php if ($item['active_seller']) { ?>
+                                        <?php if ($item['active_user']) { ?>
                                             <p class="nomargin">DA</p>
                                         <?php } else { ?>
                                             <p class="nomargin">NE</p>
@@ -67,7 +67,7 @@
                             </td>
                             <td class="actions text-center text-middle" data-th="edit">
                                 <form action="cart/delete" method="get">
-                                    <a class="btn btn-info btn-sm" href="<?php echo ADMIN_URL.'edit/'.$item['id_seller'] ?>"><i
+                                    <a class="btn btn-info btn-sm" href="<?php echo SELLER_URL.'all-users/edit/'.$item['id_user'] ?>"><i
                                                 class="fa fa-edit"></i></a>
                                 </form>
                             </td>
@@ -84,7 +84,7 @@
                     <td></td>
                     <td class="actions text-center text-middle" data-th="add">
                         <form action="admin/add" method="get">
-                            <a class="btn btn-success btn-sm" href="<?php echo ADMIN_URL ?>add"><i class="fa fa-plus"></i></a>
+                            <a class="btn btn-success btn-sm" href="<?php echo SELLER_URL ?>all-users/add"><i class="fa fa-plus"></i></a>
                         </form>
                     </td>
                     </tfoot>

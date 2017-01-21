@@ -18,6 +18,17 @@
                 <label class="align-left">Cena<br><input class="input-modern" type="text" name="price" value="<?php echo $variables['price'] ?>" ></label><br>
                 <label class="align-left">Teža<br><input class="input-modern" type="text" name="weight" value="<?php echo $variables['weight'] ?>" ></label><br>
                 <label class="align-left">Opis<br><input class="input-modern" type="text" name="description" value="<?php echo $variables['description'] ?>" ></label><br>
+                <label class="align-left">Aktiven<br>
+                    <select class="input-modern" type="text" name="active_article" >
+                        <?php if ($variables['active_article']) { ?>
+                            <option value="1">Aktiven</option>
+                            <option value="0">Neaktiven</option>
+                        <?php } else { ?>
+                            <option value="0">Neaktiven</option>
+                            <option value="1">Aktiven</option>
+                        <?php } ?>
+                    </select>
+                </label><br>
                 <button class="btn-block btn-modern seller_btn top_margin_5px" type="submit">UREDI</button>
             </form>
         </div>

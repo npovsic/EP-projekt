@@ -16,7 +16,7 @@ class Controller {
             View::redirect(BASE_URL . "seller");
         }
         else {
-            $items = DBArticles::getArticles();
+            $items = DBArticles::getActiveArticles();
             echo View::render("view/layout.php", $items, false);
         }
     }
@@ -72,6 +72,23 @@ class Controller {
         require('actions/register.php');
     }
 
+    public static function edit_user_page($id) {
+        $items = DBUsers::getUserInfo($id);
+        echo View::render("view/edit_user.php", $items, false);
+    }
+
+    public static function edit_user($id) {
+        $data = filter_input_array(INPUT_POST, self::getEditUserRules());
+        echo Controller::checkArray($data);
+
+        require('actions/edit_user.php');
+    }
+
+    public static function user_orders($id) {
+        $items = DBUsers::getUserInfo($id);
+        echo View::render("view/edit_user.php", $items, false);
+    }
+
     public static function search($query) {
         require('actions/search.php');
     }
@@ -96,4 +113,23 @@ class Controller {
         ];
     }
 
+    private static function getEditUserRules() {
+        return [
+            'username' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'password' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'first_name' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'last_name' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'email' => FILTER_VALIDATE_EMAIL,
+            'address' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'city' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'country' => FILTER_SANITIZE_SPECIAL_CHARS
+        ];
+    }
+
+    private static function checkArray($array) {
+        foreach ($array as $item) {
+            if (empty($item) || $item == false) return false;
+        }
+        return true;
+    }
 }

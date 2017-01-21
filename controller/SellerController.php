@@ -49,9 +49,52 @@ class SellerController {
             View::redirect(BASE_URL);
         }
     }
+
     public static function add_article() {
         if(isset($_SESSION["seller"])) {
             require('actions/add_article.php');
+        } else {
+            View::redirect(BASE_URL);
+        }
+    }
+
+    public static function all_users() {
+        if(isset($_SESSION["seller"])) {
+            $items = DBUsers::getUsers();
+            echo View::render("view/seller/all_users.php", $items, false);
+        } else {
+            require('actions/login_admin.php');
+        }
+    }
+
+    public static function edit_user_page($id) {
+        if(isset($_SESSION["seller"])) {
+            $items = DBUsers::getUserInfo($id);
+            echo View::render("view/seller/edit_user.php", $items, false);
+        } else {
+            View::redirect(BASE_URL);
+        }
+    }
+
+    public static function edit_user($id) {
+        if(isset($_SESSION["seller"])) {
+            require('actions/edit_user.php');
+        } else {
+            View::redirect(BASE_URL);
+        }
+    }
+
+    public static function add_user_page() {
+        if(isset($_SESSION["seller"])) {
+            echo View::render("view/seller/add_user.php", null, false);
+        } else {
+            View::redirect(BASE_URL);
+        }
+    }
+
+    public static function add_user() {
+        if(isset($_SESSION["seller"])) {
+            require('actions/add_user.php');
         } else {
             View::redirect(BASE_URL);
         }
@@ -62,6 +105,27 @@ class SellerController {
             'username' => FILTER_SANITIZE_SPECIAL_CHARS,
             'password' => FILTER_SANITIZE_SPECIAL_CHARS,
         ];
+    }
+
+    private static function getEditUserRules() {
+        return [
+            'username' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'password' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'first_name' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'last_name' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'email' => FILTER_VALIDATE_EMAIL,
+            'address' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'city' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'country' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'active_user' => FILTER_VALIDATE_BOOLEAN
+        ];
+    }
+
+    private static function checkArray($array) {
+        foreach ($array as $item) {
+            if (empty($item) || $item == false) return false;
+        }
+        return true;
     }
 
 }

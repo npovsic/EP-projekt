@@ -15,7 +15,13 @@
                 foreach ($variables as $item) {
                     ?>
                     <div class="col-md-4 col-sm-6 col-xs-12">
-                        <article class="material-card Green">
+                        <?php if ($item['active_article'] == 0) {
+                            echo '<article class="material-card Grey">';
+                        }
+                        else {
+                            echo '<article class="material-card Green">';
+                        }
+                        ?>
                             <h2>
                                 <span class="one-line-span"><?php echo $item['name'] ?></span>
                                 <strong class="info-left"><?php echo $item['weight'] ?>g</strong>

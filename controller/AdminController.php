@@ -11,12 +11,27 @@ class AdminController {
 
     }
 
+    public static function login_page() {
+        if(isset($_SESSION["admin"])) {
+            $items = DBSellers::getSellers();
+            echo View::render("view/admin/layout.php", $items, false);
+        } else {
+            echo View::render("view/admin/login_page.php", null, false);
+        }
+    }
+
     public static function login() {
         if(isset($_SESSION["admin"])) {
             $items = DBSellers::getSellers();
             echo View::render("view/admin/layout.php", $items, false);
         } else {
-            require('actions/login_admin.php');
+            $data = filter_input_array(INPUT_POST, self::getLoginRules());
+            if (self::checkArray($data)) {
+                require('actions/login_admin.php');
+            }
+            else {
+                echo View::render("view/admin/login_page.php", ["failedAttempt" => "Izpolnite vsa polja."], true);
+            }
         }
     }
 
@@ -24,15 +39,21 @@ class AdminController {
         if(isset($_SESSION["admin"])) {
             echo View::render("view/admin/add_seller.php", null, false);
         } else {
-            require('actions/login_admin.php');
+            View::redirect(ADMIN_URL);
         }
     }
 
     public static function add_seller() {
         if(isset($_SESSION["admin"])) {
-            require('actions/add_seller.php');
+            $data = filter_input_array(INPUT_POST, self::getAddSellerRules());
+            if (self::checkArray($data)) {
+                require('actions/add_seller.php');
+            }
+            else {
+                echo View::render("view/admin/add_seller.php", ["failedAttempt" => "Izpolnite vsa polja."], true);
+            }
         } else {
-            require('actions/login_admin.php');
+            View::redirect(ADMIN_URL);
         }
     }
 
@@ -41,24 +62,67 @@ class AdminController {
             $items = DBSellers::getSellerInfo($id);
             echo View::render("view/admin/edit_seller.php", $items, false);
         } else {
-            require('actions/login_admin.php');
+            View::redirect(ADMIN_URL);
         }
     }
 
     public static function edit_seller($id) {
         if(isset($_SESSION["admin"])) {
-            require('actions/edit_seller.php');
+            $data = filter_input_array(INPUT_POST, self::getEditSellerRules());
+            if (self::checkArray($data)) {
+                require('actions/edit_seller.php');
+            }
+            else {
+                $items = DBSellers::getSellerInfo($id);
+                echo View::render("view/admin/edit_seller.php", ["variables" => $items, "failedAttempt" => "Izpolnite vsa polja."], true);
+            }
         } else {
-            require('actions/login_admin.php');
+            View::redirect(ADMIN_URL);
         }
     }
 
+    private static function getAddSellerRules() {
+        return [
+            'username' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'password' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'first_name' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'last_name' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'email' => FILTER_VALIDATE_EMAIL,
+            'address' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'city' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'country' => FILTER_SANITIZE_SPECIAL_CHARS
+        ];
+    }
+
+    private static function getEditSellerRules() {
+        return [
+            'username' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'password' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'first_name' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'last_name' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'email' => FILTER_VALIDATE_EMAIL,
+            'address' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'city' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'country' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'active_seller' => array('filter'    => FILTER_VALIDATE_INT,
+                'options'   => array('min_range' => 0, 'max_range' => 1)
+            ),
+        ];
+    }
 
     private static function getLoginRules() {
         return [
-            'username' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'uadmin' => FILTER_SANITIZE_SPECIAL_CHARS,
             'password' => FILTER_SANITIZE_SPECIAL_CHARS,
         ];
     }
 
+    private static function checkArray($array) {
+        foreach ($array as $item) {
+            if (empty($item) || $item === false) {
+                if ($item !== 0) return false;
+            }
+        }
+        return true;
+    }
 }

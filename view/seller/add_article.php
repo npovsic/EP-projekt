@@ -11,14 +11,18 @@
 <div class="container">
     <div class="wrapper">
         <div class="row active-with-click text-center">
-            <form class="login_form" method="post" action="<?php echo SELLER_URL."add" ?>">
+            <form class="login_form" method="post" enctype="multipart/form-data" action="<?php echo SELLER_URL."add" ?>">
                 <h2>Dodaj artikel</h2><br>
-                <label class="align-left">Ime<br><input class="input-modern" type="text" name="username" ></label><br>
-                <label class="align-left">Kategorija<br><input class="input-modern" type="text" name="password" ></label><br>
-                <label class="align-left">Cena<br><input class="input-modern" type="text" name="first_name" ></label><br>
-                <label class="align-left">Teža<br><input class="input-modern" type="text" name="email" ></label><br>
-                <label class="align-left">Opis<br><input class="input-modern" type="text" name="last_name" ></label><br>
-                <button class="btn-block btn-modern seller_btn top_margin_5px" type="submit">UREDI</button>
+                <label class="align-left">Slika<br><input class="input-modern" type="file" name="picture" id="picture" ></label><br>
+                <label class="align-left">Ime<br><input class="input-modern" type="text" name="name" ></label><br>
+                <label class="align-left">Kategorija<br><input class="input-modern" type="text" name="category" ></label><br>
+                <label class="align-left">Cena<br><input class="input-modern" type="text" name="price" ></label><br>
+                <label class="align-left">Teža<br><input class="input-modern" type="text" name="weight" ></label><br>
+                <label class="align-left">Opis<br><input class="input-modern" type="text" name="description" ></label><br>
+                <button class="btn-block btn-modern seller_btn top_margin_5px" type="submit" name="submit">DODAJ</button>
+                <?php if (isset($failedAttempt)) {
+                    echo '<p>'.$failedAttempt.'</p>';
+                } ?>
             </form>
         </div>
     </div>

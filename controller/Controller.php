@@ -16,14 +16,24 @@ class Controller {
             View::redirect(BASE_URL . "seller");
         }
         else {
-            $items = DBArticles::getArticles();
+            $items = DBArticles::getActiveArticles();
             echo View::render("view/layout.php", $items, false);
         }
     }
 
+    public static function login_page() {
+        echo View::render("view/login_page.php", null, false);
+    }
+
     public static function login() {
-        require('actions/login.php');
-//        echo View::render("view/login_page.php", null, false);
+        $data = filter_input_array(INPUT_POST, self::getLoginRules());
+        var_dump($data);
+        if (self::checkArray($data)) {
+            require('actions/login.php');
+        }
+        else {
+            echo View::render("view/login_page.php", ["failedAttempt" => true], true);
+        }
     }
 
     public static function rate() {
@@ -72,13 +82,37 @@ class Controller {
         require('actions/register.php');
     }
 
+    public static function edit_user_page($id) {
+        $items = DBUsers::getUserInfo($id);
+        echo View::render("view/edit_user.php", $items, false);
+    }
+
+    public static function edit_user($id) {
+        $data = filter_input_array(INPUT_POST, self::getEditUserRules());
+        if (Controller::checkArray($data)) {
+            require('actions/edit_user.php');
+            View::redirect(BASE_URL);
+        }
+        else {
+            $items = DBUsers::getUserInfo($id);
+            echo View::render("view/edit_user.php", $items, false);
+        }
+
+    }
+
+    public static function user_orders($id) {
+        $items = DBUsers::getUserInfo($id);
+        echo View::render("view/edit_user.php", $items, false);
+    }
+
     public static function search($query) {
-        require('actions/search.php');
+        $items = DBArticles::searchArticles($query);
+        echo View::render("view/search_page.php", ["variables" => $items, "query" => $query], true);
     }
 
     private static function getLoginRules() {
         return [
-            'username' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'uname' => FILTER_SANITIZE_SPECIAL_CHARS,
             'password' => FILTER_SANITIZE_SPECIAL_CHARS,
         ];
     }
@@ -96,4 +130,23 @@ class Controller {
         ];
     }
 
+    private static function getEditUserRules() {
+        return [
+            'username' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'password' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'first_name' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'last_name' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'email' => FILTER_VALIDATE_EMAIL,
+            'address' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'city' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'country' => FILTER_SANITIZE_SPECIAL_CHARS
+        ];
+    }
+
+    private static function checkArray($array) {
+        foreach ($array as $item) {
+            if (empty($item) || $item == false) return false;
+        }
+        return true;
+    }
 }

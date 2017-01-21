@@ -9,6 +9,14 @@ class DBArticles {
         return $stmt->fetchAll();
     }
 
+    public static function getActiveArticles() {
+        $db = InitDB::getInstance();
+        $stmt = $db->prepare("SELECT * FROM articles WHERE active_seller = 1 AND active_article = 1");
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
     public static function getArticlesFromSeller($username) {
         $db = InitDB::getInstance();
         $stmt = $db->prepare("SELECT * FROM articles JOIN sellers USING(id_seller) WHERE "
@@ -29,15 +37,48 @@ class DBArticles {
         return $stmt->fetch();
     }
 
-    public static function addArticle() {
+    public static function searchArticles($query) {
         $db = InitDB::getInstance();
-        $stmt = $db->prepare("INSERT");
+        $stmt = $db->prepare("SELECT * FROM `e-store`.articles WHERE name LIKE ?");
+        $stmt->bindValue(1, "%".$query."%");
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+    public static function addArticle($data, $pictureName, $sellerId) {
+        $db = InitDB::getInstance();
+        $stmt = $db->prepare("INSERT INTO articles "
+            . "(name, category, price, description, picture, weight, id_seller) "
+            . "VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bindValue(1, $data['name']);
+        $stmt->bindValue(2, $data['category']);
+        $stmt->bindValue(3, $data['price']);
+        $stmt->bindValue(4, $data['description']);
+        $stmt->bindValue(5, $pictureName);
+        $stmt->bindValue(6, $data['weight']);
+        $stmt->bindValue(7, $sellerId);
         $stmt->execute();
     }
 
-    public static function editArticle($id) {
+    public static function editArticle($id, $data) {
         $db = InitDB::getInstance();
-        $stmt = $db->prepare("UPDATE");
+        $stmt = $db->prepare("UPDATE articles "
+            . "SET name = ?, category = ?, price = ?, description = ?, weight = ?, active_article = ? "
+            . "WHERE id_article = ?");
+        $stmt->bindValue(1, $data['name']);
+        $stmt->bindValue(2, $data['category']);
+        $stmt->bindValue(3, $data['price']);
+        $stmt->bindValue(4, $data['description']);
+        $stmt->bindValue(5, $data['weight']);
+        $stmt->bindValue(6, $data['active_article']);
+        $stmt->bindValue(7, $id);
+        $stmt->execute();
+    }
+
+    public static function deleteArticle($id) {
+        $db = InitDB::getInstance();
+        $stmt = $db->prepare("DELETE from articles WHERE id_article = ? ");
         $stmt->bindValue(1, $id);
         $stmt->execute();
     }

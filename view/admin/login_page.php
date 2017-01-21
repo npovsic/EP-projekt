@@ -16,8 +16,8 @@
                         <label class="align-left">Geslo<br><input class="input-modern" type="password" name="password"></label><br>
                         <button class="btn-block btn-modern admin_btn top_margin_5px" type="submit">PRIJAVA</button>
                         <?php
-                        if ($failedAttempt) {
-                            echo "<p class='wrong-credentials'>Napačno uporabniško ime ali geslo.</p>";
+                        if (isset($failedAttempt) && $failedAttempt) {
+                            echo "<p class='wrong-credentials'>". $failedAttempt ."</p>";
                         }
                         ?>
                     </form>

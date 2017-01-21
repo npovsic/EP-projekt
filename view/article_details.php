@@ -14,13 +14,13 @@
     <div class="container">
         <div class="details-wrapper">
                 <div class="img-details-container">
-                        <img class="img-responsive" src="<?php echo IMAGES_URL.$result["picture"]?>.jpg" >
+                        <img class="img-responsive" src="<?php echo IMAGES_URL.$result["picture"]?>" >
                 </div>
                 <div class="details_add_to_cart">
                         <div class="article-info">
                             <h1><?php echo $result["name"] ?></h1>
-                            <h1><?php echo $result["weight"] ?></h1>
-                            <h1><?php echo $result["price"] ?></h1>
+                            <h1><?php echo $result["weight"] ?>g</h1>
+                            <h1><?php echo $result["price"] ?>€</h1>
                             <?php if (isset($_SESSION["username"])) { ?>
                                 <?php if ($alreadyRated == false) {?>
                                     <form method= "POST" id="rating" >

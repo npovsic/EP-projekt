@@ -18,7 +18,7 @@
                                 <form action="<?php echo BASE_URL ?>search" class="search-form" method="get">
                                     <div class="form-group has-feedback">
                                         <label for="search" class="sr-only">Search</label>
-                                        <input type="text" class="form-control" name="query" id="search" placeholder="Išči">
+                                        <input type="text" class="form-control" name="query" id="search" placeholder="Išči" <?php if(isset($query)) echo 'value="'.$query.'"' ?> >
                                     </div>
                                 </form>
                             </li>
@@ -28,9 +28,11 @@
                             if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
                             ?>
                             <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $_SESSION["username"] ?>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $_SESSION["user"] ?>
                                     <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
+                                    <li><a href="<?php echo BASE_URL . "user/". $_SESSION["user"] ?>/edit">Uredi profil</a></li>
+                                    <li><a href="<?php echo BASE_URL . "user/". $_SESSION["user"] ?>/orders">Naročila</a></li>
                                     <li><a href="<?php echo BASE_URL ?>logout">Logout</a></li>
                                 </ul>
                             </li>

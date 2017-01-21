@@ -8,7 +8,7 @@ try {
         if (DBUsers::checkActivation($data["uname"], $data["password"])) {
             session_regenerate_id(true);
             $_SESSION["logged_in"] = true;
-            $_SESSION["user"]    = $data["uname"];
+            $_SESSION["user"] = $data["uname"];
             $_SESSION["id"] = $id;
             View::redirect(BASE_URL);
         }

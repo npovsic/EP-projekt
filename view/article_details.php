@@ -21,7 +21,7 @@
                             <h1><?php echo $result["name"] ?></h1>
                             <h1><?php echo $result["weight"] ?>g</h1>
                             <h1><?php echo $result["price"] ?>€</h1>
-                            <?php if (isset($_SESSION["username"])) { ?>
+                            <?php if (isset($_SESSION["user"])) { ?>
                                 <?php if ($alreadyRated == false) {?>
                                     <form method= "POST" id="rating" >
                                         <ul style="  display: flex; flex-direction: row; margin-left:-40px; min-width: 20px;">

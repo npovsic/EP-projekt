@@ -78,6 +78,20 @@ class SellerController {
 
     public static function edit_user($id) {
         if(isset($_SESSION["seller"])) {
+            $data = filter_input_array(INPUT_POST, self::getEditUserRules());
+            if (self::checkArray($data)) {
+                require('actions/edit_user.php');
+                View::redirect(SELLER_URL."all-users");
+            }
+            else {
+                $items = DBUsers::getUserInfo($id);
+                echo View::render("view/seller/edit_user.php", ["variables" => $items, "failedAttempt" => "Izpolnite vsa polja."], true);
+            }
+        } else {
+            View::redirect(BASE_URL);
+        }
+
+        if(isset($_SESSION["seller"])) {
             require('actions/edit_user.php');
         } else {
             View::redirect(BASE_URL);
@@ -117,13 +131,17 @@ class SellerController {
             'address' => FILTER_SANITIZE_SPECIAL_CHARS,
             'city' => FILTER_SANITIZE_SPECIAL_CHARS,
             'country' => FILTER_SANITIZE_SPECIAL_CHARS,
-            'active_user' => FILTER_VALIDATE_BOOLEAN
+            'active_user' => array('filter'    => FILTER_VALIDATE_INT,
+                'options'   => array('min_range' => 0, 'max_range' => 1)
+            ),
         ];
     }
 
     private static function checkArray($array) {
         foreach ($array as $item) {
-            if (empty($item) || $item == false) return false;
+            if (empty($item) || $item === false) {
+                if ($item !== 0) return false;
+            }
         }
         return true;
     }

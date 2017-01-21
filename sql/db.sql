@@ -30,7 +30,7 @@ CREATE TABLE `admins` (
   `password` varchar(45) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_admin`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -61,8 +61,10 @@ CREATE TABLE `articles` (
   `id_seller` int(11) DEFAULT NULL,
   `rating_sum` int(11) NOT NULL,
   `rating_count` int(11) NOT NULL,
+  `active_article` int(11) NOT NULL,
+  `active_seller` int(11) NOT NULL,
   PRIMARY KEY (`id_article`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,7 +73,7 @@ CREATE TABLE `articles` (
 
 LOCK TABLES `articles` WRITE;
 /*!40000 ALTER TABLE `articles` DISABLE KEYS */;
-INSERT INTO `articles` VALUES (1,'BATTERY WHEY PROTEIN','proteins',29.69,'Battery Nutrition Whey Protein - visoka koli?','1','2000',1,8,2),(2,'BATTERY WHEY PROTEIN','proteins',14.39,'Battery Nutrition Whey Protein - visoka koli?','2','800',4,4,1),(3,'OLIMP BCAA XPLODE','proteins',26.99,'BCAA Xplode je izdelek, ki kon?no izpolnjuje ','3','500',1,1,1),(4,'BATTERY OMEGA 3','fats',6.99,'Battery Omega 3 ima veliko višjo koli?ino ome','4','1',5,3,1),(5,'BATTERY PROTEIN PUDDING','pudding',5.99,'Battery je ustvaril zdravo beljakovinsko slad','5','120',1,1,1),(6,'IRONMAXX 100% WHEY PROTEIN','proteins',19.99,'Obstaja kar nekaj pomembnih prednosti beljako','6','900',5,4,1),(7,'USN ORGANIC PEANUT BUTTER','fats',10.99,'USN ORGANIC PEANUT BUTTER je popolnoma narave','7','1000',4,3,1),(8,'OLIMP GOLD OMEGA 3 SPORT EDITION','fats',15.99,'Prehransko dopolnilo Omega-3 maš?obne kisline','8','1',5,4,1),(9,'OLIMP WHEY PROTEIN COMPLEX 100%','proteins',19.99,'OLIMP WHEY PROTEIN COMPLEX 100% je beljakovin','9','700',4,5,1),(10,'OLIMP VITA-MIN MULTIPLE SPORT','vitamins',11.99,'VITA-MIN multiple SPORT je prehransko dopolni','10','60',1,4,1),(11,'BATTERY CREATINE','creatin',8.99,'Battery Creatine vsebuje 100% nerazred?en kre','11','500',1,0,0),(12,'OLIMP WHEY PROTEIN COMPLEX 100%','proteins',44.99,'OLIMP WHEY PROTEIN COMPLEX 100% je beljakovin','12','2200',4,0,0),(13,'BATTERY VIT&MIN','vitamins',6.99,'Vsi vitamini in minerali, ki jih potrebujete ','13','90',1,0,0),(14,'BATTERY BCAA','proteins',23.99,'Battery Nutrition BCAA so razvejane aminokisl','14','500',1,0,0),(15,'BATTERY GLUTAMINE brez okusa','proteins',13.99,'Glutamin je aminokislina, ki jo je v našem te','15','500',5,0,0);
+INSERT INTO `articles` VALUES (1,'BATTERY WHEY PROTEIN','proteins',29.8,'Battery Nutrition Whey Protein - visoka količina proteinov.','1.jpg','2000',1,8,2,1,1),(3,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','3.jpg','2000',1,1,1,1,1),(4,'BATTERY OMEGA 3','fats',6.99,'Battery Omega 3 ima veliko višjo koli?ino ome','4.jpg','1',5,3,1,1,1),(5,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','5.jpg','2000',1,1,1,1,1),(6,'IRONMAXX 100% WHEY PROTEIN','proteins',19.99,'Obstaja kar nekaj pomembnih prednosti beljako','6.jpg','900',5,4,1,1,1),(7,'USN ORGANIC PEANUT BUTTER','fats',10.99,'USN ORGANIC PEANUT BUTTER je popolnoma narave','7.jpg','1000',4,3,1,1,0),(8,'OLIMP GOLD OMEGA 3 SPORT EDITION','fats',15.99,'Prehransko dopolnilo Omega-3 maš?obne kisline','8.jpg','1',5,4,1,1,1),(9,'OLIMP WHEY PROTEIN COMPLEX 100%','proteins',19.99,'OLIMP WHEY PROTEIN COMPLEX 100% je beljakovin','9.jpg','700',4,5,1,1,0),(10,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','10.jpg','2000',1,4,1,1,1),(11,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','11.jpg','2000',1,0,0,1,1),(12,'OLIMP WHEY PROTEIN COMPLEX 100%','proteins',44.99,'OLIMP WHEY PROTEIN COMPLEX 100% je beljakovin','12.jpg','2200',4,0,0,1,0),(13,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','13.jpg','2000',1,0,0,1,1),(15,'BATTERY GLUTAMINE brez okusa','proteins',13.99,'Glutamin je aminokislina, ki jo je v našem te','15.jpg','500',5,0,0,1,1);
 /*!40000 ALTER TABLE `articles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,9 +146,9 @@ CREATE TABLE `sellers` (
   `address` varchar(45) DEFAULT NULL,
   `city` varchar(45) DEFAULT NULL,
   `country` varchar(45) DEFAULT NULL,
-  `active` varchar(45) DEFAULT NULL,
+  `active_seller` int(11) NOT NULL,
   PRIMARY KEY (`id_seller`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,7 +157,7 @@ CREATE TABLE `sellers` (
 
 LOCK TABLES `sellers` WRITE;
 /*!40000 ALTER TABLE `sellers` DISABLE KEYS */;
-INSERT INTO `sellers` VALUES (1,'Sašo','Kranjc','saso','pass','skrajnc@gmail.com','Ulica na Brdo 90','Ljubljana','Slovenija','true'),(4,'Nejc','Povši?','npovsic','nejc','npovsic@gmail.com','Prapretno 24','Rade?e','Slovenija','true'),(5,'Klemen','Moderc','klemen','klemz','kmoderc@gmail.com','Moder?ina 20','Moder?ovje','Slovenija','true');
+INSERT INTO `sellers` VALUES (1,'Sašo','Kranjc','saso','pass','skrajnc@gmail.com','Ulica na Brdo 90','Ljubljana','Slovenija',1),(5,'Klemen','Moderc','klemen','klemz','kmoderc@gmail.com','Moderčina 20','Moderčovje','Slovenija',1);
 /*!40000 ALTER TABLE `sellers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -167,7 +169,7 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  `id_user` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(45) NOT NULL,
   `last_name` varchar(45) DEFAULT NULL,
   `phone_num` int(11) DEFAULT NULL,
@@ -177,10 +179,10 @@ CREATE TABLE `users` (
   `address` varchar(45) DEFAULT NULL,
   `city` varchar(45) DEFAULT NULL,
   `country` varchar(45) DEFAULT NULL,
-  `status` int(11) NOT NULL,
+  `active_user` int(11) NOT NULL,
   `token` int(11) NOT NULL,
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -189,7 +191,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Nejc','Povši?',NULL,'npovsic','root','npovsic@gmail.com','Prapretno 24','Rade?e','Slovenija',0,0);
+INSERT INTO `users` VALUES (1,'Boštjan','Povšič',NULL,'bpovsic','root','bpovsic@gmail.com','Brezje','Grosuplje','Slovenija',1,2376),(2,'Nejc','Povšič',NULL,'npovsic','root','npovsic@gmail.com','Prapretno 24','Radeče','Slovenija',1,6968),(3,'Klemen','Moderc',NULL,'klemz','klemz','moderc@moderc.si','Moderčina 20','Moderčovje','Slovenija',0,2688);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -202,4 +204,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-20 11:58:07
+-- Dump completed on 2017-01-21 20:57:14

@@ -21,9 +21,19 @@ class Controller {
         }
     }
 
+    public static function login_page() {
+        echo View::render("view/login_page.php", null, false);
+    }
+
     public static function login() {
-        require('actions/login.php');
-//        echo View::render("view/login_page.php", null, false);
+        $data = filter_input_array(INPUT_POST, self::getLoginRules());
+        var_dump($data);
+        if (self::checkArray($data)) {
+            require('actions/login.php');
+        }
+        else {
+            echo View::render("view/login_page.php", ["failedAttempt" => true], true);
+        }
     }
 
     public static function rate() {
@@ -79,9 +89,15 @@ class Controller {
 
     public static function edit_user($id) {
         $data = filter_input_array(INPUT_POST, self::getEditUserRules());
-        echo Controller::checkArray($data);
+        if (Controller::checkArray($data)) {
+            require('actions/edit_user.php');
+            View::redirect(BASE_URL);
+        }
+        else {
+            $items = DBUsers::getUserInfo($id);
+            echo View::render("view/edit_user.php", $items, false);
+        }
 
-        require('actions/edit_user.php');
     }
 
     public static function user_orders($id) {
@@ -96,7 +112,7 @@ class Controller {
 
     private static function getLoginRules() {
         return [
-            'username' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'uname' => FILTER_SANITIZE_SPECIAL_CHARS,
             'password' => FILTER_SANITIZE_SPECIAL_CHARS,
         ];
     }

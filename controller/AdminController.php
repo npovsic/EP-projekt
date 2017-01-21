@@ -26,7 +26,7 @@ class AdminController {
             echo View::render("view/admin/layout.php", $items, false);
         } else {
             $data = filter_input_array(INPUT_POST, self::getLoginRules());
-            if (AdminController::checkArray($data)) {
+            if (self::checkArray($data)) {
                 require('actions/login_admin.php');
             }
             else {
@@ -46,7 +46,7 @@ class AdminController {
     public static function add_seller() {
         if(isset($_SESSION["admin"])) {
             $data = filter_input_array(INPUT_POST, self::getAddSellerRules());
-            if (AdminController::checkArray($data)) {
+            if (self::checkArray($data)) {
                 require('actions/add_seller.php');
             }
             else {
@@ -69,7 +69,7 @@ class AdminController {
     public static function edit_seller($id) {
         if(isset($_SESSION["admin"])) {
             $data = filter_input_array(INPUT_POST, self::getEditSellerRules());
-            if (AdminController::checkArray($data)) {
+            if (self::checkArray($data)) {
                 require('actions/edit_seller.php');
             }
             else {

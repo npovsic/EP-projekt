@@ -24,7 +24,11 @@ $urls = [
         Controller::index();
     },
     "/login$/" => function($method) {
-        Controller::login();
+        if ($method == "POST") {
+            Controller::login();
+        } else {
+            Controller::login_page();
+        }
     },
     "/logout$/" => function() {
         Controller::logout();
@@ -33,7 +37,7 @@ $urls = [
         if ($method == "POST") {
             Controller::register();
         } else {
-            Controller::login();
+            Controller::login_page();
         }
     },
     "/^register\/activate.*/" => function($method, $id = null, $token = null) {

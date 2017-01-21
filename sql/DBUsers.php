@@ -97,9 +97,18 @@ class DBUsers {
 
     public static function editUser($id, $data) {
         $db = InitDB::getInstance();
-        $stmt = $db->prepare("UPDATE users "
-            . "SET first_name = ?, last_name = ?, username = ?, password = ?, email = ?, address = ?, city = ?, country = ?, active_user = ? "
-            . "WHERE id_user = ?");
+
+        if (isset($data['active_user'])) {
+            $stmt = $db->prepare("UPDATE users "
+                . "SET first_name = ?, last_name = ?, username = ?, password = ?, email = ?, address = ?, city = ?, country = ?, active_user = ? "
+                . "WHERE id_user = ?");
+        }
+        else {
+            $stmt = $db->prepare("UPDATE users "
+                . "SET first_name = ?, last_name = ?, username = ?, password = ?, email = ?, address = ?, city = ?, country = ? "
+                . "WHERE id_user = ?");
+        }
+
         $stmt->bindValue(1, $data['first_name']);
         $stmt->bindValue(2, $data['last_name']);
         $stmt->bindValue(3, $data['username']);
@@ -108,8 +117,14 @@ class DBUsers {
         $stmt->bindValue(6, $data['address']);
         $stmt->bindValue(7, $data['city']);
         $stmt->bindValue(8, $data['country']);
-        $stmt->bindValue(9, $data['active_user']);
-        $stmt->bindValue(10, $id);
+        if (isset($data['active_user'])) {
+            $stmt->bindValue(9, $data['active_user']);
+            $stmt->bindValue(10, $id);
+        }
+        else {
+            $stmt->bindValue(9, $id);
+        }
+
         $stmt->execute();
 
         return "Success";

@@ -2,22 +2,14 @@
 
 require_once("View.php");
 require_once("sql/InitDB.php");
+require_once("sql/DBArticles.php");
 
 
 class APIController {
 
 
     public static function index() {
-        $db = InitDB::getInstance();
-
-        $sql = "SELECT * FROM articles";
-
-        $items = array();
-
-        foreach ($db->query($sql) as $row) {
-            array_push($items, $row);
-        }
-
+        $items = DBArticles::getActiveArticles();
         echo View::renderJSON($items);
     }
 

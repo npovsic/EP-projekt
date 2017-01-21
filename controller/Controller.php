@@ -27,7 +27,6 @@ class Controller {
 
     public static function login() {
         $data = filter_input_array(INPUT_POST, self::getLoginRules());
-        var_dump($data);
         if (self::checkArray($data)) {
             require('actions/login.php');
         }

@@ -7,6 +7,8 @@ require_once("controller/Controller.php");
 require_once("controller/APIController.php");
 
 define("BASE_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php"));
+define("LOGS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "logs/");
+
 define("ITEM_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "article/");
 define("IMAGES_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/images/");
 define("CSS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/css/");

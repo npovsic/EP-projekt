@@ -47,8 +47,8 @@ class Controller {
 
         $alreadyRated = false;
 
-        if (isset($_SESSION["username"])) {
-            $alreadyRated = DBArticles::didUserRateProduct($_SESSION["username"], $id);
+        if (isset($_SESSION["user"])) {
+            $alreadyRated = DBArticles::didUserRateProduct($_SESSION["id"], $id);
         }
 
         echo View::render("view/article_details.php", ["result" => $result, "alreadyRated" => $alreadyRated], true);

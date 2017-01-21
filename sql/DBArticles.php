@@ -86,8 +86,8 @@ class DBArticles {
     public static function rateArticle($id, $rating) {
         $db = InitDB::getInstance();
 
-        $stmtRating = $db->prepare("INSERT INTO ratings (username, id_article, rating) VALUES (?, ?, ?)");
-        $stmtRating->bindValue(1, $_SESSION["username"]);
+        $stmtRating = $db->prepare("INSERT INTO ratings (id_user, id_article, rating) VALUES (?, ?, ?)");
+        $stmtRating->bindValue(1, $_SESSION["id"]);
         $stmtRating->bindValue(2, $id);
         $stmtRating->bindValue(3, $rating);
         $stmtRating->execute();
@@ -98,10 +98,10 @@ class DBArticles {
         $stmt->execute();
     }
 
-    public static function didUserRateProduct($username, $article_id) {
+    public static function didUserRateProduct($user_id, $article_id) {
         $db = InitDB::getInstance();
-        $stmt = $db->prepare("SELECT * FROM `e-store`.ratings WHERE username = ? AND id_article = ?");
-        $stmt->bindValue(1, $username);
+        $stmt = $db->prepare("SELECT * FROM ratings WHERE id_user = ? AND id_article = ?");
+        $stmt->bindValue(1, $user_id);
         $stmt->bindValue(2, $article_id);
         $stmt->execute();
 

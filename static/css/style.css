@@ -90,6 +90,10 @@ span.one-line-span {
     margin-top: 60px;
 }
 
+.bottom_margin_50px {
+    margin-bottom: 50px;
+}
+
 .btn-modern {
     background-color: #607d8b;
     border: none;
@@ -122,6 +126,14 @@ span.one-line-span {
     background-color: #263238;
     color: #fff;
     text-decoration: none;
+}
+
+.form-control {
+    color: #eee !important;
+}
+
+.form-control:focus {
+    color: #555 !important;
 }
 
 /* Rate Widget */

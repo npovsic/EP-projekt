@@ -18,7 +18,7 @@
                                 <form action="<?php echo BASE_URL ?>search" class="search-form" method="get">
                                     <div class="form-group has-feedback">
                                         <label for="search" class="sr-only">Search</label>
-                                        <input type="text" class="form-control" name="query" id="search" placeholder="Išči">
+                                        <input type="text" class="form-control" name="query" id="search" placeholder="Išči" <?php if(isset($query)) echo 'value="'.$query.'"' ?> >
                                     </div>
                                 </form>
                             </li>

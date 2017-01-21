@@ -33,7 +33,7 @@ $urls = [
         if ($method == "POST") {
             Controller::register();
         } else {
-            Controller::login_page();
+            Controller::login();
         }
     },
     "/^register\/activate.*/" => function($method, $id = null, $token = null) {

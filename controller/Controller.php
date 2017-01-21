@@ -90,7 +90,8 @@ class Controller {
     }
 
     public static function search($query) {
-        require('actions/search.php');
+        $items = DBArticles::searchArticles($query);
+        echo View::render("view/search_page.php", ["variables" => $items, "query" => $query], true);
     }
 
     private static function getLoginRules() {

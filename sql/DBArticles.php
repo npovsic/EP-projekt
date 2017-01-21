@@ -37,6 +37,15 @@ class DBArticles {
         return $stmt->fetch();
     }
 
+    public static function searchArticles($query) {
+        $db = InitDB::getInstance();
+        $stmt = $db->prepare("SELECT * FROM `e-store`.articles WHERE name LIKE ?");
+        $stmt->bindValue(1, "%".$query."%");
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
     public static function addArticle($data, $pictureName, $sellerId) {
         $db = InitDB::getInstance();
         $stmt = $db->prepare("INSERT INTO articles "

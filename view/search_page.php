@@ -11,6 +11,7 @@
     <div class="container">
         <div class="wrapper">
             <div class="row active-with-click">
+                <h1 class="text-center bottom_margin_50px">Search results for <?php echo $query; ?>: </h1>
                 <?php
                     foreach ($variables as $item) {
                         echo '<div class="col-md-4 col-sm-6 col-xs-12">
@@ -26,7 +27,7 @@
                                             <img class="img-responsive" src="'.IMAGES_URL.$item['picture'].'">
                                         </div>
                                     </div>
-                                    <a href="'.ITEM_URL.$item['article_id'].'" class="mc-btn-action">
+                                    <a href="'.ITEM_URL.$item['id_article'].'" class="mc-btn-action">
                                         <i class="fa fa-info-circle"></i>
                                     </a>
                                 </article>

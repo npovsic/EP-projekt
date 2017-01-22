@@ -43,47 +43,16 @@
                             <?php
                             }
                             ?>
-                            <li class="dropdown cart_button">
-                                <a class="dropdown-toggle" href="<?php echo BASE_URL ?>cart">Košarica
-                                    <span class="caret"></span></a>
-                                <div class="cart_wrapper">
-                                    <table id="cart-nav" class="table table-hover table-condensed">
-                                        <thead>
-                                        <tr>
-                                            <th class="text-center text-middle">Izdelek</th>
-                                            <th class="text-center text-middle">Cena</th>
-                                            <th class="text-center text-middle">Količina</th>
-                                            <th class="text-center text-middle">Skupaj</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td class="text-middle td-product" data-th="article">Product</td>
-                                            <td class="text-center text-middle" data-th="price">$1.99</td>
-                                            <td class="text-center text-middle" data-th="quantity">
-                                                <input type="number" class="quantity_input text-center text-middle" value="1" min="1">
-                                            </td>
-                                            <td data-th="Subtotal" class="text-center text-middle">1.99</td>
-                                            <td class="actions text-center text-middle" data-th="">
-                                                <button class="nav_cart_delete btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                        <tfoot>
-                                        <tr class="visible-xs">
-                                            <td class="text-center text-middle"><strong>1.99</strong></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3" class="hidden-xs"></td>
-                                            <td class="hidden-xs text-center text-middle"><strong>$1.99</strong></td>
-                                            <td class="text-middle"><a href="checkout" class="btn-modern-link">NA BLAGAJNO</a></td>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-
+                            <?php
+                            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                            ?>
+                            <li class="cart_button">
+                                <a href="<?php echo BASE_URL ?>cart">Košarica
+                                </a>
                             </li>
+                            <?php
+                            }
+                            ?>
                         </ul>
                         
                     </div><!--/.nav-collapse -->

@@ -51,6 +51,18 @@ $urls = [
     "/search.*/" => function($method) {
         Controller::search($_GET['query']);
     },
+    "/add-to-cart$/" => function () {
+        Controller::addToCart();
+    },
+    "/remove-cart$/" => function () {
+        Controller::removeFromCart();
+    },
+    "/update-cart$/" => function () {
+        Controller::updateCart();
+    },
+    "/purge-cart$/" => function () {
+        Controller::purgeCart();
+    },
     "/cart$/" => function($method) {
         Controller::cart();
     },

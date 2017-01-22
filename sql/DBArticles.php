@@ -111,6 +111,41 @@ class DBArticles {
             return false;
         }
     }
+    public static function getForIds($ids) {
+        $db = InitDB::getInstance();
 
+        $id_placeholders = implode(",", array_fill(0, count($ids), "?"));
+
+        $statement = $db->prepare("SELECT id_article, name, category, price, description, picture, weight, id_seller FROM articles 
+            WHERE id_article IN (" . $id_placeholders . ")");
+        $statement->execute($ids);
+
+        return $statement->fetchAll();
+    }
+
+    public static function getAll() {
+        $db = InitDB::getInstance();
+
+        $statement = $db->prepare("SELECT id_article, name, category, price, description, picture, weight, id_seller FROM articles");
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
+
+    public static function get($id) {
+        $db = InitDB::getInstance();
+
+        $stmt = $db->prepare("SELECT id_article, name, category, price, description, picture, weight, id_seller FROM articles WHERE id_article = ?");
+        $stmt->bindValue(1, $id);
+        $stmt->execute();
+
+        $product = $stmt->fetch();
+
+        if ($product != null) {
+            return $product;
+        } else {
+            throw new InvalidArgumentException("No record with id $id");
+        }
+    }
 }
 

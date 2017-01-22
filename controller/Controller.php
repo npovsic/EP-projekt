@@ -4,6 +4,7 @@ require_once("View.php");
 require_once("sql/InitDB.php");
 require_once("sql/DBArticles.php");
 require_once("sql/DBUsers.php");
+require_once("sql/Cart.php");
 
 
 class Controller {
@@ -16,8 +17,12 @@ class Controller {
             View::redirect(BASE_URL . "seller");
         }
         else {
-            $items = DBArticles::getActiveArticles();
-            echo View::render("view/layout.php", $items, false);
+            $vars = [
+                "cart" => Cart::getAll(),
+                "total" => Cart::total(),
+                "variables" => DBArticles::getActiveArticles(),
+            ];     
+            echo View::render("view/layout.php", $vars, true);
         }
     }
 
@@ -60,7 +65,11 @@ class Controller {
     }
 
     public static function cart() {
-        echo View::render("view/cart_page.php", null, false);
+        $vars = [
+            "cart" => Cart::getAll(),
+            "total" => Cart::total(),
+        ];  
+        echo View::render("view/cart_page.php", $vars, true);
     }
 
     public static function checkout() {
@@ -147,5 +156,42 @@ class Controller {
             if (empty($item) || $item == false) return false;
         }
         return true;
+    }
+
+    public static function addToCart() {
+        $id = isset($_POST["id"]) ? intval($_POST["id"]) : null;
+
+        if ($id !== null) {
+            Cart::add($id);
+        }
+
+        View::redirect(BASE_URL);
+    }
+
+    public static function removeFromCart() {
+        $id = isset($_POST["id"]) ? intval($_POST["id"]) : null;
+
+        if ($id !== null) {
+            Cart::delete($id);
+        }
+
+        View::redirect("cart");
+    }
+    public static function updateCart() {
+        $id = (isset($_POST["id"])) ? intval($_POST["id"]) : null;
+        $quantity = (isset($_POST["quantity"])) ? intval($_POST["quantity"]) : null;
+
+        if ($id !== null && $quantity !== null) {
+            Cart::update($id, $quantity);
+
+        }
+
+        View::redirect("cart");
+    }
+
+    public static function purgeCart() {
+        Cart::purge();
+
+        View::redirect("cart");
     }
 }

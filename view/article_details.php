@@ -14,10 +14,13 @@
     <div class="container">
         <div class="details-wrapper">
                 <div class="img-details-container">
-                        <img class="img-responsive" src="<?php echo IMAGES_URL.$result["picture"]?>" >
+                    <img class="img-responsive" src="<?php echo IMAGES_URL.$result["picture"]?>" >
                 </div>
                 <div class="details_add_to_cart">
+                    <form action="add-to-cart" method="post">
+                        <div>
                         <div class="article-info">
+                            <input class="hidden" name="id" value="<?php echo $result["id_article"] ?>" />
                             <h1><?php echo $result["name"] ?></h1>
                             <h1><?php echo $result["weight"] ?>g</h1>
                             <h1><?php echo $result["price"] ?>€</h1>
@@ -44,7 +47,11 @@
 
                             <?php } ?>
                         </div>
-                        <button class=" pull-right btn-modern-medium btn-modern top_margin_5px" type="submit">V KOŠARICO</button>
+                        <?php if (isset($_SESSION["user"])) { ?>
+                            <button class="pull-right btn-modern-medium btn-modern top_margin_5px" type="submit">V KOŠARICO</button>
+                        <?php } ?>
+                        </div>
+                    </form>
                 </div>
                 <div class="details_article">
                         <div class="details">

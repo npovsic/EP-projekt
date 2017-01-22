@@ -27,7 +27,7 @@ CREATE TABLE `admins` (
   `first_name` varchar(45) DEFAULT NULL,
   `last_name` varchar(45) DEFAULT NULL,
   `username` varchar(45) DEFAULT NULL,
-  `password` varchar(45) DEFAULT NULL,
+  `password` longtext,
   `email` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_admin`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -39,7 +39,7 @@ CREATE TABLE `admins` (
 
 LOCK TABLES `admins` WRITE;
 /*!40000 ALTER TABLE `admins` DISABLE KEYS */;
-INSERT INTO `admins` VALUES (0,'Klenejc','Poderc','admin','admin','admin@estore.si');
+INSERT INTO `admins` VALUES (0,'Klenejc','Poderc','admin','$2a$07$4380348hvnjkjvernjk4ue182aqSvnSi2tRSX3NwBgJJR3194ZPui','admin@estore.si');
 /*!40000 ALTER TABLE `admins` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,8 +63,9 @@ CREATE TABLE `articles` (
   `rating_count` int(11) NOT NULL,
   `active_article` int(11) NOT NULL,
   `active_seller` int(11) NOT NULL,
-  PRIMARY KEY (`id_article`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id_article`),
+  FULLTEXT KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +74,7 @@ CREATE TABLE `articles` (
 
 LOCK TABLES `articles` WRITE;
 /*!40000 ALTER TABLE `articles` DISABLE KEYS */;
-INSERT INTO `articles` VALUES (1,'BATTERY WHEY PROTEIN','proteins',29.8,'Battery Nutrition Whey Protein - visoka količina proteinov.','1.jpg','2000',1,8,2,1,1),(3,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','3.jpg','2000',1,1,1,1,1),(4,'BATTERY OMEGA 3','fats',6.99,'Battery Omega 3 ima veliko višjo koli?ino ome','4.jpg','1',5,3,1,1,1),(5,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','5.jpg','2000',1,1,1,1,1),(6,'IRONMAXX 100% WHEY PROTEIN','proteins',19.99,'Obstaja kar nekaj pomembnih prednosti beljako','6.jpg','900',5,4,1,1,1),(7,'USN ORGANIC PEANUT BUTTER','fats',10.99,'USN ORGANIC PEANUT BUTTER je popolnoma narave','7.jpg','1000',4,3,1,1,0),(8,'OLIMP GOLD OMEGA 3 SPORT EDITION','fats',15.99,'Prehransko dopolnilo Omega-3 maš?obne kisline','8.jpg','1',5,4,1,1,1),(9,'OLIMP WHEY PROTEIN COMPLEX 100%','proteins',19.99,'OLIMP WHEY PROTEIN COMPLEX 100% je beljakovin','9.jpg','700',4,5,1,1,0),(10,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','10.jpg','2000',1,4,1,1,1),(11,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','11.jpg','2000',1,0,0,1,1),(12,'OLIMP WHEY PROTEIN COMPLEX 100%','proteins',44.99,'OLIMP WHEY PROTEIN COMPLEX 100% je beljakovin','12.jpg','2200',4,0,0,1,0),(13,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','13.jpg','2000',1,0,0,1,1),(15,'BATTERY GLUTAMINE brez okusa','proteins',13.99,'Glutamin je aminokislina, ki jo je v našem te','15.jpg','500',5,0,0,1,1);
+INSERT INTO `articles` VALUES (1,'<script type=\'text/javascript\'>alert(\'xss\');<','proteins',32.99,'Battery Nutrition Whey Protein - visoka količina proteinov.','1.jpg','2000',1,0,0,1,1),(3,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','3.jpg','2000',1,5,1,1,1),(4,'BATTERY OMEGA 3','fats',6.99,'Battery Omega 3 ima veliko višjo koli?ino ome','4.jpg','1',5,6,2,1,1),(5,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','5.jpg','2000',1,0,0,1,1),(6,'IRONMAXX 100% WHEY PROTEIN','proteins',19.99,'Obstaja kar nekaj pomembnih prednosti beljako','6.jpg','900',5,0,0,1,1),(7,'USN ORGANIC PEANUT BUTTER','fats',10.99,'USN ORGANIC PEANUT BUTTER je popolnoma narave','7.jpg','1000',4,0,0,1,0),(8,'OLIMP GOLD OMEGA 3 SPORT EDITION','fats',15.99,'Prehransko dopolnilo Omega-3 maš?obne kisline','8.jpg','1',5,0,0,1,1),(9,'OLIMP WHEY PROTEIN COMPLEX 100%','proteins',19.99,'OLIMP WHEY PROTEIN COMPLEX 100% je beljakovin','9.jpg','700',4,0,0,1,0),(10,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','10.jpg','2000',1,0,0,1,1),(11,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','11.jpg','2000',1,0,0,1,1),(12,'OLIMP WHEY PROTEIN COMPLEX 100%','proteins',44.99,'OLIMP WHEY PROTEIN COMPLEX 100% je beljakovin','12.jpg','2200',4,0,0,1,0),(13,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','13.jpg','2000',1,0,0,1,1),(15,'BATTERY GLUTAMINE brez okusa','proteins',13.99,'Glutamin je aminokislina, ki jo je v našem te','15.jpg','500',5,0,0,1,1);
 /*!40000 ALTER TABLE `articles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,11 +87,11 @@ DROP TABLE IF EXISTS `ratings`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ratings` (
   `id_rating` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(45) DEFAULT NULL,
+  `id_user` int(11) DEFAULT NULL,
   `id_article` int(11) DEFAULT NULL,
   `rating` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_rating`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,7 +100,7 @@ CREATE TABLE `ratings` (
 
 LOCK TABLES `ratings` WRITE;
 /*!40000 ALTER TABLE `ratings` DISABLE KEYS */;
-INSERT INTO `ratings` VALUES (4,'npovsic',1,5),(5,'npovsic',2,4),(6,'npovsic',3,1),(7,'npovsic',4,3),(8,'npovsic',5,1),(9,'npovsic',6,4),(10,'npovsic',7,3),(11,'npovsic',8,4),(12,'npovsic',10,4),(13,'npovsic',9,5),(14,'saso',1,3);
+INSERT INTO `ratings` VALUES (15,2,3,5),(16,2,4,4),(17,1,4,2);
 /*!40000 ALTER TABLE `ratings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,13 +112,13 @@ DROP TABLE IF EXISTS `receipt`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `receipt` (
-  `id_receipt` int(11) NOT NULL,
+  `id_receipt` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) DEFAULT NULL,
-  `id_article` int(11) DEFAULT NULL,
-  `id_seller` int(11) DEFAULT NULL,
-  `confirmed` varchar(45) DEFAULT NULL,
+  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` varchar(45) NOT NULL,
+  `total_cost` double DEFAULT NULL,
   PRIMARY KEY (`id_receipt`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,7 +127,34 @@ CREATE TABLE `receipt` (
 
 LOCK TABLES `receipt` WRITE;
 /*!40000 ALTER TABLE `receipt` DISABLE KEYS */;
+INSERT INTO `receipt` VALUES (1,4,'2017-01-22 17:24:21','storno',128.67);
 /*!40000 ALTER TABLE `receipt` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `receipt_items`
+--
+
+DROP TABLE IF EXISTS `receipt_items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `receipt_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_invoice` int(11) NOT NULL,
+  `id_item` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `receipt_items`
+--
+
+LOCK TABLES `receipt_items` WRITE;
+/*!40000 ALTER TABLE `receipt_items` DISABLE KEYS */;
+INSERT INTO `receipt_items` VALUES (1,1,1,3),(2,1,3,1);
+/*!40000 ALTER TABLE `receipt_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -141,13 +169,15 @@ CREATE TABLE `sellers` (
   `first_name` varchar(45) DEFAULT NULL,
   `last_name` varchar(45) DEFAULT NULL,
   `username` varchar(45) DEFAULT NULL,
-  `password` varchar(45) DEFAULT NULL,
+  `password` longtext,
   `email` varchar(45) DEFAULT NULL,
   `address` varchar(45) DEFAULT NULL,
   `city` varchar(45) DEFAULT NULL,
   `country` varchar(45) DEFAULT NULL,
   `active_seller` int(11) NOT NULL,
-  PRIMARY KEY (`id_seller`)
+  PRIMARY KEY (`id_seller`),
+  UNIQUE KEY `email_UNIQUE` (`email`),
+  UNIQUE KEY `username_UNIQUE` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -157,7 +187,7 @@ CREATE TABLE `sellers` (
 
 LOCK TABLES `sellers` WRITE;
 /*!40000 ALTER TABLE `sellers` DISABLE KEYS */;
-INSERT INTO `sellers` VALUES (1,'Sašo','Kranjc','saso','pass','skrajnc@gmail.com','Ulica na Brdo 90','Ljubljana','Slovenija',1),(5,'Klemen','Moderc','klemen','klemz','kmoderc@gmail.com','Moderčina 20','Moderčovje','Slovenija',1);
+INSERT INTO `sellers` VALUES (1,'Sašo','Kranjc','saso','$2a$07$4380348hvnjkjvernjk4uecp.p3rUPDgODpZjHZGfffgx2tvkAW2y','s.krajnc@gmail.com','Ulica na Brdo 90','Ljubljana','Slovenija',1),(5,'Klemen','Moderc','klemen','$2a$07$4380348hvnjkjvernjk4uecp.p3rUPDgODpZjHZGfffgx2tvkAW2y','kmoderc@gmail.com','Moderčina 20','Moderčovje','Slovenija',1);
 /*!40000 ALTER TABLE `sellers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -172,17 +202,19 @@ CREATE TABLE `users` (
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(45) NOT NULL,
   `last_name` varchar(45) DEFAULT NULL,
-  `phone_num` int(11) DEFAULT NULL,
   `username` varchar(45) DEFAULT NULL,
-  `password` varchar(45) DEFAULT NULL,
+  `password` longtext,
   `email` varchar(45) DEFAULT NULL,
+  `phone_num` varchar(45) DEFAULT NULL,
   `address` varchar(45) DEFAULT NULL,
   `city` varchar(45) DEFAULT NULL,
   `country` varchar(45) DEFAULT NULL,
   `active_user` int(11) NOT NULL,
   `token` int(11) NOT NULL,
-  PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id_user`),
+  UNIQUE KEY `username_UNIQUE` (`username`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -191,7 +223,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Boštjan','Povšič',NULL,'bpovsic','root','bpovsic@gmail.com','Brezje','Grosuplje','Slovenija',1,2376),(2,'Nejc','Povšič',NULL,'npovsic','root','npovsic@gmail.com','Prapretno 24','Radeče','Slovenija',1,6968),(3,'Klemen','Moderc',NULL,'klemz','klemz','moderc@moderc.si','Moderčina 20','Moderčovje','Slovenija',0,2688);
+INSERT INTO `users` VALUES (4,'Nejc','Povšič','npovsic','$2a$07$4380348hvnjkjvernjk4uecp.p3rUPDgODpZjHZGfffgx2tvkAW2y','npovsic@gmail.com','041245543','Prapretno 24','Radeče','Slovenija',1,6422);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -204,4 +236,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-21 20:57:14
+-- Dump completed on 2017-01-22 18:53:01

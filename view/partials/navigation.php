@@ -33,7 +33,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="<?php echo BASE_URL . "user/". $_SESSION["user"] ?>/edit">Uredi profil</a></li>
                                     <li><a href="<?php echo BASE_URL . "user/". $_SESSION["user"] ?>/orders">Naročila</a></li>
-                                    <li><a href="<?php echo BASE_URL ?>logout">Logout</a></li>
+                                    <li><a href="<?php echo BASE_URL ?>logout">Odjava</a></li>
                                 </ul>
                             </li>
                             <?php

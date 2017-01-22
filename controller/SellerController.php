@@ -3,7 +3,7 @@
 require_once("View.php");
 require_once("sql/InitDB.php");
 require_once("sql/DBSellers.php");
-
+require_once ("actions/Hash.php");
 
 class SellerController {
 
@@ -16,10 +16,34 @@ class SellerController {
         }
     }
 
+    public static function edit_seller_page($id) {
+        if(isset($_SESSION["seller"])) {
+            $items = DBSellers::getSellerInfo($id);
+            echo View::render("view/seller/edit_seller.php", $items, false);
+        } else {
+            View::redirect(ADMIN_URL);
+        }
+    }
+
+    public static function edit_seller($id) {
+        if(isset($_SESSION["seller"])) {
+            $data = filter_input_array(INPUT_POST, self::getEditSellerRules());
+            if (self::checkArray($data)) {
+                require('actions/edit_seller.php');
+                View::redirect(SELLER_URL);
+            }
+            else {
+                $items = DBSellers::getSellerInfo($id);
+                echo View::render("view/seller/edit_seller.php", ["variables" => $items, "failedAttempt" => "Izpolnite vsa polja."], true);
+            }
+        } else {
+            View::redirect(BASE_URL);
+        }
+    }
+
     public static function edit_article_page($id) {
         if(isset($_SESSION["seller"])) {
             $items = DBArticles::getArticle($id);
-
             echo View::render("view/seller/edit_article.php", $items, false);
         } else {
             View::redirect(BASE_URL);
@@ -28,7 +52,15 @@ class SellerController {
 
     public static function edit_article($id) {
         if(isset($_SESSION["seller"])) {
-            require('actions/edit_article.php');
+            $data = filter_input_array(INPUT_POST, self::getEditArticleRules());
+            if (self::checkArray($data)) {
+                require('actions/edit_article.php');
+                View::redirect(BASE_URL."seller");
+            }
+            else {
+                $items = DBArticles::getArticle($id);
+                echo View::render("view/seller/edit_article.php", $items, false);
+            }
         } else {
             View::redirect(BASE_URL);
         }
@@ -77,7 +109,7 @@ class SellerController {
     public static function confirm_order() {
         if(isset($_SESSION["seller"])) {
             $result = DBReceipt::confirmOrder($_GET["receipt"]);
-            View::redirect("/seller/unprocessed-orders");
+            View::redirect(BASE_URL."/seller/unprocessed-orders");
         } else {
             require('actions/login_admin.php');
         }
@@ -85,7 +117,7 @@ class SellerController {
     public static function cancel_order() {
         if(isset($_SESSION["seller"])) {
             $result = DBReceipt::cancelOrder($_GET["receipt"]);
-            View::redirect("/seller/unprocessed-orders");
+            View::redirect(BASE_URL."/seller/unprocessed-orders");
         } else {
             require('actions/login_admin.php');
         }
@@ -93,7 +125,7 @@ class SellerController {
     public static function storno_order() {
         if(isset($_SESSION["seller"])) {
             $result = DBReceipt::stornoOrder($_GET["receipt"]);
-            View::redirect("/seller/all-orders");
+            View::redirect(BASE_URL."/seller/all-orders");
         } else {
             require('actions/login_admin.php');
         }
@@ -172,20 +204,38 @@ class SellerController {
         }
     }
 
-    private static function getLoginRules() {
+    private static function getEditArticleRules() {
         return [
-            'username' => FILTER_SANITIZE_SPECIAL_CHARS,
-            'password' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'name' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'category' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'price' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'weight' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'description' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'active_article' => array('filter'    => FILTER_VALIDATE_INT,
+                'options'   => array('min_range' => 0, 'max_range' => 1)
+            ),
         ];
     }
 
-    private static function getEditUserRules() {
+    private static function getEditSellerRules() {
         return [
             'username' => FILTER_SANITIZE_SPECIAL_CHARS,
             'password' => FILTER_SANITIZE_SPECIAL_CHARS,
             'first_name' => FILTER_SANITIZE_SPECIAL_CHARS,
             'last_name' => FILTER_SANITIZE_SPECIAL_CHARS,
             'email' => FILTER_VALIDATE_EMAIL,
+            'address' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'city' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'country' => FILTER_SANITIZE_SPECIAL_CHARS
+        ];
+    }
+
+    private static function getEditUserRules() {
+        return [
+            'password' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'email' => FILTER_VALIDATE_EMAIL,
+            'phone_num' => array('filter' => FILTER_VALIDATE_REGEXP,
+                'options'   => array('regexp' => '/^\+?(\d){3,9}$/')),
             'address' => FILTER_SANITIZE_SPECIAL_CHARS,
             'city' => FILTER_SANITIZE_SPECIAL_CHARS,
             'country' => FILTER_SANITIZE_SPECIAL_CHARS,
@@ -196,9 +246,11 @@ class SellerController {
     }
 
     private static function checkArray($array) {
-        foreach ($array as $item) {
-            if (empty($item) || $item === false) {
-                if ($item !== 0) return false;
+        foreach ($array as $key => $value) {
+            if ($key != "password" && $key != "active_user" && key != "active_article") {
+                if (empty($value) || $value === false) {
+                    return false;
+                }
             }
         }
         return true;

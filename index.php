@@ -7,6 +7,8 @@ require_once("controller/Controller.php");
 require_once("controller/APIController.php");
 
 define("BASE_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php"));
+define("LOGS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "logs/");
+
 define("ITEM_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "article/");
 define("IMAGES_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/images/");
 define("CSS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/css/");
@@ -49,7 +51,7 @@ $urls = [
         Controller::details_page($id);
     },
     "/search.*/" => function($method) {
-        Controller::search($_GET['query']);
+        Controller::search();
     },
     "/add-to-cart$/" => function () {
         Controller::addToCart();
@@ -119,6 +121,13 @@ $urls = [
         }
 
     },
+    "/^admin\/edit$/" => function($method, $id = null) {
+        if ($method == "POST") {
+            AdminController::edit_admin($id);
+        } else {
+            AdminController::edit_admin_page($id);
+        }
+    },
     "/^admin\/edit\/(\d+)$/" => function($method, $id = null) {
         if ($method == "POST") {
             AdminController::edit_seller($id);
@@ -137,6 +146,19 @@ $urls = [
     # SELLER
     "/^seller$/" => function() {
         SellerController::index();
+    },
+    "/^seller\/(\w+)\/edit$/" => function($method, $username) {
+        if (isset($_SESSION['seller']) && ($_SESSION['seller'] == $username)) {
+            if ($method == "POST") {
+                SellerController::edit_seller($_SESSION['id']);
+            } else {
+                SellerController::edit_seller_page($_SESSION['id']);
+            }
+        }
+        else {
+            View::redirect(BASE_URL);
+        }
+
     },
     "/^seller\/edit\/(\d+)$/" => function($method, $id = null) {
         if ($method == "POST") {
@@ -211,4 +233,4 @@ foreach ($urls as $pattern => $controller) {
     }
 }
 
-View::displayError(new InvalidArgumentException("No controller matched."), true);
+echo View::displayError("view/error.php", "Te strani ni bilo možno najti.", true);

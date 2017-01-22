@@ -6,10 +6,10 @@ require_once("sql/DBArticles.php");
 require_once("sql/DBUsers.php");
 require_once("sql/DBReceipt.php");
 require_once("sql/Cart.php");
+require_once ("actions/Hash.php");
 
 
 class Controller {
-
 
     public static function index() {
         if(isset($_SESSION["admin"])) {
@@ -80,6 +80,7 @@ class Controller {
         $total = Cart::total();
 
         $result = DBReceipt::addReceipt($user, $cart, $total);
+        unset($_SESSION['cart']);
         View::redirect(BASE_URL);        
     }
     public static function checkout() {
@@ -111,7 +112,7 @@ class Controller {
 
     public static function edit_user($id) {
         $data = filter_input_array(INPUT_POST, self::getEditUserRules());
-        if (Controller::checkArray($data)) {
+        if (self::checkArray($data)) {
             require('actions/edit_user.php');
             View::redirect(BASE_URL);
         }
@@ -119,7 +120,6 @@ class Controller {
             $items = DBUsers::getUserInfo($id);
             echo View::render("view/edit_user.php", $items, false);
         }
-
     }
     public static function order_details($id) {
         $receipt = $_GET['receipt'];
@@ -135,12 +135,20 @@ class Controller {
         echo View::render("view/all_user_receipts.php", $items, false);
     }
 
-    public static function search($query) {
+    public static function search() {
+        $query = filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
         $items = DBArticles::searchArticles($query);
         echo View::render("view/search_page.php", ["variables" => $items, "query" => $query], true);
     }
 
     private static function getLoginRules() {
+        return [
+            'uname' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'password' => FILTER_SANITIZE_SPECIAL_CHARS,
+        ];
+    }
+
+    private static function getSearchRules() {
         return [
             'uname' => FILTER_SANITIZE_SPECIAL_CHARS,
             'password' => FILTER_SANITIZE_SPECIAL_CHARS,
@@ -154,6 +162,8 @@ class Controller {
             'first_name' => FILTER_SANITIZE_SPECIAL_CHARS,
             'last_name' => FILTER_SANITIZE_SPECIAL_CHARS,
             'email' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'phone_num' => array('filter' => FILTER_VALIDATE_REGEXP,
+                'options'   => array('regexp' => '/^\+?(\d){3,9}$/')),
             'address' => FILTER_SANITIZE_SPECIAL_CHARS,
             'city' => FILTER_SANITIZE_SPECIAL_CHARS,
             'country' => FILTER_SANITIZE_SPECIAL_CHARS
@@ -162,11 +172,10 @@ class Controller {
 
     private static function getEditUserRules() {
         return [
-            'username' => FILTER_SANITIZE_SPECIAL_CHARS,
             'password' => FILTER_SANITIZE_SPECIAL_CHARS,
-            'first_name' => FILTER_SANITIZE_SPECIAL_CHARS,
-            'last_name' => FILTER_SANITIZE_SPECIAL_CHARS,
             'email' => FILTER_VALIDATE_EMAIL,
+            'phone_num' => array('filter' => FILTER_VALIDATE_REGEXP,
+                'options'   => array('regexp' => '/^\+?(\d){3,9}$/')),
             'address' => FILTER_SANITIZE_SPECIAL_CHARS,
             'city' => FILTER_SANITIZE_SPECIAL_CHARS,
             'country' => FILTER_SANITIZE_SPECIAL_CHARS
@@ -174,8 +183,12 @@ class Controller {
     }
 
     private static function checkArray($array) {
-        foreach ($array as $item) {
-            if (empty($item) || $item == false) return false;
+        foreach ($array as $key => $value) {
+            if ($key != "password") {
+                if (empty($value) || $value === false) {
+                    return false;
+                }
+            }
         }
         return true;
     }

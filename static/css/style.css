@@ -31,7 +31,7 @@ input:focus {
 
 .container {
     display: flex;
-    min-height: 100vh;
+    min-height: 90vh;
     flex-direction: column;
 }
 
@@ -99,6 +99,7 @@ span.one-line-span {
     border: none;
     color: #fff;
     height: 40px;
+    width: 201px;
     transition: ease all 0.35s;
     white-space: nowrap;
 }
@@ -134,6 +135,11 @@ span.one-line-span {
 
 .form-control:focus {
     color: #555 !important;
+}
+
+.navbar-nav > li > .dropdown-menu {
+    left: auto !important;
+    right: 0;
 }
 
 /* Rate Widget */
@@ -447,4 +453,21 @@ span.one-line-span {
     float: left;
     margin: 14px 5px;
     cursor: pointer;
+}
+
+/* 404 page*/
+.error-404 {
+    width: 100%;
+    text-align: center;
+}
+
+.error-404 > h1 {
+    font-size: 15em;
+}
+
+.error-404 > .img-responsive {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
 }

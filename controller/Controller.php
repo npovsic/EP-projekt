@@ -4,7 +4,7 @@ require_once("View.php");
 require_once("sql/InitDB.php");
 require_once("sql/DBArticles.php");
 require_once("sql/DBUsers.php");
-
+require_once ("actions/Hash.php");
 
 class Controller {
 
@@ -88,15 +88,14 @@ class Controller {
 
     public static function edit_user($id) {
         $data = filter_input_array(INPUT_POST, self::getEditUserRules());
-        if (Controller::checkArray($data)) {
+        if (self::checkArray($data)) {
             require('actions/edit_user.php');
-            View::redirect(BASE_URL);
+//            View::redirect(BASE_URL);
         }
         else {
             $items = DBUsers::getUserInfo($id);
             echo View::render("view/edit_user.php", $items, false);
         }
-
     }
 
     public static function user_orders($id) {
@@ -123,6 +122,8 @@ class Controller {
             'first_name' => FILTER_SANITIZE_SPECIAL_CHARS,
             'last_name' => FILTER_SANITIZE_SPECIAL_CHARS,
             'email' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'phone_num' => array('filter' => FILTER_VALIDATE_REGEXP,
+                'options'   => array('regexp' => '/^\+?(\d){3,9}$/')),
             'address' => FILTER_SANITIZE_SPECIAL_CHARS,
             'city' => FILTER_SANITIZE_SPECIAL_CHARS,
             'country' => FILTER_SANITIZE_SPECIAL_CHARS
@@ -131,11 +132,10 @@ class Controller {
 
     private static function getEditUserRules() {
         return [
-            'username' => FILTER_SANITIZE_SPECIAL_CHARS,
             'password' => FILTER_SANITIZE_SPECIAL_CHARS,
-            'first_name' => FILTER_SANITIZE_SPECIAL_CHARS,
-            'last_name' => FILTER_SANITIZE_SPECIAL_CHARS,
             'email' => FILTER_VALIDATE_EMAIL,
+            'phone_num' => array('filter' => FILTER_VALIDATE_REGEXP,
+                'options'   => array('regexp' => '/^\+?(\d){3,9}$/')),
             'address' => FILTER_SANITIZE_SPECIAL_CHARS,
             'city' => FILTER_SANITIZE_SPECIAL_CHARS,
             'country' => FILTER_SANITIZE_SPECIAL_CHARS
@@ -143,8 +143,12 @@ class Controller {
     }
 
     private static function checkArray($array) {
-        foreach ($array as $item) {
-            if (empty($item) || $item == false) return false;
+        foreach ($array as $key => $value) {
+            if ($key != "password") {
+                if (empty($value) || $value === false) {
+                    return false;
+                }
+            }
         }
         return true;
     }

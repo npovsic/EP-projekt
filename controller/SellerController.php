@@ -3,7 +3,7 @@
 require_once("View.php");
 require_once("sql/InitDB.php");
 require_once("sql/DBSellers.php");
-
+require_once ("actions/Hash.php");
 
 class SellerController {
 
@@ -114,20 +114,12 @@ class SellerController {
         }
     }
 
-    private static function getLoginRules() {
-        return [
-            'username' => FILTER_SANITIZE_SPECIAL_CHARS,
-            'password' => FILTER_SANITIZE_SPECIAL_CHARS,
-        ];
-    }
-
     private static function getEditUserRules() {
         return [
-            'username' => FILTER_SANITIZE_SPECIAL_CHARS,
             'password' => FILTER_SANITIZE_SPECIAL_CHARS,
-            'first_name' => FILTER_SANITIZE_SPECIAL_CHARS,
-            'last_name' => FILTER_SANITIZE_SPECIAL_CHARS,
             'email' => FILTER_VALIDATE_EMAIL,
+            'phone_num' => array('filter' => FILTER_VALIDATE_REGEXP,
+                'options'   => array('regexp' => '/^\+?(\d){3,9}$/')),
             'address' => FILTER_SANITIZE_SPECIAL_CHARS,
             'city' => FILTER_SANITIZE_SPECIAL_CHARS,
             'country' => FILTER_SANITIZE_SPECIAL_CHARS,
@@ -138,9 +130,11 @@ class SellerController {
     }
 
     private static function checkArray($array) {
-        foreach ($array as $item) {
-            if (empty($item) || $item === false) {
-                if ($item !== 0) return false;
+        foreach ($array as $key => $value) {
+            if ($key != "password" && $key != "active_user") {
+                if (empty($value) || $value === false) {
+                    return false;
+                }
             }
         }
         return true;

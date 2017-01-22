@@ -96,6 +96,13 @@ $urls = [
         }
 
     },
+    "/^admin\/edit$/" => function($method, $id = null) {
+        if ($method == "POST") {
+            AdminController::edit_admin($id);
+        } else {
+            AdminController::edit_admin_page($id);
+        }
+    },
     "/^admin\/edit\/(\d+)$/" => function($method, $id = null) {
         if ($method == "POST") {
             AdminController::edit_seller($id);

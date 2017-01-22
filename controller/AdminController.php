@@ -156,7 +156,7 @@ class AdminController {
 
     private static function checkArray($array) {
         foreach ($array as $key => $value) {
-            if ($key != "password") {
+            if ($key != "password" && $key != "active_seller") {
                 if (empty($value) || $value === false) {
                     return false;
                 }

@@ -48,9 +48,18 @@ class DBArticles {
 
     public static function addArticle($data, $pictureName, $sellerId) {
         $db = InitDB::getInstance();
+
+        $stmtSeller = $db->prepare("SELECT active_seller FROM sellers WHERE "
+            . "id_seller = ?");
+        $stmtSeller->bindValue(1, $sellerId);
+        $stmtSeller->execute();
+
+        $isSellerActive = $stmtSeller->fetchColumn();
+
+
         $stmt = $db->prepare("INSERT INTO articles "
-            . "(name, category, price, description, picture, weight, id_seller) "
-            . "VALUES (?, ?, ?, ?, ?, ?, ?)");
+            . "(name, category, price, description, picture, weight, id_seller, active_seller) "
+            . "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bindValue(1, $data['name']);
         $stmt->bindValue(2, $data['category']);
         $stmt->bindValue(3, $data['price']);
@@ -58,6 +67,7 @@ class DBArticles {
         $stmt->bindValue(5, $pictureName);
         $stmt->bindValue(6, $data['weight']);
         $stmt->bindValue(7, $sellerId);
+        $stmt->bindValue(8, $isSellerActive);
         $stmt->execute();
     }
 

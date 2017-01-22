@@ -22,7 +22,7 @@ try {
         $_SESSION["id"] = $id;
 
         $text = "[".date('d/m/Y h:i:s a', time())."] - logged in: ".$_SESSION["seller"];
-        include '/actions/log.php';
+        include 'actions/log.php';
 
         View::redirect(BASE_URL . "seller");
     } else {

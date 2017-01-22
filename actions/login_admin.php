@@ -9,9 +9,10 @@ try {
         $_SESSION["logged_in"] = true;
         $_SESSION["admin"] = $_POST["uadmin"];
 
-        $items = DBSellers::getSellers();
+        $text = "[".date('d/m/Y h:i:s a', time())."] - logged in: ".$_SESSION["admin"];
+        include $_SERVER['DOCUMENT_ROOT'].ACTIONS_URL.'log.php';
 
-        echo View::render("view/admin/layout.php", $items, false);
+        View::redirect(ADMIN_URL);
     } else {
         echo View::render("view/admin/login_page.php", ["failedAttempt" => "Napačni podatki."], true);
     }

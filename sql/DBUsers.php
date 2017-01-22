@@ -2,25 +2,32 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
 
-
 class DBUsers {
 
     public static function login($uname, $password) {
         $db = InitDB::getInstance();
-        $stmt = $db->prepare("SELECT id_user FROM users WHERE "
-                . "username = ? AND password = ?");
+        $stmt = $db->prepare("SELECT id_user, password FROM users WHERE "
+                . "username = ?");
         $stmt->bindValue(1, $uname);
-        $stmt->bindValue(2, $password);
         $stmt->execute();
 
-        return $stmt->fetchColumn(0);
+        $parameters = $stmt->fetch();
+
+        $id = $parameters['id_user'];
+        $hashed_password = $parameters['password'];
+
+        if (Hash::comparePasswords($password, $hashed_password)) {
+            return $id;
+        }
+        else {
+            return false;
+        }
     }
     public static function checkActivation($uname, $password) {
         $db = InitDB::getInstance();
         $stmt = $db->prepare("SELECT COUNT(id_user) FROM users WHERE "
-                . "username = ? AND password = ? AND active_user = 1");
+                . "username = ? AND active_user = 1");
         $stmt->bindValue(1, $uname);
-        $stmt->bindValue(2, $password);
         $stmt->execute();
 
         return $stmt->fetchColumn(0) == 1;
@@ -32,7 +39,7 @@ class DBUsers {
         $stmt = $db->prepare("INSERT INTO users (username, password, first_name, last_name, " 
         . "address, email, city, country, token) VALUES (?,?,?,?,?,?,?,?,?)");
         $stmt->bindValue(1, $uname);
-        $stmt->bindValue(2, $password);
+        $stmt->bindValue(2, Hash::hashPassword($password));
         $stmt->bindValue(3, $first_name);
         $stmt->bindValue(4, $last_name);
         $stmt->bindValue(5, $address);
@@ -99,35 +106,74 @@ class DBUsers {
         $db = InitDB::getInstance();
 
         if (isset($data['active_user'])) {
-            $stmt = $db->prepare("UPDATE users "
-                . "SET first_name = ?, last_name = ?, username = ?, password = ?, email = ?, address = ?, city = ?, country = ?, active_user = ? "
-                . "WHERE id_user = ?");
+            if (!empty($data['password'])) {
+                $stmt = $db->prepare("UPDATE users "
+                    . "SET password = ?, email = ?, phone_num = ?, address = ?, city = ?, country = ?, active_user = ? "
+                    . "WHERE id_user = ?");
+
+                $stmt->bindValue(1, Hash::hashPassword($data['password']));
+                $stmt->bindValue(2, $data['email']);
+                $stmt->bindValue(3, $data['phone_num']);
+                $stmt->bindValue(4, $data['address']);
+                $stmt->bindValue(5, $data['city']);
+                $stmt->bindValue(6, $data['country']);
+                $stmt->bindValue(7, $data['active_user']);
+                $stmt->bindValue(8, $id);
+                $stmt->execute();
+
+                return "Success";
+            }
+            else {
+                $stmt = $db->prepare("UPDATE users "
+                    . "SET email = ?, phone_num = ?, address = ?, city = ?, country = ?, active_user = ? "
+                    . "WHERE id_user = ?");
+
+                $stmt->bindValue(1, $data['email']);
+                $stmt->bindValue(2, $data['phone_num']);
+                $stmt->bindValue(3, $data['address']);
+                $stmt->bindValue(4, $data['city']);
+                $stmt->bindValue(5, $data['country']);
+                $stmt->bindValue(6, $data['active_user']);
+                $stmt->bindValue(7, $id);
+                $stmt->execute();
+
+                return "Success";
+            }
+
         }
         else {
-            $stmt = $db->prepare("UPDATE users "
-                . "SET first_name = ?, last_name = ?, username = ?, password = ?, email = ?, address = ?, city = ?, country = ? "
-                . "WHERE id_user = ?");
-        }
+            if (!empty($data['password'])) {
+                $stmt = $db->prepare("UPDATE users "
+                    . "SET password = ?, email = ?, phone_num = ?, address = ?, city = ?, country = ? "
+                    . "WHERE id_user = ?");
 
-        $stmt->bindValue(1, $data['first_name']);
-        $stmt->bindValue(2, $data['last_name']);
-        $stmt->bindValue(3, $data['username']);
-        $stmt->bindValue(4, $data['password']);
-        $stmt->bindValue(5, $data['email']);
-        $stmt->bindValue(6, $data['address']);
-        $stmt->bindValue(7, $data['city']);
-        $stmt->bindValue(8, $data['country']);
-        if (isset($data['active_user'])) {
-            $stmt->bindValue(9, $data['active_user']);
-            $stmt->bindValue(10, $id);
-        }
-        else {
-            $stmt->bindValue(9, $id);
-        }
+                $stmt->bindValue(1, Hash::hashPassword($data['password']));
+                $stmt->bindValue(2, $data['email']);
+                $stmt->bindValue(3, $data['phone_num']);
+                $stmt->bindValue(4, $data['address']);
+                $stmt->bindValue(5, $data['city']);
+                $stmt->bindValue(6, $data['country']);
+                $stmt->bindValue(7, $id);
+                $stmt->execute();
 
-        $stmt->execute();
+                return "Success";
+            }
+            else {
+                $stmt = $db->prepare("UPDATE users "
+                    . "SET email = ?, phone_num = ?, address = ?, city = ?, country = ? "
+                    . "WHERE id_user = ?");
 
-        return "Success";
+                $stmt->bindValue(1, $data['email']);
+                $stmt->bindValue(2, $data['phone_num']);
+                $stmt->bindValue(3, $data['address']);
+                $stmt->bindValue(4, $data['city']);
+                $stmt->bindValue(5, $data['country']);
+                $stmt->bindValue(6, $id);
+                $stmt->execute();
+
+                return "Success";
+            }
+        }
     }
 
 }

@@ -20,6 +20,10 @@ try {
         $_SESSION["logged_in"] = true;
         $_SESSION["seller"] = $_POST["uname"];
         $_SESSION["id"] = $id;
+
+        $text = "[".date('d/m/Y h:i:s a', time())."] - logged in: ".$_SESSION["seller"];
+        include $_SERVER['DOCUMENT_ROOT'].ACTIONS_URL.'log.php';
+
         View::redirect(BASE_URL . "seller");
     } else {
         echo View::render("view/login_page.php", ["failedAttempt" => true], true);

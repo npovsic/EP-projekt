@@ -111,7 +111,7 @@ class DBReceipt {
             . "(id_user, status, total_cost)"
             . "values(?,?,?)");
         $stmt2->bindValue(1, $id["id_user"]);
-        $stmt2->bindValue(2, "unproccesed");
+        $stmt2->bindValue(2, "unprocessed");
         $stmt2->bindValue(3, $total);        
         $stmt2->execute(); 
         $receipt_id = $db->lastInsertId(); 

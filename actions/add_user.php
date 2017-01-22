@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
-require_once $_SERVER['DOCUMENT_ROOT'].DOCUMENT_URL.'DBSellers.php';
+require_once 'sql/DBSellers.php';
 $failedAttempt = false;
 
 if (!empty($_POST["username"]) && !empty($_POST["password"]) && !empty($_POST['first_name'])

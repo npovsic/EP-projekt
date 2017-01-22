@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
-require_once $_SERVER['DOCUMENT_ROOT'].DOCUMENT_URL.'DBUsers.php';
+require_once 'sql/DBUsers.php';
 
 try {
     if ($id = DBUsers::login($data["uname"], $data["password"])) {
@@ -22,7 +22,7 @@ try {
         $_SESSION["id"] = $id;
 
         $text = "[".date('d/m/Y h:i:s a', time())."] - logged in: ".$_SESSION["seller"];
-        include $_SERVER['DOCUMENT_ROOT'].ACTIONS_URL.'log.php';
+        include ACTIONS_URL.'log.php';
 
         View::redirect(BASE_URL . "seller");
     } else {

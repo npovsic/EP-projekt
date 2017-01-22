@@ -28,6 +28,7 @@ class SellerController {
     public static function edit_seller($id) {
         if(isset($_SESSION["seller"])) {
             $data = filter_input_array(INPUT_POST, self::getEditSellerRules());
+            var_dump($data);
             if (self::checkArray($data)) {
                 require('actions/edit_seller.php');
                 View::redirect(SELLER_URL);
@@ -219,10 +220,7 @@ class SellerController {
 
     private static function getEditSellerRules() {
         return [
-            'username' => FILTER_SANITIZE_SPECIAL_CHARS,
             'password' => FILTER_SANITIZE_SPECIAL_CHARS,
-            'first_name' => FILTER_SANITIZE_SPECIAL_CHARS,
-            'last_name' => FILTER_SANITIZE_SPECIAL_CHARS,
             'email' => FILTER_VALIDATE_EMAIL,
             'address' => FILTER_SANITIZE_SPECIAL_CHARS,
             'city' => FILTER_SANITIZE_SPECIAL_CHARS,
@@ -247,7 +245,7 @@ class SellerController {
 
     private static function checkArray($array) {
         foreach ($array as $key => $value) {
-            if ($key != "password" && $key != "active_user" && key != "active_article") {
+            if ($key != "password" && $key != "active_user" && $key != "active_article") {
                 if (empty($value) || $value === false) {
                     return false;
                 }

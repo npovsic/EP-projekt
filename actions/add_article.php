@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
-require_once $_SERVER['DOCUMENT_ROOT'].DOCUMENT_URL.'DBArticles.php';
+require_once 'sql/DBArticles.php';
 $failedAttempt = null;
 
 if (
@@ -11,7 +11,7 @@ if (
     isset($_POST["weight"]) &&
     isset($_POST["description"])
 ) {
-    require_once $_SERVER['DOCUMENT_ROOT'].ACTIONS_URL.'upload.php';
+    require_once ACTIONS_URL.'upload.php';
 
     if ($uploadOk == 1) {
         try {

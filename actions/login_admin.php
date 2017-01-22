@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
-require_once $_SERVER['DOCUMENT_ROOT'].DOCUMENT_URL.'DBAdmins.php';
+require_once 'sql/DBAdmins.php';
 
 try {
     if (DBAdmins::login($_POST["uadmin"], $_POST["password"])) {
@@ -10,7 +10,7 @@ try {
         $_SESSION["admin"] = $_POST["uadmin"];
 
         $text = "[".date('d/m/Y h:i:s a', time())."] - logged in: ".$_SESSION["admin"];
-        include $_SERVER['DOCUMENT_ROOT'].ACTIONS_URL.'log.php';
+        include ACTIONS_URL.'log.php';
 
         View::redirect(ADMIN_URL);
     } else {

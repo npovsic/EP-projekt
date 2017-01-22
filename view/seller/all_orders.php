@@ -60,7 +60,7 @@
                                 <form action="<?php echo BASE_URL . "seller/" ?>all-orders/info" method="get">
                                     <input type="hidden" name="receipt" value="<?php echo $item["id_receipt"] ?>" />    
                                     <button class="btn btn-info btn-sm" type="submit">
-                                        <i class="glyphicon glyphicon-question-sign"></i>
+                                        <i class="fa fa-info"></i>
                                     </button>
                                 </form>
                             </td>

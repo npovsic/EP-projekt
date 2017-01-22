@@ -29,7 +29,7 @@
             </td>
             <td data-th="Subtotal" class="text-center text-middle">$ <?php echo $product["price"]*$product["quantity"] ?></td>
             <td class="actions text-center text-middle" data-th="">
-                    <button type="submit" class="btn btn-success btn-sm"><i class="fa glyphicon glyphicon-edit"></i></button>
+                    <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></button>
             </td>     
             </form>       
             <td class="actions text-center text-middle" data-th="">

@@ -51,7 +51,7 @@ $urls = [
         Controller::details_page($id);
     },
     "/search.*/" => function($method) {
-        Controller::search($_GET['query']);
+        Controller::search();
     },
     "/add-to-cart$/" => function () {
         Controller::addToCart();

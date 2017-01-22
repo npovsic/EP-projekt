@@ -65,7 +65,7 @@ CREATE TABLE `articles` (
   `active_seller` int(11) NOT NULL,
   PRIMARY KEY (`id_article`),
   FULLTEXT KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,7 +74,7 @@ CREATE TABLE `articles` (
 
 LOCK TABLES `articles` WRITE;
 /*!40000 ALTER TABLE `articles` DISABLE KEYS */;
-INSERT INTO `articles` VALUES (1,'BATTERY WHEY PROTEIN','proteins',29.8,'Battery Nutrition Whey Protein - visoka količina proteinov.','1.jpg','2000',1,0,0,1,1),(3,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','3.jpg','2000',1,5,1,1,1),(4,'BATTERY OMEGA 3','fats',6.99,'Battery Omega 3 ima veliko višjo koli?ino ome','4.jpg','1',5,6,2,1,1),(5,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','5.jpg','2000',1,0,0,1,1),(6,'IRONMAXX 100% WHEY PROTEIN','proteins',19.99,'Obstaja kar nekaj pomembnih prednosti beljako','6.jpg','900',5,0,0,1,1),(7,'USN ORGANIC PEANUT BUTTER','fats',10.99,'USN ORGANIC PEANUT BUTTER je popolnoma narave','7.jpg','1000',4,0,0,1,0),(8,'OLIMP GOLD OMEGA 3 SPORT EDITION','fats',15.99,'Prehransko dopolnilo Omega-3 maš?obne kisline','8.jpg','1',5,0,0,1,1),(9,'OLIMP WHEY PROTEIN COMPLEX 100%','proteins',19.99,'OLIMP WHEY PROTEIN COMPLEX 100% je beljakovin','9.jpg','700',4,0,0,1,0),(10,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','10.jpg','2000',1,0,0,1,1),(11,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','11.jpg','2000',1,0,0,1,1),(12,'OLIMP WHEY PROTEIN COMPLEX 100%','proteins',44.99,'OLIMP WHEY PROTEIN COMPLEX 100% je beljakovin','12.jpg','2200',4,0,0,1,0),(13,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','13.jpg','2000',1,0,0,1,1),(15,'BATTERY GLUTAMINE brez okusa','proteins',13.99,'Glutamin je aminokislina, ki jo je v našem te','15.jpg','500',5,0,0,1,1);
+INSERT INTO `articles` VALUES (1,'<script type=\'text/javascript\'>alert(\'xss\');<','proteins',32.99,'Battery Nutrition Whey Protein - visoka količina proteinov.','1.jpg','2000',1,0,0,1,1),(3,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','3.jpg','2000',1,5,1,1,1),(4,'BATTERY OMEGA 3','fats',6.99,'Battery Omega 3 ima veliko višjo koli?ino ome','4.jpg','1',5,6,2,1,1),(5,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','5.jpg','2000',1,0,0,1,1),(6,'IRONMAXX 100% WHEY PROTEIN','proteins',19.99,'Obstaja kar nekaj pomembnih prednosti beljako','6.jpg','900',5,0,0,1,1),(7,'USN ORGANIC PEANUT BUTTER','fats',10.99,'USN ORGANIC PEANUT BUTTER je popolnoma narave','7.jpg','1000',4,0,0,1,0),(8,'OLIMP GOLD OMEGA 3 SPORT EDITION','fats',15.99,'Prehransko dopolnilo Omega-3 maš?obne kisline','8.jpg','1',5,0,0,1,1),(9,'OLIMP WHEY PROTEIN COMPLEX 100%','proteins',19.99,'OLIMP WHEY PROTEIN COMPLEX 100% je beljakovin','9.jpg','700',4,0,0,1,0),(10,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','10.jpg','2000',1,0,0,1,1),(11,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','11.jpg','2000',1,0,0,1,1),(12,'OLIMP WHEY PROTEIN COMPLEX 100%','proteins',44.99,'OLIMP WHEY PROTEIN COMPLEX 100% je beljakovin','12.jpg','2200',4,0,0,1,0),(13,'BATTERY WHEY PROTEIN','proteins',29.7,'Battery Nutrition Whey Protein - visoka koli?','13.jpg','2000',1,0,0,1,1),(15,'BATTERY GLUTAMINE brez okusa','proteins',13.99,'Glutamin je aminokislina, ki jo je v našem te','15.jpg','500',5,0,0,1,1);
 /*!40000 ALTER TABLE `articles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,13 +112,13 @@ DROP TABLE IF EXISTS `receipt`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `receipt` (
-  `id_receipt` int(11) NOT NULL,
+  `id_receipt` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) DEFAULT NULL,
-  `id_article` int(11) DEFAULT NULL,
-  `id_seller` int(11) DEFAULT NULL,
-  `confirmed` varchar(45) DEFAULT NULL,
+  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` varchar(45) NOT NULL,
+  `total_cost` double DEFAULT NULL,
   PRIMARY KEY (`id_receipt`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,7 +127,34 @@ CREATE TABLE `receipt` (
 
 LOCK TABLES `receipt` WRITE;
 /*!40000 ALTER TABLE `receipt` DISABLE KEYS */;
+INSERT INTO `receipt` VALUES (1,4,'2017-01-22 17:24:21','storno',128.67);
 /*!40000 ALTER TABLE `receipt` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `receipt_items`
+--
+
+DROP TABLE IF EXISTS `receipt_items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `receipt_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_invoice` int(11) NOT NULL,
+  `id_item` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `receipt_items`
+--
+
+LOCK TABLES `receipt_items` WRITE;
+/*!40000 ALTER TABLE `receipt_items` DISABLE KEYS */;
+INSERT INTO `receipt_items` VALUES (1,1,1,3),(2,1,3,1);
+/*!40000 ALTER TABLE `receipt_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -196,7 +223,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (4,'Nejc','Povšič','npovsic','$2a$07$4380348hvnjkjvernjk4ue6fiRMBGVqUNFVJleD.YOLzodP3fbQam','npovsic@gmail.com','041245543','Prapretno 24','Radeče','Slovenija',1,6422);
+INSERT INTO `users` VALUES (4,'Nejc','Povšič','npovsic','$2a$07$4380348hvnjkjvernjk4uecp.p3rUPDgODpZjHZGfffgx2tvkAW2y','npovsic@gmail.com','041245543','Prapretno 24','Radeče','Slovenija',1,6422);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -209,4 +236,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-22 16:41:50
+-- Dump completed on 2017-01-22 18:53:01

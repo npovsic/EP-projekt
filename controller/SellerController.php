@@ -44,7 +44,6 @@ class SellerController {
     public static function edit_article_page($id) {
         if(isset($_SESSION["seller"])) {
             $items = DBArticles::getArticle($id);
-
             echo View::render("view/seller/edit_article.php", $items, false);
         } else {
             View::redirect(BASE_URL);
@@ -53,7 +52,15 @@ class SellerController {
 
     public static function edit_article($id) {
         if(isset($_SESSION["seller"])) {
-            require('actions/edit_article.php');
+            $data = filter_input_array(INPUT_POST, self::getEditArticleRules());
+            if (self::checkArray($data)) {
+                require('actions/edit_article.php');
+                View::redirect(BASE_URL."seller");
+            }
+            else {
+                $items = DBArticles::getArticle($id);
+                echo View::render("view/seller/edit_article.php", $items, false);
+            }
         } else {
             View::redirect(BASE_URL);
         }
@@ -197,6 +204,19 @@ class SellerController {
         }
     }
 
+    private static function getEditArticleRules() {
+        return [
+            'name' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'category' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'price' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'weight' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'description' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'active_article' => array('filter'    => FILTER_VALIDATE_INT,
+                'options'   => array('min_range' => 0, 'max_range' => 1)
+            ),
+        ];
+    }
+
     private static function getEditSellerRules() {
         return [
             'username' => FILTER_SANITIZE_SPECIAL_CHARS,
@@ -227,7 +247,7 @@ class SellerController {
 
     private static function checkArray($array) {
         foreach ($array as $key => $value) {
-            if ($key != "password" && $key != "active_user") {
+            if ($key != "password" && $key != "active_user" && key != "active_article") {
                 if (empty($value) || $value === false) {
                     return false;
                 }

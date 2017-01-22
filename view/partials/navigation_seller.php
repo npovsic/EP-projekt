@@ -32,7 +32,7 @@
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="<?php echo SELLER_URL . $_SESSION["seller"] ?>/edit">Uredi profil</a></li>
-                            <li><a href="<?php echo BASE_URL ?>logout">Logout</a></li>
+                            <li><a href="<?php echo BASE_URL ?>logout">Odjava</a></li>
                         </ul>
                     </li>
                     <?php

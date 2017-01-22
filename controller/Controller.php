@@ -135,12 +135,20 @@ class Controller {
         echo View::render("view/all_user_receipts.php", $items, false);
     }
 
-    public static function search($query) {
+    public static function search() {
+        $query = filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
         $items = DBArticles::searchArticles($query);
         echo View::render("view/search_page.php", ["variables" => $items, "query" => $query], true);
     }
 
     private static function getLoginRules() {
+        return [
+            'uname' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'password' => FILTER_SANITIZE_SPECIAL_CHARS,
+        ];
+    }
+
+    private static function getSearchRules() {
         return [
             'uname' => FILTER_SANITIZE_SPECIAL_CHARS,
             'password' => FILTER_SANITIZE_SPECIAL_CHARS,

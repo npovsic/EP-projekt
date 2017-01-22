@@ -11,7 +11,7 @@ if (
     isset($_POST["weight"]) &&
     isset($_POST["description"])
 ) {
-    require_once ACTIONS_URL.'upload.php';
+    require_once 'actions/upload.php';
 
     if ($uploadOk == 1) {
         try {

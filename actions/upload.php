@@ -1,6 +1,6 @@
 <?php
 
-$target_dir = IMAGES_URL;
+$target_dir = "static/images/";
 $target_file = $target_dir . basename($_FILES["picture"]["name"]);
 $uploadOk = 1;
 $imageExists = 0;

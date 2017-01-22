@@ -9,7 +9,7 @@ try {
         $_SESSION["logged_in"] = true;
         $_SESSION["admin"] = $_POST["uadmin"];
 
-        $text = "[".date('m/d/Y h:i:s a', time())."] - logged in: ".$_POST["uadmin"];
+        $text = "[".date('d/m/Y h:i:s a', time())."] - logged in: ".$_SESSION["admin"];
         include $_SERVER['DOCUMENT_ROOT'].ACTIONS_URL.'log.php';
 
         View::redirect(ADMIN_URL);

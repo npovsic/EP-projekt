@@ -4,6 +4,7 @@ ini_set('display_errors', 'on');
 require_once $_SERVER['DOCUMENT_ROOT'].DOCUMENT_URL.'DBSellers.php';
 
 try {
+
     DBSellers::editSeller($id, $data);
 } catch (Exception $exc) {
     echo $exc->getMessage();

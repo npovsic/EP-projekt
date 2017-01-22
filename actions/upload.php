@@ -11,7 +11,7 @@ if(isset($_POST["submit"])) {
     if($check !== false) {
         $uploadOk = 1;
     } else {
-        $uploadOk = "Not an image.";
+        $uploadOk = 0;
     }
 }
 // Check if file already exists
@@ -20,7 +20,7 @@ if (file_exists($target_file)) {
 }
 // Check file size
 if ($_FILES["picture"]["size"] > 500000) {
-    $uploadOk = "Image too big.";
+    $uploadOk = 0;
 }
 
 if (!$imageExists) {

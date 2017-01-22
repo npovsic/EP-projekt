@@ -186,4 +186,4 @@ foreach ($urls as $pattern => $controller) {
     }
 }
 
-View::displayError(new InvalidArgumentException("No controller matched."), true);
+echo View::displayError("view/error.php", "Te strani ni bilo možno najti.", true);

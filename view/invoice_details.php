@@ -15,7 +15,7 @@ and open the template in the editor.
 <?php include "view/partials/navigation.php"; ?>
 <div class="container">
     <div class="wrapper">
-		<?php include "view/partials/invoice.php";  ?>
+		<?php include "view/partials/invoice_details_par.php";  ?>
     </div>
 
 </div>

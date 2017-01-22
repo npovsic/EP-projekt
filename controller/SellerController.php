@@ -66,7 +66,65 @@ class SellerController {
             require('actions/login_admin.php');
         }
     }
+    public static function unprocessed_orders() {
+        if(isset($_SESSION["seller"])) {
+            $items = DBReceipt::getUnprocessedReceipts();
+            echo View::render("view/seller/unprocessed_orders.php", $items, false);
+        } else {
+            require('actions/login_admin.php');
+        }
+    }
+    public static function confirm_order() {
+        if(isset($_SESSION["seller"])) {
+            $result = DBReceipt::confirmOrder($_GET["receipt"]);
+            View::redirect("/seller/unprocessed-orders");
+        } else {
+            require('actions/login_admin.php');
+        }
+    }
+    public static function cancel_order() {
+        if(isset($_SESSION["seller"])) {
+            $result = DBReceipt::cancelOrder($_GET["receipt"]);
+            View::redirect("/seller/unprocessed-orders");
+        } else {
+            require('actions/login_admin.php');
+        }
+    }
+    public static function storno_order() {
+        if(isset($_SESSION["seller"])) {
+            $result = DBReceipt::stornoOrder($_GET["receipt"]);
+            View::redirect("/seller/all-orders");
+        } else {
+            require('actions/login_admin.php');
+        }
+    }
+    public static function all_orders() {
+        if(isset($_SESSION["seller"])) {
+            $items = DBReceipt::getReceipts();
 
+            echo View::render("view/seller/all_orders.php", $items, false);
+        } else {
+            require('actions/login_admin.php');
+        }
+    }
+    public static function unprocessed_order_details() {
+        $receipt = $_GET['receipt'];
+        $vars = [
+            'receipt_id' => $receipt,
+            'cart' => DBReceipt::getReceiptInfo($receipt),
+            "total" => DBReceipt::getReceiptTotal($receipt),           
+        ];
+        echo View::render("view/seller/unprocessed_invoice_details.php", $vars, true);
+    }
+    public static function order_details($id) {
+        $receipt = $_GET['receipt'];
+        $vars = [
+            'receipt_id' => $receipt,
+            'cart' => DBReceipt::getReceiptInfo($receipt),
+            "total" => DBReceipt::getReceiptTotal($receipt),           
+        ];
+        echo View::render("view/seller/invoice_details.php", $vars, true);
+    }
     public static function edit_user_page($id) {
         if(isset($_SESSION["seller"])) {
             $items = DBUsers::getUserInfo($id);

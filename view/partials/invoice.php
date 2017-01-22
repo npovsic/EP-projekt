@@ -1,4 +1,5 @@
 <div class="cart_page_wrapper">
+    <h2>Izpis naročila:</h2>
     <table id="cart" class="table table-condensed">
         <thead>
         <tr>
@@ -25,19 +26,10 @@
             <form action="update-cart" method="post">
             <input type="hidden" name="id" value="<?php echo $product["id_article"] ?>" />    
             <td class="text-center text-middle" data-th="quantity">
-                <input type="number" name="quantity" class="quantity_input text-center" value="<?php echo $product["quantity"] ?>">
+                <span><?php echo $product["quantity"] ?></span>
             </td>
-            <td data-th="Subtotal" class="text-center text-middle">$ <?php echo $product["price"]*$product["quantity"] ?></td>
-            <td class="actions text-center text-middle" data-th="">
-                    <button type="submit" class="btn btn-success btn-sm"><i class="fa glyphicon glyphicon-edit"></i></button>
-            </td>     
+            <td data-th="Subtotal" class="text-center text-middle">$ <?php echo $product["price"]*$product["quantity"] ?></td>    
             </form>       
-            <td class="actions text-center text-middle" data-th="">
-                <form action="remove-cart" method="post">
-                    <input type="hidden" name="id" value="<?php echo $product["id_article"] ?>" />    
-                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
-                </form>
-            </td>
         </tr>
         <?php endforeach; ?>
         </tbody>
@@ -46,14 +38,9 @@
             <td class="text-center text-middle"><strong>Total <?= number_format($total, 2) ?></strong></td>
         </tr>
         <tr>
-            <td>
-            <form action="purge-cart" method="post">
-                <p><button class="btn-modern-link btn-block" style="width:150px">Izbriši košarico</button></p>
-            </form>
-            </td>
             <td colspan="3" class="hidden-xs"></td>
             <td class="hidden-xs text-center text-middle"><strong>Total $<?= number_format($total, 2) ?></strong></td>
-            <td><a href="checkout" class="btn-modern-link btn-block">NA BLAGAJNO</a></td>
+            <td><a href="cart-confirm" class="btn-modern-link btn-block">POTRDI NAROČILO</a></td>
         </tr>
 
         </tfoot>

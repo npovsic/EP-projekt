@@ -4,6 +4,7 @@ require_once("View.php");
 require_once("sql/InitDB.php");
 require_once("sql/DBArticles.php");
 require_once("sql/DBUsers.php");
+require_once("sql/DBReceipt.php");
 require_once("sql/Cart.php");
 
 
@@ -71,9 +72,22 @@ class Controller {
         ];  
         echo View::render("view/cart_page.php", $vars, true);
     }
+    public static function cartConfirm() {
+        if (isset($_SESSION['user'])) {
+            $user = $_SESSION['user'];
+        }
+        $cart = Cart::getAll();
+        $total = Cart::total();
 
+        $result = DBReceipt::addReceipt($user, $cart, $total);
+        View::redirect(BASE_URL);        
+    }
     public static function checkout() {
-        echo View::render("view/checkout_page.php", null, false);
+        $vars = [
+            "cart" => Cart::getAll(),
+            "total" => Cart::total(),
+        ];  
+        echo View::render("view/checkout_page.php", $vars, true);
     }
 
     public static function wip() {
@@ -107,10 +121,18 @@ class Controller {
         }
 
     }
+    public static function order_details($id) {
+        $receipt = $_GET['receipt'];
+        $vars = [
+            'cart' => DBReceipt::getReceiptInfo($receipt),
+            "total" => DBReceipt::getReceiptTotal($receipt),           
+        ];
+        echo View::render("view/invoice_details.php", $vars, true);
+    }
 
     public static function user_orders($id) {
-        $items = DBUsers::getUserInfo($id);
-        echo View::render("view/edit_user.php", $items, false);
+        $items = DBReceipt::getUserReceipts($_SESSION["id"]);
+        echo View::render("view/all_user_receipts.php", $items, false);
     }
 
     public static function search($query) {

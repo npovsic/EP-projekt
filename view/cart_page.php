@@ -20,8 +20,8 @@ and open the template in the editor.
     </div>
 
 </div>
-
-<?php include("view/partials/footer.php") ?>
-
+<div style="position: absolute; left:0; right:0;bottom: 0;">
+	<?php include("view/partials/footer.php") ?>
+</div>
 </body>
 </html>

@@ -16,6 +16,14 @@
             <ul class="nav navbar-nav pull-right">
                 <li><a href="<?php echo SELLER_URL ?>add">Dodaj artikel</a></li>
                 <li><a href="<?php echo SELLER_URL ?>all-users">Uporabniki</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">Narocila
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="<?php echo SELLER_URL ?>unprocessed-orders">Neobdelana narocila</a></li>
+                        <li><a href="<?php echo SELLER_URL ?>all-orders">Zgodovina narocil</a></li>
+                    </ul>
+                </li>
                 <?php
                 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true && isset($_SESSION['seller'])) {
                     ?>

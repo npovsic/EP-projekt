@@ -12,15 +12,15 @@ and open the template in the editor.
     ?>
 </head>
 <body>
-<?php include "view/partials/navigation.php"; ?>
+<?php include "view/partials/navigation_seller.php"; ?>
 <div class="container">
     <div class="wrapper">
-		<?php include "view/partials/invoice.php";  ?>
+		<?php include "view/partials/unprocessed_invoice_details_par_seller.php";  ?>
     </div>
 
 </div>
 <div style="position: absolute; left:0; right:0;bottom: 0;">
-<?php include("view/partials/footer.php") ?>
+
 </div>
 </body>
 </html>

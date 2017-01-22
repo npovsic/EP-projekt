@@ -63,6 +63,9 @@ $urls = [
     "/purge-cart$/" => function () {
         Controller::purgeCart();
     },
+    "/cart-confirm$/" => function($method) {
+        Controller::cartConfirm();
+    },
     "/cart$/" => function($method) {
         Controller::cart();
     },
@@ -88,7 +91,17 @@ $urls = [
             View::redirect(BASE_URL);
         }
     },
-
+    "/^user\/(\w+)\/orders\/info$/" => function($method) {
+        Controller::order_details($method);
+    },
+    "/^user\/(\w+)\/orders$/" => function($method, $username) {
+        if (isset($_SESSION['user']) && ($_SESSION['user'] == $username)) {
+            Controller::user_orders($_SESSION['id']);
+        }
+        else {
+            View::redirect(BASE_URL);
+        }
+    },
     # API calls
     "/api\/articles$/" => function() {
         APIController::index();
@@ -141,6 +154,28 @@ $urls = [
         } else {
             SellerController::add_article_page();
         }
+    },
+
+    "/^seller\/unprocessed-orders$/" => function($method) {
+        SellerController::unprocessed_orders();
+    },
+    "/^seller\/unprocessed-orders\/confirm$/" => function($method) {
+        SellerController::confirm_order($method);
+    },
+    "/^seller\/unprocessed-orders\/cancel$/" => function($method) {
+        SellerController::cancel_order($method);
+    },
+    "/^seller\/all-orders\/storno$/" => function($method) {
+        SellerController::storno_order($method);
+    },
+    "/^seller\/unprocessed-orders\/info$/" => function($method) {
+        SellerController::unprocessed_order_details($method);
+    },
+    "/^seller\/all-orders\/info$/" => function($method) {
+        SellerController::order_details($method);
+    },
+    "/^seller\/all-orders$/" => function($method) {
+        SellerController::all_orders();
     },
     "/^seller\/all-users$/" => function($method) {
         SellerController::all_users();

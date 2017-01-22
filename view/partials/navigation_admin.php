@@ -21,6 +21,7 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $_SESSION["admin"] ?>
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
+                            <li><a href="<?php echo ADMIN_URL ?>edit">Uredi profil</a></li>
                             <li><a href="<?php echo BASE_URL ?>logout">Logout</a></li>
                         </ul>
                     </li>

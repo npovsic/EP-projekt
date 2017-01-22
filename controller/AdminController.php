@@ -3,6 +3,7 @@
 require_once("View.php");
 require_once("sql/InitDB.php");
 require_once("sql/DBSellers.php");
+require_once("sql/DBAdmins.php");
 require_once ("actions/Hash.php");
 
 class AdminController {
@@ -32,6 +33,32 @@ class AdminController {
             else {
                 echo View::render("view/admin/login_page.php", ["failedAttempt" => "Izpolnite vsa polja."], true);
             }
+        }
+    }
+
+    public static function edit_admin_page() {
+        if(isset($_SESSION["admin"])) {
+            $items = DBAdmins::getAdminInfo("admin");
+            echo View::render("view/admin/edit_admin.php", $items, false);
+        } else {
+            View::redirect(ADMIN_URL);
+        }
+    }
+
+    public static function edit_admin() {
+        if(isset($_SESSION["admin"])) {
+            $data = filter_input_array(INPUT_POST, self::getEditAdminRules());
+            var_dump($data);
+            if (self::checkArray($data)) {
+                require('actions/edit_admin.php');
+                View::redirect(BASE_URL."admin");
+            }
+            else {
+                $items = DBAdmins::getAdminInfo("admin");
+                echo View::render("view/admin/edit_admin.php", ["variables" => $items, "failedAttempt" => "Izpolnite vsa polja."], true);
+            }
+        } else {
+            View::redirect(ADMIN_URL);
         }
     }
 
@@ -71,6 +98,7 @@ class AdminController {
             $data = filter_input_array(INPUT_POST, self::getEditSellerRules());
             if (self::checkArray($data)) {
                 require('actions/edit_seller.php');
+                View::redirect(BASE_URL."admin");
             }
             else {
                 $items = DBSellers::getSellerInfo($id);
@@ -79,6 +107,15 @@ class AdminController {
         } else {
             View::redirect(ADMIN_URL);
         }
+    }
+
+    private static function getEditAdminRules() {
+        return [
+            'password' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'first_name' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'last_name' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'email' => FILTER_VALIDATE_EMAIL
+        ];
     }
 
     private static function getAddSellerRules() {
@@ -118,9 +155,11 @@ class AdminController {
     }
 
     private static function checkArray($array) {
-        foreach ($array as $item) {
-            if (empty($item) || $item === false) {
-                if ($item !== 0) return false;
+        foreach ($array as $key => $value) {
+            if ($key != "password") {
+                if (empty($value) || $value === false) {
+                    return false;
+                }
             }
         }
         return true;

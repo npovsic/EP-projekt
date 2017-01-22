@@ -122,6 +122,19 @@ $urls = [
     "/^seller$/" => function() {
         SellerController::index();
     },
+    "/^seller\/(\w+)\/edit$/" => function($method, $username) {
+        if (isset($_SESSION['seller']) && ($_SESSION['seller'] == $username)) {
+            if ($method == "POST") {
+                SellerController::edit_seller($_SESSION['id']);
+            } else {
+                SellerController::edit_seller_page($_SESSION['id']);
+            }
+        }
+        else {
+            View::redirect(BASE_URL);
+        }
+
+    },
     "/^seller\/edit\/(\d+)$/" => function($method, $id = null) {
         if ($method == "POST") {
             SellerController::edit_article($id);

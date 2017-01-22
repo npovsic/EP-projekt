@@ -159,7 +159,6 @@ class DBUsers {
                 return "Success";
             }
             else {
-                echo "USER NO PASS";
                 $stmt = $db->prepare("UPDATE users "
                     . "SET email = ?, phone_num = ?, address = ?, city = ?, country = ? "
                     . "WHERE id_user = ?");

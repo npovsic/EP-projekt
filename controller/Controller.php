@@ -8,7 +8,6 @@ require_once ("actions/Hash.php");
 
 class Controller {
 
-
     public static function index() {
         if(isset($_SESSION["admin"])) {
             View::redirect(BASE_URL . "admin");
@@ -90,7 +89,7 @@ class Controller {
         $data = filter_input_array(INPUT_POST, self::getEditUserRules());
         if (self::checkArray($data)) {
             require('actions/edit_user.php');
-//            View::redirect(BASE_URL);
+            View::redirect(BASE_URL);
         }
         else {
             $items = DBUsers::getUserInfo($id);

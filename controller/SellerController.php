@@ -16,6 +16,31 @@ class SellerController {
         }
     }
 
+    public static function edit_seller_page($id) {
+        if(isset($_SESSION["seller"])) {
+            $items = DBSellers::getSellerInfo($id);
+            echo View::render("view/seller/edit_seller.php", $items, false);
+        } else {
+            View::redirect(ADMIN_URL);
+        }
+    }
+
+    public static function edit_seller($id) {
+        if(isset($_SESSION["seller"])) {
+            $data = filter_input_array(INPUT_POST, self::getEditSellerRules());
+            if (self::checkArray($data)) {
+                require('actions/edit_seller.php');
+                View::redirect(SELLER_URL);
+            }
+            else {
+                $items = DBSellers::getSellerInfo($id);
+                echo View::render("view/seller/edit_seller.php", ["variables" => $items, "failedAttempt" => "Izpolnite vsa polja."], true);
+            }
+        } else {
+            View::redirect(BASE_URL);
+        }
+    }
+
     public static function edit_article_page($id) {
         if(isset($_SESSION["seller"])) {
             $items = DBArticles::getArticle($id);
@@ -112,6 +137,19 @@ class SellerController {
         } else {
             View::redirect(BASE_URL);
         }
+    }
+
+    private static function getEditSellerRules() {
+        return [
+            'username' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'password' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'first_name' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'last_name' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'email' => FILTER_VALIDATE_EMAIL,
+            'address' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'city' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'country' => FILTER_SANITIZE_SPECIAL_CHARS
+        ];
     }
 
     private static function getEditUserRules() {

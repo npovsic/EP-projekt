@@ -10,7 +10,7 @@ try {
         $_SESSION["admin"] = $_POST["uadmin"];
 
         $text = "[".date('d/m/Y h:i:s a', time())."] - logged in: ".$_SESSION["admin"];
-        include ACTIONS_URL.'log.php';
+        include 'actions/log.php';
 
         View::redirect(ADMIN_URL);
     } else {
